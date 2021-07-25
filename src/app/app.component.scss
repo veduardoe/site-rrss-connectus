@@ -1,0 +1,9 @@
+.header-fixed{
+    padding-top: 125px;
+}
+
+@media(max-width:720px){
+    .header-fixed{
+        padding-top: 90px !important;
+    }
+}

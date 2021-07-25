@@ -1,0 +1,62 @@
+<app-bar-page [namePage]="'SETTINGS'"></app-bar-page>
+<div class="">
+    <div fxLayout="row {{ utils.checkWidth720 ? 'wrap' : '' }}" fxLayoutGap="{{ utils.checkWidth720 ? '0px' : '25px' }}">
+
+        <div fxFlex="{{ utils.checkWidth720 ? '100%' : '300px' }}">
+            <div class="card-suggestions">
+                <div class="cs-header">
+                    Opciones Disponibles
+                </div>
+                <div class="list-sug ">
+                    <div class="item-opt" matRipple>
+                        <i class="fal fa-user"></i>
+                        User Information
+                    </div>
+                    <div class="item-opt" matRipple>
+                        <i class="fal fa-user-secret"></i>
+                        Privacy
+                    </div>
+                    <div class="item-opt" matRipple>
+                        <i class="fal fa-universal-access"></i>
+                        Accessibility
+                    </div>
+                    <div class="item-opt" matRipple>
+                        <i class="fal fa-shield-check"></i>
+                        Security
+                    </div>
+                    <div class="item-opt" matRipple>
+                        <i class="fal fa-hands-helping"></i>
+                        Help
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div fxFlex="100%">
+            <div class="card-suggestions">
+                <div class="cs-header">
+                    <i class="fal fa-user"></i>
+                    User Information
+                </div>
+                <div class="list-sug info-settings">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, quia.
+                        Totam laborum eligendi autem necessitatibus, libero ab similique ex vitae pariatur dignissimos
+                        aliquid odio dolorem, labore molestias nam magnam? Ad!</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, quia.
+                        Totam laborum eligendi autem necessitatibus, libero ab similique ex vitae pariatur dignissimos
+                        aliquid odio dolorem, labore molestias nam magnam? Ad!</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, quia.
+                        Totam laborum eligendi autem necessitatibus, libero ab similique ex vitae pariatur dignissimos
+                        aliquid odio dolorem, labore molestias nam magnam? Ad!</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, quia.
+                        Totam laborum eligendi autem necessitatibus, libero ab similique ex vitae pariatur dignissimos
+                        aliquid odio dolorem, labore molestias nam magnam? Ad!</p>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

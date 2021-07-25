@@ -1,0 +1,20 @@
+@import "src/assets/theming/global.scss";
+
+.simple-text{
+    background: $darkBlue;
+    padding: 30px;
+    border-radius: 15px;
+    margin-top: 30px;
+    p{
+        text-align: left;
+        b{
+            color:$lightBlue;
+        }
+    }
+    i{
+        color:#fff;
+        font-size: 32px;
+        margin-bottom: 20px;
+    }
+
+}

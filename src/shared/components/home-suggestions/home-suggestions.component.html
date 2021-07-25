@@ -1,0 +1,26 @@
+<div class="card-suggestions">
+    <div class="cs-header">
+        Connections Suggested
+    </div>
+    <div class="list-sug">
+        <ng-container *ngTemplateOutlet="suggestion"></ng-container>
+        <span class="link-cc">View all...</span>
+
+    </div>
+
+</div>
+
+<ng-template #suggestion>
+    <div class="item-sug" matRipple *ngFor="let index of [].constructor(limit)">
+        <span class="prof-pic">
+            <img src="assets/images/p4.jpg" />
+        </span>
+        <span class="info">
+            <span class="prof-name">Laura Montreal</span>
+            <span class="prof-extra">Economist</span>
+            <span class="prof-des"> 
+                Is simply dummy text of the
+                printing and typesetting industry.</span>
+        </span>
+    </div>
+</ng-template>

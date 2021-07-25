@@ -1,0 +1,104 @@
+@import "src/assets/theming/global.scss";
+
+$vectorUrl : 'https://www.connectus.global/wp-content/themes/twentytwentyone/assets/images/vector_line.png';
+
+header{
+    
+    background: $darkBlue;
+    transition: all 0.5s;
+
+    &.fixed{    
+        position: fixed;
+        z-index: 20;
+        width: 100%;
+        transition: all 0.5s;
+
+        .logo{
+            width: 160px;
+            margin:11px 0px;
+            transition: all 0.5s;
+        }
+
+        .input-1{
+            margin:16px 0px;
+            transition: all 0.5s;
+        }
+
+    }
+
+    .content-header{
+        width: 100%;
+        border-bottom: 1px solid $opaBlue;
+    }
+
+    .logo{
+        width: 200px;
+        display: block;
+        margin: 20px 0px;
+        cursor: pointer;
+        transition: all 0.5s;
+
+        img{
+            width: 100%;
+        }
+    }
+
+    .btn-hd-icons{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        height: 100%;
+        span{
+            width: 40px;
+            color: #fff;
+            font-size: 1.9rem;
+            display: block;
+            margin: 0px 0px;
+            padding: 10px;
+            height: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.5s;
+            border-radius: 100%;
+            position: relative;
+            overflow: visible;
+            b.badge{
+                background: $lightBlue;
+                border: 2px solid $lightBlue;
+                color: #fff;
+                font-size: 11px;
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                display: flex;
+                font-weight: 300;
+                right: 7px;
+                border-radius: 100%;
+                justify-content: center;
+                align-items: center;
+                bottom: 34px;
+            }
+
+            &:hover{
+                background:$opaBlue;
+                color:$lightBlue;
+                transition: all 0.5s;
+            }
+        }
+    }
+}
+
+@media(max-width:720px){
+    .btn-hd-icons{
+        span{
+            font-size: 1.5rem !important;
+            width: 20px !important;
+            height: 20px !important;
+            margin-right: 5px !important;
+            b.badge{
+                bottom:22px !important;
+                right: 15px !important;
+            }
+        }
+    }
+}

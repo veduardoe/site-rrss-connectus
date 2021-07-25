@@ -1,0 +1,47 @@
+
+
+<div class="card-suggestions chat-bar">
+    <div class="cs-header">
+        Active Chats
+    </div>
+    <div class="list-sug ">
+        <div class="search">
+            <mat-form-field appearance="outline" class="full input-1 npb onwhite">
+                <input matInput type="text" placeholder="Find a connection" />
+                <mat-icon matPrefix class="iconprefix"><i class="far fa-search"></i></mat-icon>
+            </mat-form-field>
+        </div>
+        <ng-container *ngTemplateOutlet="chatItem"></ng-container>
+        <div class="item-sug chat-item active" matRipple>
+            <span class="prof-pic">
+                <img src="assets/images/p2.jpg" />
+            </span>
+            <span class="info">
+                <span class="prof-name">Lucía Smith</span>
+                <span class="prof-extra">Economist</span>
+                <span class="prof-des"> 
+                    Is simply dummy text of the
+                    printing and typesetting industry.</span>
+            </span>
+        </div>
+        <ng-container *ngTemplateOutlet="chatItem"></ng-container>
+        <ng-container *ngTemplateOutlet="chatItem"></ng-container>
+        <ng-container *ngTemplateOutlet="chatItem"></ng-container>
+    </div>
+</div>
+        
+        
+<ng-template #chatItem>
+    <div class="item-sug chat-item" matRipple>
+        <span class="prof-pic">
+            <img src="assets/images/p2.jpg" />
+        </span>
+        <span class="info">
+            <span class="prof-name">Lucía Smith</span>
+            <span class="prof-extra">Economist</span>
+            <span class="prof-des"> 
+                Is simply dummy text of the
+                printing and typesetting industry.</span>
+        </span>
+    </div>
+</ng-template>

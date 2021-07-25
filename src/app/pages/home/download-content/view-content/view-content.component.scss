@@ -1,0 +1,80 @@
+@import "src/assets/theming/global.scss";
+
+.slide-pic{
+    width: 100%;
+    border-radius: 15px;
+}
+
+.iftext{
+    margin-top: 30px;
+    display: block;
+    position: relative;
+    padding-left: 40px;
+    &:hover{
+        color:$darkBlue;
+        cursor: pointer;
+    }
+
+    i{
+        position: absolute;
+        left: 0px;
+        font-size: 24px;
+        top: 0px;
+
+    }
+}
+
+.sld-title{
+    display: block;
+    margin-top: 30px;
+    font-size: 28px;
+    color:$darkBlue;
+    font-weight: 900;
+    i{
+        margin-right: 15px;
+    }
+}
+
+.btn-download{
+    border: 3px solid $lightBlue;
+    padding: 20px 20px 20px 77px;
+    position: relative;
+    display: block;
+    border-radius: 45px;
+    color: $lightBlue;
+    font-size: 18px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: all 0.5s;
+    margin-bottom: 30px;
+
+    &:hover{
+        background: $lightBlue;
+        border-color: #fff !important;
+        color: #fff !important;
+        transition: all 0.5s;
+
+        i{
+            background: #fff !important;
+            color:$lightBlue !important;
+            transition: all 0.5s;
+        }
+    }
+    b{
+        display: block;
+        font-size: 14px;
+    }
+    i{
+        position: absolute;
+        left: 12px;
+        top: 12px;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 34px;
+        border: 2px solid;
+        border-radius: 100%;
+    }
+}

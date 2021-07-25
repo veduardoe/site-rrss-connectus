@@ -1,0 +1,26 @@
+
+<div class="" >
+    <div fxLayout="row {{ utils.checkWidth720 ? 'wrap' : '' }}" fxLayoutGap="{{ utils.checkWidth720 ? '0px' : '25px' }}">
+        <div fxFlex="100%">
+            <div class="padtb">
+                <span class="iftext" [routerLink]="['//home/articles']">
+                    <i class="fal fa-arrow-left"></i>
+                    RETURN TO ARTICLES
+                </span>
+                <app-post-item-article
+                [title]="'Bitcoin raised over 30.000 USD and it is preparing to reach
+                the unreachable zones.'"
+                [image]="'assets/images/bg-article-3.jpg'"
+                [category]="'Economy'"
+                [view]="true"
+                ></app-post-item-article>
+            </div>
+
+        </div>
+        <div fxFlex="{{ utils.checkWidth720 ? '100%' : '300px' }}">
+            <app-articles-suggestion></app-articles-suggestion>
+            <app-bar-picture></app-bar-picture>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

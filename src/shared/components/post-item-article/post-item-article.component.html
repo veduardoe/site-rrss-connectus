@@ -1,0 +1,45 @@
+<div class="card-post card-article">
+    <div class="head-post">
+        <span class="prof-pic">
+            <img src="assets/images/p2.jpg" />
+        </span>
+        <span class="info">
+            <span class="prof-name">Carolina Herrera</span>
+            <span class="prof-date">Posted on May 25<sup>th</sup>, 2021</span>
+        </span>
+    </div>
+    <div class="det-post">
+        <img [src]="image" class="pic-post">
+
+        <span class="det-title" [ngClass]="{'fullView' : view }">{{ title }}
+        </span>
+        <span class="det-cat">{{ category }}</span>
+
+        <p>Is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+            standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book. It has survived not only five centuries.</p>
+        <div *ngIf="view">
+            <p>Is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                and scrambled it to make a type specimen book. It has survived not only five centuries. Is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                and scrambled it to make a type specimen book. It has survived not only five centuries.</p>
+
+            <p>Is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                and scrambled it to make a type specimen book. It has survived not only five centuries.</p>
+
+        </div>
+
+    </div>
+    <div class="actions">
+        <div class="stats">
+            <span><b>1.2K</b><i class="fal fa-heart"></i></span>
+            <span><b>125</b><i class="fal fa-comment-alt-lines"></i></span>
+        </div>
+        <div *ngIf="!view">
+            <button mat-stroked-button class="btn btn-light-outline" 
+                [routerLink]="'/home/articles/view'">Keep Reading</button>
+        </div>
+    </div>
+</div>

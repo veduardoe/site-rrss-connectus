@@ -1,0 +1,18 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+/* Colors*/
+$darkBlue :  #061332;
+$lightBlue: #4899DC;
+$opaBlue: #192e58;
+$yellow : #FFD600;
+$red:#B71C1C;
+
+
+::ng-deep{
+    .mat-menu-panel{
+        min-height: initial !important;
+        .mat-menu-content{
+            padding:0px !important;
+        }
+    }
+}

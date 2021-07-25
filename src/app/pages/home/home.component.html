@@ -1,0 +1,16 @@
+<app-home-slider></app-home-slider>
+<div class="container">
+    <div fxLayout="row" fxLayoutGap="30px">
+        <div fxFlex="80px" class="navigation-flex">
+            <app-navigation></app-navigation>
+        </div>
+        <div fxFlex="100%">
+            <div class="navigationMobile">
+                <app-navigation></app-navigation>
+            </div>
+            <div class="body-router" [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
+                <router-outlet  #o="outlet" class="mrouter"></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>

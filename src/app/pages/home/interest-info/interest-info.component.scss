@@ -1,0 +1,50 @@
+@import "src/assets/theming/global.scss";
+
+.content-interest{
+    padding: 20px;
+}
+
+.list-interests{
+    span{
+        color:#fff;
+        display: block;
+        background:$opaBlue;
+        padding: 20px 20px 20px 50px;
+        margin-bottom: 10px;
+        position: relative;
+        cursor:pointer;
+
+        i{
+            color:$yellow;
+            position: absolute;
+            left:15px
+        }
+    }
+}
+
+.list-calendar{
+     span{
+        display: flex;
+        background:$opaBlue;
+        margin-bottom: 20px;
+
+         b{
+            background: $lightBlue;
+            color: #fff;
+            padding: 15px 15px 10px 15px;
+            font-size: 1.8rem;
+            line-height: 20px;
+            text-align: center;
+        }
+
+        i{
+            font-style: initial ;
+            font-size: 14px;
+        }
+        
+        p{
+            padding: 15px;
+            font-size: 12px;
+        }
+    }
+}

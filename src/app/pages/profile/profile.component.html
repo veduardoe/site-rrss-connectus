@@ -1,0 +1,64 @@
+<div class="pic-header"></div>
+<div class="container">
+    <div class="content-profile">
+        <img src="assets/images/p1.jpg" >
+        <div class="info-list">
+            <div class="hd-list">
+                <span class="text-1">Sophia Vergara</span>
+                <span class="text-2">Graphic Designer</span>
+            </div>
+        </div>
+        <div class="dots">
+            <span></span>
+            <span class="active"></span>
+            <span></span>
+        </div>
+        <div class="con-info">
+            <div class="con-det">
+                <span class="con-val">12.7K</span>
+                <span class="con-ref">Connections</span>
+            </div>
+            <div class="con-det">
+                <span class="con-val">6K</span>
+                <span class="con-ref">Posts</span>
+            </div>
+            <div class="con-det">
+                <span class="con-val">1992</span>
+                <span class="con-ref">Member since</span>
+            </div>
+        </div>
+        <span class="navig nright">
+            <i class="fal fa-chevron-right"></i>
+        </span>
+        <span class="navig">
+            <i class="fal fa-chevron-left"></i>
+        </span>
+
+    </div>
+</div>
+<div class="container" style="margin-top: 30px;">
+    <div fxLayout="row {{ utils.checkWidth720 ? 'wrap' : '' }}" fxLayoutGap="{{ utils.checkWidth720 ? '0px' : '25px' }}">
+        <div fxFlex="100%">
+            <span class="iftext">
+                Sophia Vergada Latest Articles
+            </span>
+            <app-home-articles></app-home-articles>
+            <span class="iftext">
+                Sophia Vergada Feed
+            </span>
+            <app-post-item [withImage]="true"></app-post-item>
+            <app-post-item [withImage]="false"></app-post-item>
+            <span class="link-cc">Keep reading...</span>
+        </div>
+        <div fxFlex="{{ utils.checkWidth720 ? '100%' : '300px' }}">
+            <app-home-suggestions [limit]="4"></app-home-suggestions>
+            <app-simple-text></app-simple-text>
+            <app-bar-picture></app-bar-picture>
+        </div>
+    </div>
+</div>
+<div *ngIf="utils.checkWidth720">
+    <app-navigation></app-navigation>
+</div>
+
+<app-footer></app-footer>

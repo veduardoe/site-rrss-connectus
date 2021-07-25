@@ -1,0 +1,36 @@
+@import "src/assets/theming/global.scss";
+
+
+.barpage{
+    
+    padding:30px 0px 0px 0px;
+    
+    .name-page{
+        color:$darkBlue;
+        font-size: 32px;
+        text-transform: uppercase;
+        font-weight: 900;
+        position: relative;
+        
+        &::after{ 
+            display: none;
+            content: "";
+            width: 0;
+            height: 0;
+            border-top: 12px solid transparent;
+            border-left: 15px solid $lightBlue;
+            border-bottom: 12px solid transparent;
+            position: absolute;
+            top: 8px;
+            right: -25px;
+        }
+    }
+
+    .des-page{
+        text-align: right;
+        b{
+            color:$lightBlue;
+            font-weight: 700;
+        }
+    }
+}

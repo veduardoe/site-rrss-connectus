@@ -1,0 +1,103 @@
+@import "src/assets/theming/global.scss";
+
+.slide-content{
+    position: relative;
+    height: 400px;
+
+    .slide{
+        position: absolute;
+        height: 400px;
+        width: 100%;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.5s;
+    }
+
+    .slide.active{
+        visibility: visible;
+        opacity: 1;
+        transition: all 0.5s;
+    }
+
+    .sl-content{
+        height: 400px;
+        display: flex;
+        align-items: center;
+
+        span.text{
+            color:$darkBlue;
+            font-size: 36px;
+            text-transform: uppercase;
+            b{
+                display: block;
+                font-size: 48px;
+                background: $lightBlue;
+                color: #fff;
+                padding-left: 15px;
+                padding-right: 15px;
+                margin-top: 10px;
+                margin-bottom: 15px;
+                border-radius: 5px;
+            }
+        }
+
+        .btn-wt.custom{
+            position: initial !important;
+            font-size: 14px !important;
+            i{
+                color: $darkBlue !important;
+            }
+        }
+    }
+
+}
+
+
+.slide-1{
+    background: url(/assets/images/slide-1.jpg) 50% no-repeat;
+    background-size: cover;
+}
+
+.slide-2{
+    background: url(/assets/images/slide-2.jpg) 50% no-repeat;
+    background-size: cover;
+}
+
+.nav{
+    color:$darkBlue;
+    position: absolute;
+    font-size: 64px;
+    z-index: 15;
+    left:25px;
+    top:50%;
+    margin-top: -32px;
+    cursor:pointer;
+    transition: all 0.5s;
+    &.nav-right{
+        left:initial !important;
+        right: 25px;
+    }
+
+    &:hover{
+        transform: scale(1.3);
+        transition: all 0.5s;
+    }
+}
+
+@media(max-width:720px){
+    span.text{
+        font-size: 24px !important;
+        b{
+            font-size: 36px !important;
+        }
+    }
+    .nav{
+        top:initial !important;
+        bottom: 20px !important;
+        font-size: 48px !important;
+    }
+
+    .slide-1, .slide-2{
+        background-position-x: 65% !important;
+    }
+}

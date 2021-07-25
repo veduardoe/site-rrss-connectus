@@ -1,0 +1,47 @@
+<app-bar-page [namePage]="'CONNECTIONS'"></app-bar-page>
+<div class="" style="margin-bottom: 20px;">
+    <div fxLayout="row {{ utils.checkWidth720 ? 'wrap' : '' }}" fxLayoutGap="{{ utils.checkWidth720 ? '0px' : '25px' }}" >
+        <div fxFlex="100%">
+            <div class="content-connections">
+                <div class="head-cconections">
+                    <span>My Connections</span>
+                </div>
+                <div class="search">
+                    <mat-form-field appearance="outline" class="full input-1 npb onwhite">
+                        <input matInput type="text" placeholder="Find a connection" />
+                        <mat-icon matPrefix class="iconprefix"><i class="far fa-search"></i></mat-icon>
+                    </mat-form-field>
+                </div>
+                <div class="list-cconections">
+                    <ng-container *ngTemplateOutlet="connItem"></ng-container>
+                    <ng-container *ngTemplateOutlet="connItem"></ng-container>
+                    <ng-container *ngTemplateOutlet="connItem"></ng-container>
+                    <ng-container *ngTemplateOutlet="connItem"></ng-container>
+                    <ng-container *ngTemplateOutlet="connItem"></ng-container>
+                    <span class="link-cc">Keep loading...</span>
+                </div>
+            </div>
+        </div>
+        <div fxFlex="{{ utils.checkWidth720 ? '100%' : '300px' }}">
+            <app-awaiting-connection></app-awaiting-connection>
+        </div>
+
+    </div>
+</div>
+<app-footer></app-footer>
+<ng-template #connItem>
+    <div class="item-sug">
+        <span class="prof-pic">
+            <img src="assets/images/p2.jpg" />
+        </span>
+        <span class="info">
+            <span class="prof-name">Lucía Smith</span>
+            <span class="prof-extra">Economist</span>
+            <span class="prof-des"> 
+                Is simply dummy text of the
+                printing and typesetting industry...</span>
+                <button mat-stroked-button class="btn btn-light-outline btn-connect">Connect</button>
+
+        </span>
+    </div>
+</ng-template>

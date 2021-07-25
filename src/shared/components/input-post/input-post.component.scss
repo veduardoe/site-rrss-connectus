@@ -1,0 +1,32 @@
+@import "src/assets/theming/global.scss";
+
+
+.write-feed{
+    
+    background: #fff;
+    padding: 20px;
+    border:1px solid #ddd;
+    border-radius: 15px;
+
+    ::ng-deep .mat-form-field-flex{
+    //    background: #fff;
+     }
+
+     .sec-ac{
+         color:$lightBlue;
+         text-align: right;
+
+         span{
+            
+            font-size: 24px;
+            margin-left: 14px;
+            cursor: pointer;
+            transition: all 0.5s;
+
+            &:hover{
+                color:$darkBlue;
+                transition: all 0.5s;
+            }
+        }
+     }
+}

@@ -1,0 +1,31 @@
+<app-bar-page [namePage]="'MESSAGING'"></app-bar-page>
+<div class="" >
+    <div fxLayout="row {{ utils.checkWidth720 ? 'wrap' : '' }}" fxLayoutGap="{{ utils.checkWidth720 ? '0px' : '25px' }}">
+        <div fxFlex="100%">
+            <div class="content-messaging">
+                <div class="head-msg">
+                    <span class="prof-pic">
+                        <img src="assets/images/p2.jpg" />
+                    </span>
+                    <span class="info">
+                        <span class="prof-name">Lucía Smith</span>
+                        <span class="prof-extra">Economist</span>
+                    </span>
+                </div>
+                <div class="list-messages">
+                    <app-message-people></app-message-people>
+                    <app-message-people [right]="true"></app-message-people>
+                    <app-message-people></app-message-people>
+                </div>
+            </div>
+            <div class="mt-30">
+                <app-input-post [placeholder]="'Leave a message...'"></app-input-post>
+            </div>
+        </div>
+        <div fxFlex="{{ utils.checkWidth720 ? '100%' : '300px' }}">
+            <app-chat-people></app-chat-people>
+        </div>
+
+    </div>
+</div>
+<app-footer></app-footer>

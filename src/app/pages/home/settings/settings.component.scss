@@ -1,0 +1,45 @@
+@import "src/assets/theming/global.scss";
+
+.card-suggestions{
+    background: #fff;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-radius: 15px;
+    overflow: hidden;
+    border:1px solid #ddd;
+    
+    .cs-header{
+        background: $darkBlue;
+        color:$lightBlue;
+        text-align: center;
+        font-weight: 700;
+        padding: 18px;
+    }
+}
+
+.item-opt{
+    color:$lightBlue;
+    padding: 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    transition: all 0.5s;
+
+    i{
+        margin-right: 10px;
+        font-size: 21px;
+    }
+
+    &.active, &:hover{
+        background: $lightBlue;
+        color: #fff;
+        transition: all 0.5s;
+    }
+}
+
+.info-settings{
+    padding: 30px;
+    p{
+        color:#999;
+        margin-bottom: 20px !important;
+    }
+}

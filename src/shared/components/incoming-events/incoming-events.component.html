@@ -1,0 +1,28 @@
+<div class="card-suggestions">
+    <div class="cs-header">
+        Suggested Events
+    </div>
+    <div class="list-events ">
+        <ng-container *ngTemplateOutlet="dayEvent"></ng-container>
+        <span class="link-cc">View all...</span>
+
+    </div>
+
+</div>
+
+<ng-template #dayEvent>
+    <div class="item-sug event-sug" matRipple *ngFor="let index of [].constructor(limit)"> 
+        <div class="day ">
+            <span class="number-day">31</span>
+            <span class="month-day">MAY</span>
+            <span class="time-day">09:00</span>
+        </div>
+        <span class="info">
+            <span class="prof-name">English course for those who don't...</span>
+            <span class="prof-extra">Culture</span>
+            <span class="prof-des"> 
+                Is simply dummy text of the
+                printing and typesetting industry.</span>
+        </span>
+    </div>
+</ng-template>

@@ -1,0 +1,31 @@
+
+
+<div class="card-suggestions chat-bar">
+    <div class="cs-header">
+        Awaiting Response
+    </div>
+    <div class="list-sug ">
+        <ng-container *ngTemplateOutlet="connItem"></ng-container>
+        <ng-container *ngTemplateOutlet="connItem"></ng-container>
+        <ng-container *ngTemplateOutlet="connItem"></ng-container>
+        <ng-container *ngTemplateOutlet="connItem"></ng-container>
+    </div>
+</div>
+        
+        
+<ng-template #connItem>
+    <div class="item-sug" >
+        <span class="prof-pic">
+            <img src="assets/images/p2.jpg" />
+        </span>
+        <span class="info">
+            <span class="prof-name">Lucía Smith</span>
+            <span class="prof-extra">Economist</span>
+            <span class="prof-des"> 
+                Is simply dummy text of the
+                printing and typesetting industry.</span>
+                <button mat-stroked-button class="btn btn-light-outline" style="margin-top: 10px;">Accept Connection</button>
+
+        </span>
+    </div>
+</ng-template>

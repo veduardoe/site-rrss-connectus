@@ -1,0 +1,24 @@
+@import "src/assets/theming/global.scss";
+
+.hasection{
+    margin-top: 30px;
+    .hahead{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .btn{
+          margin-bottom: 20px;  
+        }
+    }
+
+}
+
+.ipot{
+    margin-bottom: 30px;
+}
+
+@media(max-width:720px){
+    .hahead{
+        display: block !important;
+    }
+}

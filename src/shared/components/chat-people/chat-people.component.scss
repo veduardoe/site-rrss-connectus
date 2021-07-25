@@ -1,0 +1,14 @@
+@import "src/assets/theming/global.scss";
+
+.chat-bar{
+    margin-bottom: 25px;
+
+    .chat-item{
+        &.active{
+            background: $darkBlue !important;
+            *{
+                color:#fff !important
+            }
+        }
+    }
+}

@@ -1,0 +1,22 @@
+<div class="card-post">
+    <div class="head-post">
+        <span class="prof-pic" [routerLink]="['/profile']">
+            <img src="assets/images/p1.jpg" />
+        </span>
+        <span class="info">
+            <span class="prof-name">Carolina Herrera</span>
+            <span class="prof-date">Posted on May 25<sup>th</sup>, 2021</span>
+        </span>
+    </div>
+    <div class="det-post">
+        <p>Is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+            standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book. It has survived not only five centuries.</p>
+
+           <img src="assets/images/bg-profile.jpg" class="pic-post" *ngIf="withImage">
+    </div>
+    <div class="actions">
+        <span><b>1.2K</b><i class="fal fa-heart"></i></span>
+        <span><b>125</b><i class="fal fa-comment-alt-lines"></i></span>
+    </div>
+</div>

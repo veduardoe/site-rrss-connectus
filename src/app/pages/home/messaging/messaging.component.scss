@@ -1,0 +1,64 @@
+@import "src/assets/theming/global.scss";
+
+.content-messaging{
+    border:1px solid #ddd;
+    margin-top: 30px;
+    min-height: 600px;
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+}   
+
+.head-msg{
+
+    display: flex;
+    align-items: center;
+    padding: 5px 20px;
+    background: $darkBlue;
+
+    .info{
+        color:#fff !important;
+        font-size: 12px;
+    }
+
+    .prof-pic{
+
+        display: block;
+        width: 35px;
+        height: 35px;
+        margin-right: 30px;
+        position: relative;
+        border: 4px solid $lightBlue;
+        border-radius: 100%;
+
+        &::after{
+            content: "";
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-left: 12px solid $lightBlue;
+            border-bottom: 8px solid transparent;
+            position: absolute;
+            top: 10px;
+            right: -25px;
+        }
+
+        img{
+            width: 100%;
+            border-radius: 100%;
+        }
+    }
+
+    .prof-name{
+        display: block;
+        font-weight: 700;
+        font-size: 18px;
+        color:$lightBlue;
+    }
+
+
+}
+
+.list-messages{
+    margin:20px 0px;
+}

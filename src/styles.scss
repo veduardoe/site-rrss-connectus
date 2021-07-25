@@ -1,0 +1,246 @@
+@import "src/assets/theming/global.scss";
+ 
+@font-face {
+   font-family: "MuseoSans";
+   src: url("/assets/fonts/MuseoSans_100.otf");
+   font-weight: 100;
+}
+
+@font-face {
+   font-family: "MuseoSans";
+   src: url("/assets/fonts/MuseoSans_500.otf");
+   font-weight: 500;
+}
+
+@font-face {
+   font-family: "MuseoSans";
+   src: url("/assets/fonts/MuseoSans_700.otf");
+   font-weight: 700;
+}
+
+@font-face {
+   font-family: "MuseoSans";
+   src: url("/assets/fonts/MuseoSans_900.otf");
+   font-weight: 900;
+}
+
+body{background: #fff;}
+body { margin: 0; font-family: MuseoSans, sans-serif; background:#fafafa; }
+h1,h2,h3,h4,h5, p{margin:0px !important}
+button{ font-weight: 300 !important;}
+
+.container{ max-width: 1300px; margin:0px auto; width: 90%;}
+.iconprefix{
+   margin-right: 20px;
+   position: relative;
+   i{ font-size: 24px !important; margin-left: 5px;  }
+}
+p{color: #fff;}
+.full{ width: 100%; }
+.input-1{
+
+   margin: 32px 0px;
+   transition: all 0.5s;
+
+   .mat-icon{
+      color:#fff
+   }
+
+   &.npb{
+      .mat-form-field-wrapper{
+         padding-bottom: 0px !important;
+      }
+   }
+
+   .mat-form-field-outline div{
+      border: 0px !important;
+   }
+
+   .mat-form-field-flex{
+      /*background:#192e58 !important;*/
+      border-radius: 50px;
+      border:2px solid $lightBlue;
+   }
+
+   &.rad-i{
+      .mat-form-field-flex{
+         border-radius: 20px !important;
+      }
+   }
+
+   .mat-form-field-infix{
+      border-top: 0px;
+      padding: 1em 0px;
+   }
+
+   input, textarea{
+
+      color:#fff;
+
+      &::placeholder {
+         color: #f9f9f9 !important;
+         opacity: 0.8;
+      }
+      
+      &:-ms-input-placeholder {
+       color: #f9f9f9 !important;
+      }
+      
+      &::-ms-input-placeholder {
+         color: #f9f9f9 !important;
+      }
+   }
+
+   &.onwhite{
+      margin: 0px !important;
+      input, textarea{
+         
+         color:#000;
+
+         &::placeholder {
+            color: $lightBlue !important;
+            opacity: 0.8;
+         }
+         
+         &:-ms-input-placeholder {
+          color: $lightBlue !important;
+         }
+         
+         &::-ms-input-placeholder {
+            color: $lightBlue !important;
+         }
+      }
+
+      .mat-icon{
+         color:$lightBlue !important;
+      }
+
+      .mat-form-field-infix{
+         padding: 1em 0px ;
+      }
+   }
+
+}
+
+.padtb{
+   padding: 30px 0px;
+}
+
+.customSelect{
+   opacity: 0.75;
+   margin-left: 20px;
+   *{
+      color:#fff;
+   }
+}
+
+.iftext{
+   color:$lightBlue;
+   font-weight: 900;
+   font-size: 18px;
+   text-transform: uppercase;
+   margin-bottom: 20px;
+   display: block;
+}
+
+.btn-light-outline{
+   *{
+      color:$lightBlue;
+      font-weight: 900;
+      transition: all 0.5s;
+   }
+
+   border: 2px solid $lightBlue !important;
+   border-radius: 30px !important;
+   transition: all 0.5s;
+
+   &:hover{
+      background:$lightBlue !important;
+      *{
+         color:#fff !important;
+         transition: all 0.5s;
+      }
+      transition: all 0.5s;
+
+   }
+}
+
+
+.btn-dark{
+   *{
+      color:$lightBlue;
+      font-weight: 900;
+      transition: all 0.5s;
+   }
+   background:$darkBlue;
+   border: 2px solid $lightBlue !important;
+   border-radius: 30px !important;
+   transition: all 0.5s;
+
+   &:hover{
+      background:$lightBlue !important;
+      *{
+         color:#fff !important;
+         transition: all 0.5s;
+      }
+      transition: all 0.5s;
+
+   }
+
+}
+
+.mt-30{
+   margin: 30px 0px;
+}
+
+.link-cc{
+   display: block;
+   text-align: center ;
+   margin: 20px 0px;
+   color: $lightBlue;
+   cursor: pointer;
+   &:hover{
+      color: $darkBlue;
+   }
+}
+
+.search{
+   padding: 20px;
+   border-bottom: 1px solid #ddd;
+}
+
+
+router-outlet.mrouter ~ * {
+   position: absolute;
+   height: 100%;
+   width: inherit;
+}
+
+.btn-wt{
+
+   position: absolute;
+   bottom: 15px;
+   left: 15px;
+   font-weight: 900;
+
+   i{
+       color: #fff;
+       font-style: normal;
+       position: relative;
+       text-transform: uppercase;
+       cursor: pointer;
+       &::after{
+           content: "";
+           width: 0;
+           height: 0;
+           border-top: 8px solid transparent;
+           border-left: 10px solid $lightBlue;
+           border-bottom: 8px solid transparent;
+           position: absolute;
+           top: 2px;
+           right: -24px;
+       }
+   }
+
+}
+

@@ -1,0 +1,38 @@
+<app-bar-page [namePage]="'HOME'"></app-bar-page>
+<div class="" >
+    <div fxLayout="row {{ utils.checkWidth720 ? 'wrap' : '' }}" fxLayoutGap="{{ utils.checkWidth720 ? '0' : '25px' }}">
+        <div fxFlex="100%">
+            
+            <div class="hasection">
+                <div class="hahead">
+                    <span class="iftext">
+                        We recommend the following articles...
+                    </span>
+                    <button mat-stroked-button class="btn btn-light-outline btn-connect">VIEW ALL </button>    
+                </div>
+                <app-home-articles></app-home-articles>
+            </div>
+            <div class="ipot">
+                <div *ngTemplateOutlet="inputPost"></div>
+            </div>
+            <app-post-item [withImage]="true"></app-post-item>
+            <app-post-item [withImage]="false"></app-post-item>
+            <app-post-item [withImage]="false"></app-post-item>
+            <app-post-item [withImage]="true"></app-post-item>
+
+        </div>
+        <div fxFlex="{{ utils.checkWidth720 ? '100%' : '300px' }}">
+            <app-home-suggestions [limit]="3"></app-home-suggestions>
+            <app-simple-text></app-simple-text>
+            <app-incoming-events [limit]="3"></app-incoming-events>
+            <app-bar-picture></app-bar-picture>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>
+<ng-template #inputPost>
+    <span class="iftext">
+        Connectus Feed
+    </span>
+    <app-input-post [placeholder]="'Share something great in Connectus...'"></app-input-post>
+</ng-template>

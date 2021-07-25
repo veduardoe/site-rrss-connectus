@@ -1,0 +1,17 @@
+.body-router{
+    position: relative;
+    width:100%;
+} 
+
+.navigationMobile{
+    display: none;
+}
+
+@media(max-width:720px){
+    .navigation-flex{
+        display: none !important;
+    }
+    .navigationMobile{
+        display: block !important;
+    }
+}

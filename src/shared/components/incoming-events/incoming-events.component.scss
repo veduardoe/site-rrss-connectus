@@ -1,0 +1,41 @@
+@import "src/assets/theming/global.scss";
+
+.event-sug{
+    .prof-name{
+        font-size: 14px !important;
+    }
+    .day{
+        background: $darkBlue;
+        padding: 5px 15px;
+        border-radius: 10px;
+        margin-right: 15px;
+
+       *{
+           display: block;
+           color:#fff;
+       }
+
+       .number-day{
+            font-size: 30px;
+            text-align: center;
+            font-weight: 900;
+            color:$lightBlue;
+       }
+
+       .month-day{
+            font-size: 14px;
+            text-align: center;
+       }
+
+       .time-day{
+            font-size: 14px;
+            text-align: center;
+       }
+    }
+}
+
+@media(max-width:720px){
+    .info{
+        width: 100% !important;
+    }
+}

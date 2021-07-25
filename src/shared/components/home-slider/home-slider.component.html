@@ -1,0 +1,23 @@
+<div class="slide-content">
+    <span class="nav nav-right" (click)="navigate('next', true)">
+        <i class="fal fa-chevron-right"></i>
+    </span>
+    <span class="nav nav-left" (click)="navigate('prev', true)">
+        <i class="fal fa-chevron-left"></i>
+    </span>
+
+    <div class="slide" [ngClass]="slide.sclass" *ngFor="let slide of sliders">
+        <div class="container">
+            <div class="sl-content">
+                <span class="text">
+                    EVERYTHING
+                    <b>IS REALLY POSSIBLE</b>
+                    <span class="btn-wt custom">
+                        <i>View more</i>
+                    </span>
+                </span>
+
+            </div>
+        </div>
+    </div>
+</div>

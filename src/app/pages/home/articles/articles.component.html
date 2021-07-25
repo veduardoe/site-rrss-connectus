@@ -1,0 +1,74 @@
+<app-bar-page [namePage]="'ARTICLES'"></app-bar-page>
+<div class="" >
+    <div fxLayout="row {{ utils.checkWidth720 ? 'wrap' : '' }}" fxLayoutGap="{{ utils.checkWidth720 ? '0px' : '25px' }}">
+        <div fxFlex="100%">
+            <div class="padtb">
+                <div *ngTemplateOutlet="filterArticle"></div>
+                <div fxLayout="row wrap" fxLayoutAlign="space-between">
+                    <div fxFlex="49%" fxFlex.xs="100%" fxFlex.sm="100%">
+                        <app-post-item-article
+                        [title]="'Bitcoin raised over 30.000 USD and it is preparing to reach
+                        the unreachable zones.'"
+                        [image]="'assets/images/bg-article-3.jpg'"
+                        [category]="'Economy'"
+                        ></app-post-item-article>
+                    </div>
+                    <div fxFlex="49%" fxFlex.xs="100%" fxFlex.sm="100%">
+                        <app-post-item-article
+                        [title]="'Robot industry is preparing to launch the next Robots Generation'"
+                        [image]="'assets/images/bg-article-1.png'"
+                        [category]="'Technology'"
+                        ></app-post-item-article>
+                    </div>
+                    <div fxFlex="49%" fxFlex.xs="100%" fxFlex.sm="100%">
+                        <app-post-item-article
+                        [title]="'Rivers on Kiba Forest are cleaning thanks to raining'"
+                        [image]="'assets/images/bg-article-2.jpg'"
+                        [category]="'Nature'"
+                        ></app-post-item-article>
+                    </div>
+                    <div fxFlex="49%" fxFlex.xs="100%" fxFlex.sm="100%">
+                        <app-post-item-article
+                        [title]="'Dietists are explaing why to eat strawberries are gret for'"
+                        [image]="'assets/images/bg-article-4.jpg'"
+                        [category]="'Healthz'"
+                        ></app-post-item-article>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div fxFlex="{{ utils.checkWidth720 ? '100%' : '300px' }}">
+            <app-articles-suggestion></app-articles-suggestion>
+            <app-bar-picture></app-bar-picture>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>
+<ng-template #filterArticle>
+    <div class="filter">
+        <div class="sbox">
+            <mat-form-field appearance="outline" style="margin-right: 20px;">
+                <mat-label>Order by</mat-label>
+                <mat-select>
+                    <mat-option>Date</mat-option>
+                    <mat-option>A-Z</mat-option>
+                    <mat-option>Z-A</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="margin-right: 20px;">
+                <mat-label>Category</mat-label>
+                <mat-select>
+                    <mat-option>Economy</mat-option>
+                    <mat-option>Education</mat-option>
+                    <mat-option>Tecnology</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+        </div>
+        <div class="btn-find">
+            <button mat-stroked-button class="btn-dark">CREAR</button>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,28 @@
+<div class="card-suggestions">
+    <div class="cs-header">
+        Articles Suggestions
+    </div>
+    <div class="list-sug ">
+        <ng-container *ngTemplateOutlet="suggestion"></ng-container>
+        <ng-container *ngTemplateOutlet="suggestion"></ng-container>
+        <ng-container *ngTemplateOutlet="suggestion"></ng-container>
+        <ng-container *ngTemplateOutlet="suggestion"></ng-container>
+        <ng-container *ngTemplateOutlet="suggestion"></ng-container>
+    </div>
+
+</div>
+
+<ng-template #suggestion>
+    <div class="item-sug article-sug" matRipple>
+        <span class="prof-pic ">
+            <img src="assets/images/bg-article-3-thumb.jpg" />
+        </span>
+        <span class="info">
+            <span class="prof-name">Bitcoin raised over 30.000USD...</span>
+            <span class="prof-extra">Economy</span>
+            <span class="prof-des"> 
+                Is simply dummy text of the
+                printing and typesetting industry.</span>
+        </span>
+    </div>
+</ng-template>

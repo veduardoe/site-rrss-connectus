@@ -1,0 +1,74 @@
+<div fxLayout="row wrap" fxLayoutAlign="space-between">
+    <div fxFlex="32%" fxFlex.sm="100%" fxFlex.xs="100%">
+        <ng-container *ngTemplateOutlet="homeArticle"></ng-container>
+    </div>
+    <div fxFlex="32%" fxFlex.sm="100%" fxFlex.xs="100%">
+        <ng-container *ngTemplateOutlet="homeArticle2"></ng-container>
+    </div>
+    <div fxFlex="32%" fxFlex.sm="100%" fxFlex.xs="100%">
+        <ng-container *ngTemplateOutlet="homeArticle3"></ng-container>
+    </div>
+
+</div>
+<ng-template #homeArticle>
+    <div class="item-home-article">
+        <img src="assets/images/bg-article-3.jpg">
+        <div class="content-iha">
+            <div class="head-iha">
+                <span class="name">
+                    Martin Suarez
+                    <b>Posted on May 25th, 2021</b>
+                </span>
+                <span class="prof-pic">
+                    <img src="assets/images/p6.jpg" />
+                </span>
+            </div>
+            <div class="detail-iha">
+                <span class="title">Criptocurrency is changing the market...</span>
+                <span class="des">Is simply dummy text of the printing and typesetting industry...</span>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #homeArticle2>
+    <div class="item-home-article">
+        <img src="assets/images/bg-article-2.jpg">
+        <div class="content-iha">
+            <div class="head-iha">
+                <span class="name">
+                    Martin Suarez
+                    <b>Posted on May 25th, 2021</b>
+                </span>
+                <span class="prof-pic">
+                    <img src="assets/images/p6.jpg" />
+                </span>
+            </div>
+            <div class="detail-iha">
+                <span class="title">Rivers of Kuba Forest is cleaning thanks the region rainings...</span>
+                <span class="des">Is simply dummy text of the printing and typesetting industry...</span>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #homeArticle3>
+    <div class="item-home-article">
+        <img src="assets/images/bg-article-4.jpg">
+        <div class="content-iha">
+            <div class="head-iha">
+                <span class="name">
+                    Martin Suarez
+                    <b>Posted on May 25th, 2021</b>
+                </span>
+                <span class="prof-pic">
+                    <img src="assets/images/p6.jpg" />
+                </span>
+            </div>
+            <div class="detail-iha">
+                <span class="title">Dietis are explaining why strawberries are healthy...</span>
+                <span class="des">Is simply dummy text of the printing and typesetting industry...</span>
+            </div>
+        </div>
+    </div>
+</ng-template>

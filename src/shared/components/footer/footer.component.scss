@@ -1,0 +1,47 @@
+@import "src/assets/theming/global.scss";
+
+$vectorUrl : 'https://www.connectus.global/wp-content/themes/twentytwentyone/assets/images/vector_line.png';
+
+.bg-lines{
+    background: $darkBlue url($vectorUrl) 50% 100% no-repeat;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    bottom:0px;
+    left:0px;
+    z-index: -1;
+    background-size: contain;
+    opacity: 0.7;
+}
+
+.footer{
+    padding: 50px 0px;
+    .largeText{
+        text-align: center !important;
+        display: block;
+    }
+
+    ul{
+        padding: 0;
+        margin: 0;
+        li{
+            a{
+                color:#fff;
+                text-decoration: none;
+                display: block;
+                padding: 10px;
+                text-align: center;
+
+                &:hover{
+                    color:$lightBlue;
+                }
+            }
+        }
+    }
+}
+
+@media(max-width:720px){
+    .footer{
+        padding: 20px 0px 100px 0px !important;
+    }
+}

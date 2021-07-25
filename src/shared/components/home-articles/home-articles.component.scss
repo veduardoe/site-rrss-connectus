@@ -1,0 +1,83 @@
+@import "src/assets/theming/global.scss";
+
+.item-home-article{
+    position: relative;
+    margin-bottom: 25px;
+    cursor:pointer;
+    border-radius: 8px;
+    overflow: hidden;
+    img{
+        width: 100%;
+    }
+
+    .prof-pic{
+        width: 50px;
+        height: 50px;
+        display: block;
+        border-radius: 50%;
+        overflow: hidden;
+        border:5px solid $lightBlue
+    }
+
+    &:hover{
+        .content-iha{
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.5s;
+        }
+    }
+
+    .content-iha{
+        position: absolute;
+        top:0px;
+        left:0px;
+        height: 100%;
+        width: 100%;
+        background: rgb(6,19,50, 0.55);
+        visibility: visible;
+        opacity: 1;
+        transition: all 0.5s;
+
+        *{
+            color:#fff;
+        }
+
+    
+    }
+
+    .head-iha{
+        display: flex;
+        justify-content: space-between;
+        padding: 15px;
+        .name{
+            
+            font-size: 22px;
+            font-weight: 900;
+            display: none;
+            b{
+                display: block;
+                font-size: 12px;
+            }
+        }
+    }
+
+    .detail-iha{
+        position: absolute;
+        padding: 15px;
+        bottom:10px;
+
+        .title{
+            display: inline-block;
+         //   background: $lightBlue;
+         //   padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: 700;
+        }
+
+        .des{
+            display: none;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    }
+}

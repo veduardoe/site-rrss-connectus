@@ -1,0 +1,18 @@
+.article-sug{
+    .prof-name{
+        font-size: 14px !important;
+    }
+
+    .prof-pic{
+        border:none !important;
+        width: 70px !important;
+        margin-right: 10px !important;
+        height: 70px !important;
+        img{
+            border-radius: 10px !important;
+        }
+        &::after{
+            display: none;
+        }
+    }
+}

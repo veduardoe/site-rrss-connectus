@@ -1,0 +1,33 @@
+<header>
+    <div class="container">
+        <div fxLayout="row " fxLayoutAlign="space-between" class="content-header">
+            <div fxFlex=" {{ utils.checkWidth720 ? '160px' : '240px'}}">
+                <span class="logo" (click)="goToHome()">
+                    <img src="https://www.connectus.global/wp-content/themes/twentytwentyone/assets/images/logo.svg">
+                </span>
+            </div>
+            <div fxFlex="100%" *ngIf="!utils.checkWidth720">
+                <mat-form-field appearance="outline" class="full input-1 npb">
+                    <input matInput (focusin)="plcFocus = true" (focusout)="plcFocus = false" type="text" placeholder="{{ plcFocus ? '' : 'Find and discover what is happening in Connectus...' }}" />
+                    <mat-icon matPrefix class="iconprefix"><i class="far fa-search"></i></mat-icon>
+                </mat-form-field>
+            </div>
+            <div fxFlex=" {{ utils.checkWidth720 ? '100%' : '200px'}}">
+                <div class="btn-hd-icons">
+                    <span matRipple>
+                        <i class="fal fa-bell"></i>
+                        <b class="badge">5</b>
+                    </span>
+                    <span matRipple>
+                        <i class="fal fa-comment-alt"></i>
+                        <b class="badge">2</b>              
+                    </span>
+                    <span matRipple [routerLink]="['/profile']">
+                        <i class="fal fa-user-circle"></i>             
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
