@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ENV } from 'src/environments/environment';
 
 @Component({
   selector: 'app-message-people',
@@ -8,7 +9,9 @@ import { Component, Input, OnInit } from '@angular/core';
 export class MessagePeopleComponent implements OnInit {
 
   @Input() right = false;
-
+  @Input() data;
+  routeFotoPerfil = ENV.FOTOS_PERFIL;
+  
   constructor() { }
 
   ngOnInit(): void {

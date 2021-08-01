@@ -4,9 +4,8 @@
 .message{
 
     padding: 20px;
-    width: 90%;
-    margin: 0px auto;
     position: relative;
+    
     .prof-pic{
 
         display: block;
@@ -38,7 +37,7 @@
     .prof-name{
         display: block;
         font-weight: 700;
-        font-size: 18px;
+        font-size: 16px;
         color:$lightBlue;
         margin-bottom: 20px !important;
     }

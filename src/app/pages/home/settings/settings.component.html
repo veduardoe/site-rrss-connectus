@@ -8,23 +8,23 @@
                     Opciones Disponibles
                 </div>
                 <div class="list-sug ">
-                    <div class="item-opt" matRipple>
+                    <div class="item-opt" [ngClass]="{ 'active' : curView === 'userInformation'}" matRipple (click)="curView = 'userInformation'">
                         <i class="fal fa-user"></i>
                         User Information
                     </div>
-                    <div class="item-opt" matRipple>
+                    <div class="item-opt" [ngClass]="{ 'active' : curView === 'privacy'}" matRipple (click)="curView = 'privacy'">
                         <i class="fal fa-user-secret"></i>
                         Privacy
                     </div>
-                    <div class="item-opt" matRipple>
+                    <div class="item-opt" [ngClass]="{ 'active' : curView === 'accessibility'}" matRipple (click)="curView = 'accessibility'">
                         <i class="fal fa-universal-access"></i>
                         Accessibility
                     </div>
-                    <div class="item-opt" matRipple>
+                    <div class="item-opt" [ngClass]="{ 'active' : curView === 'security'}" matRipple (click)="curView = 'security'">
                         <i class="fal fa-shield-check"></i>
                         Security
                     </div>
-                    <div class="item-opt" matRipple>
+                    <div class="item-opt" [ngClass]="{ 'active' : curView === 'help'}" matRipple (click)="curView = 'help'">
                         <i class="fal fa-hands-helping"></i>
                         Help
                     </div>
@@ -36,22 +36,17 @@
         <div fxFlex="100%">
             <div class="card-suggestions">
                 <div class="cs-header">
-                    <i class="fal fa-user"></i>
-                    User Information
+                    <i class="{{ viewDescription[curView].icon }}"></i>
+                    {{ viewDescription[curView].det }}
                 </div>
-                <div class="list-sug info-settings">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, quia.
-                        Totam laborum eligendi autem necessitatibus, libero ab similique ex vitae pariatur dignissimos
-                        aliquid odio dolorem, labore molestias nam magnam? Ad!</p>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, quia.
-                        Totam laborum eligendi autem necessitatibus, libero ab similique ex vitae pariatur dignissimos
-                        aliquid odio dolorem, labore molestias nam magnam? Ad!</p>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, quia.
-                        Totam laborum eligendi autem necessitatibus, libero ab similique ex vitae pariatur dignissimos
-                        aliquid odio dolorem, labore molestias nam magnam? Ad!</p>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, quia.
-                        Totam laborum eligendi autem necessitatibus, libero ab similique ex vitae pariatur dignissimos
-                        aliquid odio dolorem, labore molestias nam magnam? Ad!</p>
+                <div class="list-sug info-settings loadingContainer">
+                    <ng-container [ngSwitch]="curView">
+                        <ng-container *ngSwitchCase="'userInformation'" [ngTemplateOutlet]="userInformation"></ng-container>
+                        <ng-container *ngSwitchCase="'privacy'" [ngTemplateOutlet]="privacy"></ng-container>
+                        <ng-container *ngSwitchCase="'accessibility'" [ngTemplateOutlet]="accessibility"></ng-container>
+                        <ng-container *ngSwitchCase="'security'" [ngTemplateOutlet]="security"></ng-container>
+                        <ng-container *ngSwitchCase="'help'" [ngTemplateOutlet]="help"></ng-container>
+                    </ng-container>
 
                 </div>
             </div>
@@ -59,4 +54,26 @@
         </div>
     </div>
 </div>
+
+<ng-template #userInformation>
+    <app-user-information [from]="'ui'"></app-user-information>
+</ng-template>
+
+<ng-template #privacy>
+    <app-privacy></app-privacy>
+</ng-template>
+
+<ng-template #accessibility>
+    <app-accessibility></app-accessibility>
+</ng-template>
+
+<ng-template #security>
+    <app-user-information [from]="'security'"></app-user-information>
+    <!-- <app-security></app-security> -->
+</ng-template>
+
+<ng-template #help>
+    <app-help></app-help>
+</ng-template>
+
 <app-footer></app-footer>

@@ -1,0 +1,30 @@
+@import "src/assets/theming/global.scss";
+
+.pic-profile{
+
+    cursor:pointer;
+
+    img{
+        height: 140px;
+        width: 140px;
+        margin: 0 auto;
+        margin-top: -15px;
+        display: block;
+        padding: 10px;
+        background: #eee;
+        border-radius: 105px;
+        border: 5px solid $lightBlue;
+    }
+}
+
+.mat-chip-blue {
+    background-color: $lightBlue !important;
+    color: white !important;
+    .mat-icon{
+        color:#fff !important;
+    }
+}
+
+.tpass{
+    color:$lightBlue;
+}

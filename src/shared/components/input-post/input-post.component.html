@@ -1,18 +1,82 @@
-<div class="write-feed">
+<div class="write-feed loadingContainer">
+
+    <div class="loadingItem" *ngIf="loading">
+        <mat-progress-spinner [diameter]="60" mode="indeterminate" color="primary">
+        </mat-progress-spinner>
+    </div>
+
     <mat-form-field appearance="outline" class="full ">
-        <textarea matInput [(ngModel)]="publishText" placeholder="{{ placeholder }}"
-            style="height: 50px;"></textarea>
+        <textarea matInput maxlength="1000" [(ngModel)]="publishText" placeholder="{{ placeholder }}" style="height: 50px;"></textarea>
     </mat-form-field>
+
+    <div *ngIf="listadoImagenes.length > 0">
+        <span class="lblt">Pictures</span>
+        <div class="cont-pic" fxLayout="row wrap" fxLayoutGap="1%">
+            <div class="pic-post" fxFlex="24%" *ngFor="let img of listadoImagenes; let i = index"
+                [style.background-image]="'url(' + img.file  + ')'">
+                <span class="remove" (click)="borrarFichero(i, 'listadoImagenes', 'FOTOS')">
+                    <mat-icon>clear</mat-icon>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="listadoFicheros.length > 0">
+        <span class="lblt">Files</span>
+        <div class="cont-pic">
+            <div fxLayout="row wrap" fxLayoutGap="1%" fxLayout.xs="column">
+                <div fxFlex="15%" class="prev-pic" *ngFor="let fic of listadoFicheros; let i = index">
+                    <a [href]="fic.filex" class="icon-fichero" target="_blank">
+                        <img src="assets/images/xls_download.png"
+                            *ngIf="fic.nombre.includes('.xls') || fic.nombre.includes('.xlsx')">
+                        <img src="assets/images/word_download.png"
+                            *ngIf="fic.nombre.includes('.doc') || fic.nombre.includes('.docx')">
+                        <img src="assets/images/pdf_download.png" *ngIf="fic.nombre.includes('.pdf')">
+                        <span>{{ fic.nombre }}</span>
+                        <div class="overlay">
+                            <i class="fal fa-arrow-alt-to-bottom"></i>
+                        </div>
+                    </a>
+                    <span class="remove" (click)="borrarFichero(i, 'listadoFicheros', 'DOCUMENTOS')">
+                        <mat-icon>clear</mat-icon>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="actions">
         <div fxLayout="row">
             <div fxFlex="50%">
-                <span class="countint" [ngClass]="{ 'exceed' : publishText.length > 500 }">
-                    {{ publishText.length }}/500</span>
+                <span class="countint" [ngClass]="{ 'exceed' : publishText.length > 1000 }">
+                    {{ publishText.length }}/1000</span>
             </div>
             <div fxFlex="50%" class="sec-ac">
-                <span><i class="fal fa-paperclip"></i></span>
-                <span><i class="fas fa-images"></i></span>
-                <span><i class="fad fa-paper-plane"></i></span>
+
+                <input type="file" id="ficheros" (change)="fileChange($event, 'ficheros')"
+                    accept=".pdf, .doc, .docx, .xls, .xlsx" hidden multiple>
+
+                <input type="file" id="imagenes" (change)="fileChange($event, 'imagenes')"
+                    accept=".jpg, .png, .jpeg, .gif" hidden multiple>
+
+                <button mat-stroked-button class="btn btn-light-outline"
+                    *ngIf="listadoFicheros.length < 5"
+                    (click)="openInputFile('ficheros')">
+                    ADD FILES
+                    <i class="fal fa-paperclip"></i>
+                </button>
+
+                <button mat-stroked-button class="btn btn-light-outline"
+                    *ngIf="listadoImagenes.length < 8"
+                    (click)="openInputFile('imagenes')">
+                    ADD PICTURES
+                    <i class="fas fa-images"></i>
+                </button>
+
+                <button mat-stroked-button class="btn btn-light-filled" (click)="postItem()">
+                    SEND
+                    <i class="fad fa-paper-plane"></i>
+                </button>
             </div>
         </div>
     </div>

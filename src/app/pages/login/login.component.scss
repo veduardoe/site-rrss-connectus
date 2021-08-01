@@ -1,0 +1,148 @@
+@import "src/assets/theming/global.scss";
+
+$vectorUrl : 'https://www.connectus.global/wp-content/themes/twentytwentyone/assets/images/vector_line.png';
+
+
+#bannerVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -10;
+}
+
+video{
+    display: inline-block;
+    vertical-align: baseline;
+}
+
+
+.people{
+    width: 100%;
+}
+
+.main-text{
+    color:$lightBlue;
+    font-weight: 900;
+}
+
+.form-login{
+    position: relative;
+}
+
+.form-login label{
+    display:block;
+    color:#fff;
+    text-transform:uppercase;
+    font-weight:500;
+    padding-left:20px
+}
+
+.form-login input{
+    background:rgba(8,20,48,0.8);
+    outline:0px;
+    border:3px solid $lightBlue;
+    font-size:16px;
+    color:#fff;
+    padding:12px 0px;
+    width:100%;
+    text-align:center;
+    text-transform:uppercase;
+    border-radius:50px;
+    transition:all 0.5s;
+} 
+ 
+.form-login input:hover,
+.form-login input:focus{
+     border-color:#fff;
+     transition:all 0.5s;
+}
+
+.input-form.invalid{
+    input{
+        border-color: #B71C1C !important;
+    }
+    label{
+        color:#B71C1C;
+    }
+    .alert{
+        display: block !important;
+    }
+}
+
+.form-login .input-form{
+    margin:25px 0px;
+    .alert{
+        color: #B71C1C;
+        font-size: 12px;
+        display: none;
+        text-transform: uppercase;
+        margin-top: 5px;
+        margin-left: 15px;
+    }
+}
+
+
+.logo{
+    display: block;
+    width: 320px;
+    margin-top: -230px;
+    margin-bottom:100px;
+    img{
+        width: 100%;
+    }
+}
+
+.actions-banner{
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+
+    &.topline{
+        display: block !important;
+        border-top: 1px dotted $lightBlue;
+        margin-top:30px;
+
+        .txt-ln{
+            color:$lightBlue;
+            display: block;
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .btn{
+            width: 100%;
+        }
+    }
+}
+
+.loginLoader{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    border:3px solid transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sec-login{
+    position: relative;
+    
+}
+
+.cont-form{
+    &.opac{
+        opacity: 0.2;
+    }
+}
+
+.alert-message{
+    color: #c3b730;
+    text-align: center;
+    margin-bottom: 25px;
+    
+}

@@ -1,22 +1,62 @@
-<div class="card-post">
+<div class="card-post" *ngIf="data">
     <div class="head-post">
         <span class="prof-pic" [routerLink]="['/profile']">
-            <img src="assets/images/p1.jpg" />
+            <img [src]="routeFotoPerfil + data.usuario?.foto + '?alt=media'" />
         </span>
         <span class="info">
-            <span class="prof-name">Carolina Herrera</span>
-            <span class="prof-date">Posted on May 25<sup>th</sup>, 2021</span>
+            <span class="prof-name">{{ data.usuario?.nombres }} {{ data.usuario?.apellidos }}</span>
+            <span class="prof-date">Posted on {{ data.fechaRegistro | date:'MMMM d, y' }} at {{ data.fechaRegistro | date:'hh:mm:ss a' }}</span>
         </span>
     </div>
-    <div class="det-post">
-        <p>Is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-            standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not only five centuries.</p>
 
-           <img src="assets/images/bg-profile.jpg" class="pic-post" *ngIf="withImage">
+    <div *ngIf="listadoImagenes.length > 0">
+        <lightgallery [settings]="settings" fxLayout="row wrap" fxLayoutAlign="center" class="cont-gal" >
+            <a  fxFlex="{{ ((100 / (listadoImagenes.length > 3 ? 3 : listadoImagenes.length )) - 1) +'%'  }}" 
+                [attr.href]="img.src"
+                 class="picgal" 
+                [style.background-image]="'url(' + img.image  + ')'" 
+                *ngFor="let img of listadoImagenes">
+                <span class="overlay">
+                    <i class="fal fa-search icc"></i>
+                </span>
+            </a>
+        </lightgallery> 
+    </div>
+
+    <div *ngIf="listadoFicheros.length > 0">
+        <div class="cont-pic">
+            <div fxLayout="row wrap" fxLayoutGap="15px">
+                <div fxFlex="120px" class="prev-pic" *ngFor="let fic of listadoFicheros; let i = index">
+                    <a [href]="fic.file" class="icon-fichero" target="_blank">
+                        <img src="assets/images/xls_download.png"
+                            *ngIf="fic.nombre.includes('.xls') || fic.nombre.includes('.xlsx')">
+                        <img src="assets/images/word_download.png"
+                            *ngIf="fic.nombre.includes('.doc') || fic.nombre.includes('.docx')">
+                        <img src="assets/images/pdf_download.png" *ngIf="fic.nombre.includes('.pdf')">
+                        <span>{{ fic.nombre }}</span>
+                        <div class="overlay">
+                            <i class="fal fa-arrow-alt-to-bottom"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="det-post">
+        <p>{{ data.detalle }}</p>
     </div>
     <div class="actions">
-        <span><b>1.2K</b><i class="fal fa-heart"></i></span>
-        <span><b>125</b><i class="fal fa-comment-alt-lines"></i></span>
+        <span (click)="setLike()">
+            <b>{{ data.qtyLikes }}</b>
+            <i class="fal fa-heart" *ngIf="!data.isLike"></i>
+            <i class="fas fa-heart" *ngIf="data.isLike"></i>
+        </span>
+        <span (click)="displayComentarios = !displayComentarios">
+            <b>{{ data.qtyComments }}</b>
+            <i class="fal fa-comment-alt-lines"></i>
+        </span>
     </div>
+    <app-comments (setTotal)="updateQtyComments($event)" [post]="data" *ngIf="displayComentarios"></app-comments>
+
 </div>

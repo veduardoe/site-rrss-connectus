@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import * as $ from 'jquery';
+import { AuthService } from 'src/shared/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,8 @@ export class AppComponent implements OnInit {
   title = 'portal';
 
   constructor(
-    public router: Router
+    public router: Router,
+    public auth: AuthService
   ) { }
 
   ngOnInit() {

@@ -15,10 +15,13 @@
             <div class="ipot">
                 <div *ngTemplateOutlet="inputPost"></div>
             </div>
-            <app-post-item [withImage]="true"></app-post-item>
-            <app-post-item [withImage]="false"></app-post-item>
-            <app-post-item [withImage]="false"></app-post-item>
-            <app-post-item [withImage]="true"></app-post-item>
+            <div class="loader" *ngIf="loading">
+                <mat-progress-spinner [diameter]="60" mode="indeterminate" color="primary">
+                </mat-progress-spinner>
+            </div>
+            <div *ngIf="posts.length > 0">
+                <app-post-item [data]="post" *ngFor="let post of posts"></app-post-item>
+            </div>
 
         </div>
         <div fxFlex="{{ utils.checkWidth720 ? '100%' : '300px' }}">
@@ -34,5 +37,5 @@
     <span class="iftext">
         Connectus Feed
     </span>
-    <app-input-post [placeholder]="'Share something great in Connectus...'"></app-input-post>
+    <app-input-post (postSaved)="getPosts()" [placeholder]="'Share something great in Connectus...'"></app-input-post>
 </ng-template>

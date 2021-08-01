@@ -1,0 +1,18 @@
+<div class="list-comments">
+    <span>Comments</span>
+    <mat-form-field appearance="outline" class="full" style="margin-top: 20px;">
+        <textarea matInput maxlength="1000" [(ngModel)]="publishText" placeholder="Leave a comment" style="height: 50px;"></textarea>
+    </mat-form-field>
+    <div class="actions right" style="margin-top: 0px !important;">
+        <button mat-stroked-button class="btn btn-light-filled" (click)="postComment()">
+            SEND
+            <i class="fad fa-paper-plane"></i>
+        </button>
+    </div>
+
+    <mat-progress-spinner [diameter]="40" mode="indeterminate" color="primary" *ngIf="loading"></mat-progress-spinner>
+
+    <app-message-people [data]="com" *ngFor="let com of comentarios"></app-message-people>
+
+    <p *ngIf="!loading && comentarios.length === 0">No comments added.</p>
+</div>

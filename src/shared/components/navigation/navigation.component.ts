@@ -18,7 +18,6 @@ export class NavigationComponent implements OnInit {
   @HostListener('window:scroll', [])
   onScroll(): void {
     const top = $(window).scrollTop();
-    console.log(top)
     if(top > 445){
       $("#navigation").addClass("fixed");
     }else{

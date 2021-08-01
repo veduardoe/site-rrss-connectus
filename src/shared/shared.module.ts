@@ -22,7 +22,8 @@ import { HomeSliderComponent } from './components/home-slider/home-slider.compon
 import { FooterComponent } from './components/footer/footer.component';
 import { SimpleTextComponent } from './components/simple-text/simple-text.component';
 import { HomeArticlesComponent } from './components/home-articles/home-articles.component';
-
+import { LightgalleryModule } from 'lightgallery/angular';
+import { CommentsComponent } from './components/comments/comments.component';
 
 @NgModule({
     imports: [
@@ -32,7 +33,8 @@ import { HomeArticlesComponent } from './components/home-articles/home-articles.
         AngularMaterialModule,
         FormsModule,
         ReactiveFormsModule,
-        RouterModule
+        RouterModule,
+        LightgalleryModule
     ],
     declarations: [
         HeaderProfileComponent,
@@ -51,7 +53,8 @@ import { HomeArticlesComponent } from './components/home-articles/home-articles.
         AwaitingConnectionComponent,
         HomeSliderComponent,
         SimpleTextComponent,
-        HomeArticlesComponent
+        HomeArticlesComponent,
+        CommentsComponent
     ],
     providers: [],
     exports: [
@@ -77,7 +80,8 @@ import { HomeArticlesComponent } from './components/home-articles/home-articles.
         HomeSliderComponent,
         FooterComponent,
         SimpleTextComponent,
-        HomeArticlesComponent
+        HomeArticlesComponent,
+        CommentsComponent
     ]
 })
 export class SharedModule { }

@@ -1,4 +1,6 @@
 @import "src/assets/theming/global.scss";
+@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.0.0-beta.4/css/lightgallery.css');
+@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.0.0-beta.4/css/lg-zoom.css');
 
 .card-post{
     background: #fff;
@@ -20,7 +22,7 @@
             height: 50px;
             margin-right: 35px;
             position: relative;
-            border:6px solid $lightBlue;
+            border:4px solid $lightBlue;
             border-radius: 100%;
             cursor: pointer;
             
@@ -60,7 +62,7 @@
 
     .actions{
         text-align: right;
-        padding: 20px 0px 0px 0px;
+        padding: 0px;
 
         span{
             color:$lightBlue;
@@ -85,4 +87,49 @@
         margin: 20px 0px;
         border-radius: 10px;
     }
+}
+
+.picgal{
+
+    height:270px;
+    background-size: cover !important;
+    background-position: 50% !important;
+    border:2px solid #fff !important;
+    position: relative;
+    text-decoration: none;
+
+    .overlay{
+        display: flex;
+        justify-content: center;
+        align-items: center;;
+        background: rgba(0,0,0,0.8);
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top:0px;
+        left:0px;
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.5s;
+    }
+
+    &:hover {
+        transition: all 0.5s;
+        .overlay{
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+    .icc{
+        color: #fff;
+        font-size: 42px;
+    }
+}
+
+.cont-gal{
+    background: #f1f2f2;
+    padding: 15px 5px;
+    border-radius: 10px;
+    margin-bottom: 25px;
 }

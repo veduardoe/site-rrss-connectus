@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MessagePeopleComponent } from './message-people.component';
+import { AccessibilityComponent } from './accessibility.component';
 
-describe('MessagePeopleComponent', () => {
-  let component: MessagePeopleComponent;
-  let fixture: ComponentFixture<MessagePeopleComponent>;
+describe('AccessibilityComponent', () => {
+  let component: AccessibilityComponent;
+  let fixture: ComponentFixture<AccessibilityComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MessagePeopleComponent ]
+      declarations: [ AccessibilityComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MessagePeopleComponent);
+    fixture = TestBed.createComponent(AccessibilityComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

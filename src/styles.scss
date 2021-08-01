@@ -1,5 +1,6 @@
 @import "src/assets/theming/global.scss";
- 
+
+
 @font-face {
    font-family: "MuseoSans";
    src: url("/assets/fonts/MuseoSans_100.otf");
@@ -35,8 +36,12 @@ button{ font-weight: 300 !important;}
    position: relative;
    i{ font-size: 24px !important; margin-left: 5px;  }
 }
-p{color: #fff;}
 .full{ width: 100%; }
+
+mat-label, .mat-input-element, mat-option, .mat-chip{
+   font-family: MuseoSans !important;
+}
+
 .input-1{
 
    margin: 32px 0px;
@@ -163,8 +168,42 @@ p{color: #fff;}
       transition: all 0.5s;
 
    }
+
+   &.md{
+      font-size: 16px !important;
+      padding: 5px 35px !important;
+   }
+   
 }
 
+.btn-light-filled{
+   *{
+      color:#fff;
+      font-weight: 500;
+      transition: all 0.5s;
+   }
+
+   border: 2px solid $lightBlue !important;
+   border-radius: 30px !important;
+   background:$lightBlue !important;
+   font-family: 'MuseoSans' !important;
+   transition: all 0.5s;
+
+   &:hover{
+      background: transparent !important;
+      *{
+         color:$lightBlue !important;
+         transition: all 0.5s;
+      }
+      transition: all 0.5s;
+   }
+
+   &.md{
+      font-size: 16px !important;
+      padding: 5px 35px !important;
+   }
+
+}
 
 .btn-dark{
    *{
@@ -244,3 +283,41 @@ router-outlet.mrouter ~ * {
 
 }
 
+.forbid{
+   cursor: not-allowed;
+}
+
+.actions{
+
+   margin: 25px 0px;
+   
+   &.center{
+      text-align: center;
+   }
+   &.right{
+      text-align: right;
+   }
+}
+
+.loadingContainer{
+   position: relative;
+   .loadingItem{
+      background: rgba(255,255,255,0.8);
+      position: absolute;
+      top:0%;
+      left:0%;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+      border-radius: 20px;
+   }
+}
+
+.input-icon{
+   font-size: 20px;
+   position: relative;
+   top: -7px;
+}

@@ -1,0 +1,143 @@
+<form [formGroup]="mainForm">
+    <div class="loadingItem" *ngIf="loading">
+        <mat-progress-spinner [diameter]="60" mode="indeterminate" color="primary">
+        </mat-progress-spinner>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="space-between center" *ngIf="from === 'ui'">
+        <div fxFlex="30%">
+            <div class="pic-profile">
+                <input type="file" id="fotoperfil" (change)="fileChange($event)" accept=".jpg, .png, .jpeg, .gif" hidden
+                    multiple>
+                <img *ngIf="!mainForm.value.foto" [src]="routeFotoPerfil + 'add-profile.jpg?alt=media'"
+                    (click)="openInputFile()">
+                <img *ngIf="mainForm.value.foto && !mainForm.value.foto.includes('data')"
+                    [src]="routeFotoPerfil + mainForm.value.foto + '?alt=media'" (click)="removerImagen()">
+                <img *ngIf="mainForm.value.foto  && mainForm.value.foto.includes('data')" [src]="mainForm.value.foto"
+                    (click)="removerImagen()">
+
+            </div>
+        </div>
+        <div fxFlex="70%">
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="49%">
+                    <mat-form-field class="full" appearance="outline">
+                        <mat-label>Name</mat-label>
+                        <input matInput formControlName="nombres" required>
+                        <i class="fal fa-address-card input-icon" matSuffix></i>
+                        <mat-error *ngIf="mf.nombres.errors">
+                            <span *ngIf="mf.nombres.errors.required">Field Required</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="49%">
+                    <mat-form-field class="full" appearance="outline">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput formControlName="apellidos" required>
+                        <i class="fal fa-address-card input-icon" matSuffix></i>
+                        <mat-error *ngIf="mf.apellidos.errors">
+                            <span *ngIf="mf.apellidos.errors.required">Field Required</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="49%">
+                    <mat-form-field class="full" appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input matInput formControlName="email" required>
+                        <i class="far fa-envelope-open input-icon" matSuffix></i>
+                        <mat-error *ngIf="mf.email.errors">
+                            <span *ngIf="mf.email.errors.required">Field Required</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="49%" class="forbid">
+                    <mat-form-field class="full" appearance="outline">
+                        <mat-label>Username</mat-label>
+                        <input matInput formControlName="usuario" readonly class="forbid">
+                        <i class="far fa-grin-wink input-icon" matSuffix></i>
+                        <mat-error *ngIf="mf.usuario.errors">
+                            <span *ngIf="mf.usuario.errors.required">Field Required</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+        <div fxFlex="49%">
+            <mat-form-field class="full" appearance="outline">
+                <mat-label>Phone Number</mat-label>
+                <input matInput formControlName="telefono" maxlength="12">
+                <i class="fal fa-phone-alt input-icon" matSuffix></i>
+                <mat-error *ngIf="mf.telefono.errors">
+                    <span *ngIf="mf.telefono.errors.required">Campo Obligatorio</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="49%">
+            <mat-form-field appearance="outline" class="full">
+                <mat-label>Date of Birth</mat-label>
+                <input matInput formControlName="fechaNacimiento" [matDatepicker]="pickerFecha"
+                    (focus)="pickerFecha.open()">
+                    <i class="fal fa-calendar-day input-icon" matSuffix></i>
+                <mat-datepicker #pickerFecha></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div fxFlex="100%">
+            <mat-form-field class="full" appearance="outline">
+                <mat-label>Summary or Intro</mat-label>
+                <input matInput formControlName="summary" required>
+                <i class="fal fa-address-card input-icon" matSuffix></i>
+                <mat-error *ngIf="mf.summary.errors">
+                    <span *ngIf="mf.summary.errors.required">Field Required</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="100%">
+            <mat-form-field class="full" appearance="outline">
+                <mat-label>Preferred Categories</mat-label>
+                <mat-chip-list #chipList>
+                    <mat-chip class="mat-chip-blue" *ngFor="let category of categoriesAdded" [selectable]="selectable"
+                        [removable]="removable" (removed)="remove(category)">
+                        {{category}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+                    <input placeholder="Select a Category..." #categoryInput [formControl]="categoryCtrl"
+                        [matAutocomplete]="auto" [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
+                </mat-chip-list>
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                    <mat-option *ngFor="let category of filteredCategories | async" [value]="category">
+                        {{category}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+    </div>
+
+    
+    <div *ngIf="from === 'security'">
+        <h2 class="tpass"> Change your password</h2>
+        <p class="alert warning" style="margin:15px 0px !important">If you want to change your password, complete the required fields.</p>
+
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <div fxFlex="49%">
+                <mat-form-field class="full" appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input type="password" matInput formControlName="clave">
+                </mat-form-field>
+            </div>
+            <div fxFlex="49%">
+                <mat-form-field class="full" appearance="outline">
+                    <mat-label>Confirm Password</mat-label>
+                    <input type="password" maxlength="15" matInput formControlName="confirmarClave">
+
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+    <div class="actions center">
+        <button mat-stroked-button class="btn btn-light-filled md" (click)="save()">
+            {{ from === 'security' ? 'UPDATE PASSWORD' : 'UPDATE INFORMATION'}}</button>
+    </div>
+    
+</form>

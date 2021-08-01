@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/shared/services/auth.service';
 import { UtilsService } from 'src/shared/services/utils.service';
 
 @Component({
@@ -13,7 +14,8 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     public router:Router,
-    public utils:UtilsService
+    public utils:UtilsService,
+    public authService:AuthService
   ) { }
 
   ngOnInit(): void {
@@ -23,4 +25,7 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/home/homefeed']);
   }
   
+  logout(){
+    this.authService.logout();
+  }
 }

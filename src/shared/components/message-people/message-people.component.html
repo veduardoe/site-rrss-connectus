@@ -1,14 +1,12 @@
-<div class="message" [ngClass]="{'right' : right }">
+<div class="message" [ngClass]="{'right' : right }" *ngIf="data">
     <span class="prof-pic">
-        <img src="assets/images/p2.jpg" />
+        <img [src]="routeFotoPerfil + data?.foto + '?alt=media'" />
     </span>
     <span class="info">
         <div class="det-message">
-            <span class="prof-name">Lucía Smith</span>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias excepturi corrupti
-                hic ipsum laudantium! Vitae in quasi explicabo a hic non eaque nostrum ducimus id,
-                repudiandae suscipit, commodi sint dolor?</p>
-                <span class="date">May 25th, 2021 / 12:00 p.m.</span>
+            <span class="prof-name">{{ data?.nombreCompleto }}</span>
+            <p>{{ data?.mensaje }}</p>
+                <span class="date">Posted on {{ data.fecha | date:'MMMM d, y' }} at {{ data.fecha | date:'hh:mm:ss a' }}</span>
         </div>
     </span>
 </div>

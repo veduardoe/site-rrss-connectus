@@ -1,4 +1,4 @@
-<app-header></app-header>
+<app-header *ngIf="auth.isAuth"></app-header>
 <div id="content-router">
     <router-outlet></router-outlet>
 </div>
