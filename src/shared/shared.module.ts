@@ -24,6 +24,17 @@ import { SimpleTextComponent } from './components/simple-text/simple-text.compon
 import { HomeArticlesComponent } from './components/home-articles/home-articles.component';
 import { LightgalleryModule } from 'lightgallery/angular';
 import { CommentsComponent } from './components/comments/comments.component';
+import { UserService } from './services/user.service';
+import { AuthService } from './services/auth.service';
+import { ConexionService } from './services/conexion.service';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import 'froala-editor/js/plugins/align.min.js'
+import 'froala-editor/js/plugins/char_counter.min.js'
+import 'froala-editor/js/plugins/fullscreen.min.js'
+import 'froala-editor/js/plugins/link.min.js'
+import 'froala-editor/js/plugins/lists.min.js'
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
     imports: [
@@ -34,7 +45,11 @@ import { CommentsComponent } from './components/comments/comments.component';
         FormsModule,
         ReactiveFormsModule,
         RouterModule,
-        LightgalleryModule
+        LightgalleryModule,
+        FroalaEditorModule.forRoot(), 
+        FroalaViewModule.forRoot(),
+        DragDropModule ,
+        NgxPaginationModule
     ],
     declarations: [
         HeaderProfileComponent,
@@ -56,7 +71,11 @@ import { CommentsComponent } from './components/comments/comments.component';
         HomeArticlesComponent,
         CommentsComponent
     ],
-    providers: [],
+    providers: [
+        UserService,
+        AuthService,
+        ConexionService
+    ],
     exports: [
         CommonModule,
         HttpClientModule,
@@ -81,7 +100,10 @@ import { CommentsComponent } from './components/comments/comments.component';
         FooterComponent,
         SimpleTextComponent,
         HomeArticlesComponent,
-        CommentsComponent
+        CommentsComponent,
+        FroalaEditorModule, 
+        FroalaViewModule,
+        DragDropModule 
     ]
 })
 export class SharedModule { }

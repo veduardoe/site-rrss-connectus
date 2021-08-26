@@ -9,12 +9,17 @@ export class PostsService {
         private http: HttpClient
     ) { }
 
-    getPosts() {
-        return this.http.get(ENV.BACKEND + '/posts').toPromise();
+    getPosts(fullPosts = 'true', typepost = 'POST', idPost = null) {
+        const queryAdd = idPost ? '&idPost=' + idPost : '';
+        return this.http.get(ENV.BACKEND + '/posts?fullPosts=' + fullPosts + '&typepost=' + typepost + queryAdd).toPromise();
     }
 
     crearPost(data) {
         return this.http.post(ENV.BACKEND + '/posts/crear-post', data).toPromise();
+    }
+
+    actualizarPost(data) {
+        return this.http.put(ENV.BACKEND + '/posts/actualiza-post/' + data.id, data).toPromise();
     }
 
     setLike(idPost) {
@@ -27,6 +32,10 @@ export class PostsService {
 
     getComentarios(idPost) {
         return this.http.get(ENV.BACKEND + '/posts/comentarios?idPost=' + idPost).toPromise();
+    }
+
+    deletePost(idPost) {
+        return this.http.delete(ENV.BACKEND + '/posts/' + idPost).toPromise();
     }
 
 }

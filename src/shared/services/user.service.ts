@@ -13,6 +13,14 @@ export class UserService{
         return this.http.get(ENV.BACKEND + '/usuarios-rs/obtener-mis-datos').toPromise();
     }
 
+    getUsuarios(str){
+        return this.http.get(ENV.BACKEND + '/usuarios-rs/obtener-usuarios?texto=' + str).toPromise();
+    }
+
+    getPerfil(usuario){
+        return this.http.get(ENV.BACKEND + '/usuarios-rs/obtener-perfil?usuario=' + usuario).toPromise();
+    }
+
     putActualizarPerfil(data){
         return this.http.put(ENV.BACKEND + '/usuarios-rs/modificar-usuario', data).toPromise();
     }

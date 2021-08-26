@@ -1,30 +1,48 @@
 <app-bar-page [namePage]="'MESSAGING'"></app-bar-page>
-<div class="" >
-    <div fxLayout="row {{ utils.checkWidth720 ? 'wrap' : '' }}" fxLayoutGap="{{ utils.checkWidth720 ? '0px' : '25px' }}">
+<div class="">
+    <div fxLayout="row {{ utils.checkWidth720 ? 'wrap' : '' }}"
+        fxLayoutGap="{{ utils.checkWidth720 ? '0px' : '25px' }}">
+        <div fxFlex="{{ utils.checkWidth720 ? '100%' : '300px' }}">
+            <app-chat-people (usuarioSelected)="usuarioSelected($event)"></app-chat-people>
+        </div>
         <div fxFlex="100%">
-            <div class="content-messaging">
-                <div class="head-msg">
+            <div class="content-messaging" [ngClass]="{ 'noChat' : !curUsuarioDestino }">
+                <div class="head-msg" *ngIf="curUsuarioDestino">
                     <span class="prof-pic">
-                        <img src="assets/images/p2.jpg" />
+                        <img *ngIf="curUsuarioDestino.foto" [src]="routeFotoPerfil + curUsuarioDestino.foto + '?alt=media'" />
+                        <img *ngIf="!curUsuarioDestino.foto" [src]="routeFotoPerfil + 'add-profile.jpg?alt=media'">
                     </span>
                     <span class="info">
-                        <span class="prof-name">Lucía Smith</span>
-                        <span class="prof-extra">Economist</span>
+                        <span class="prof-name">{{ curUsuarioDestino.detalle }}</span>
+                        <span class="prof-extra">{{ curUsuarioDestino.summary }}</span>
                     </span>
                 </div>
                 <div class="list-messages">
-                    <app-message-people></app-message-people>
+                    <ng-container *ngFor="let msg of curUsuarioDestino?.mensajes">
+                        <app-message-people [data]="msg"></app-message-people>
+
+                    </ng-container>
                     <app-message-people [right]="true"></app-message-people>
                     <app-message-people></app-message-people>
                 </div>
+                <p class="noChatText" *ngIf="!curUsuarioDestino">Find a connection and start messaging.</p>
             </div>
-            <div class="mt-30">
-                <app-input-post [placeholder]="'Leave a message...'"></app-input-post>
+            <div class="mt-30 write-feed" *ngIf="curUsuarioDestino">
+                <mat-form-field appearance="outline" class="full" >
+                    <textarea matInput maxlength="1000" [(ngModel)]="publishText" style="height:60px"
+                        placeholder="Leave a message"></textarea>
+                </mat-form-field>
+                <div class="action">
+                    <span class="countint">
+                        {{ publishText.length }}/1000</span>
+                    <button mat-stroked-button class="btn btn-light-filled" (click)="postMessage()">
+                        SEND
+                        <i class="fad fa-paper-plane"></i>
+                    </button>
+                </div>
             </div>
         </div>
-        <div fxFlex="{{ utils.checkWidth720 ? '100%' : '300px' }}">
-            <app-chat-people></app-chat-people>
-        </div>
+
 
     </div>
 </div>

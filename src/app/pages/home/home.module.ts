@@ -23,13 +23,15 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { InterceptorService } from "src/app/app.interceptor";
 import { CommonService } from "src/shared/services/common.service";
 import { PostsService } from "src/shared/services/posts.service";
-
+import { NgxPaginationModule } from 'ngx-pagination';
+import { MensajesService } from "src/shared/services/mensajes.service";
 @NgModule({
     imports: [
         SharedModule,
-        HomeRoutingModule
+        HomeRoutingModule,
+        NgxPaginationModule
     ],
-    declarations:[
+    declarations: [
         HomeComponent,
         InterestInfoComponent,
         FeedHomeComponent,
@@ -47,15 +49,16 @@ import { PostsService } from "src/shared/services/posts.service";
         SecurityComponent,
         HelpComponent,
     ],
-    providers:[
+    providers: [
         UtilsService,
         UserService,
         CommonService,
         PostsService,
+        MensajesService,
         { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
 
     ],
-    entryComponents:[
+    entryComponents: [
     ]
 })
 export class HomeModule { }

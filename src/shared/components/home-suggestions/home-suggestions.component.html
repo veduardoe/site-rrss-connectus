@@ -1,26 +1,28 @@
-<div class="card-suggestions">
+<div class="card-suggestions" *ngIf="data.length > 0">
     <div class="cs-header">
-        Connections Suggested
+        {{ titleCard }}
     </div>
     <div class="list-sug">
         <ng-container *ngTemplateOutlet="suggestion"></ng-container>
-        <span class="link-cc">View all...</span>
+        <span class="link-cc" [routerLink]="['/connections']" [queryParams]="{actionView: 2}">View all...</span>
 
     </div>
 
 </div>
 
 <ng-template #suggestion>
-    <div class="item-sug" matRipple *ngFor="let index of [].constructor(limit)">
-        <span class="prof-pic">
-            <img src="assets/images/p4.jpg" />
-        </span>
-        <span class="info">
-            <span class="prof-name">Laura Montreal</span>
-            <span class="prof-extra">Economist</span>
-            <span class="prof-des"> 
-                Is simply dummy text of the
-                printing and typesetting industry.</span>
-        </span>
-    </div>
+    <ng-container  *ngFor="let item of data; let i = index">
+        <div class="item-sug" matRipple *ngIf=" i <= limit" [routerLink]="['/profile']" [queryParams]="{usuario: item.usuario}">
+            <span class="prof-pic">
+                <img *ngIf="item?.foto" [src]="routeFotoPerfil + item?.foto + '?alt=media'" >
+                <img *ngIf="!item?.foto" [src]="routeFotoPerfil + 'add-profile.jpg?alt=media'">
+            </span>
+            <span class="info">
+                <span class="prof-name">{{ item.nombres }} {{ item.apellidos }}</span>
+                <span class="prof-extra">{{ item.summary }}</span>
+                <!-- <span class="prof-des"> ... </span> -->
+            </span>
+        </div>
+    </ng-container>
+
 </ng-template>

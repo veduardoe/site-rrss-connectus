@@ -102,3 +102,55 @@ header{
         }
     }
 }
+
+.hvac{
+    height: 70px !important;
+}
+
+.viewac{
+    height: 60px;
+    display: flex;
+    img{
+        height: 42px;
+        width: 42px;
+        border-radius: 100%;
+        margin-right: 11px;
+        margin-top: 10px;
+        border:2px solid $lightBlue;
+    }
+    span{
+        display: block;
+        height: 20px;
+    }
+
+    .vsummar{
+        font-size: 14px;
+    }
+
+    .vdet{
+        color:$lightBlue;
+    }
+}
+
+mat-option{
+    border-bottom: 1px solid #ddd;
+}
+
+.userpic{
+    padding: 0px 15px 10px 10px !important;
+    position: relative !important;
+    top: -4px;
+    left: -2px;
+    img{
+        width: 40px;
+        height: 40px;
+        border-radius: 100%;
+        border:5px solid $lightBlue;
+        transition: all 0.5s;
+
+        &:hover{
+            transform: scale(1.2);
+            transition: all 0.5s;
+        }
+    }
+}

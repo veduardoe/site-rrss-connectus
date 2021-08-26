@@ -1,7 +1,14 @@
 <div class="card-post" *ngIf="data">
+
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="actionPost" *ngIf="pertenecePost">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+
     <div class="head-post">
-        <span class="prof-pic" [routerLink]="['/profile']">
-            <img [src]="routeFotoPerfil + data.usuario?.foto + '?alt=media'" />
+        <span class="prof-pic" [routerLink]="['/profile']" [queryParams]="{usuario: data.usuario.usuario}">
+            <img *ngIf="data.usuario?.foto" [src]="routeFotoPerfil + data.usuario?.foto + '?alt=media'" />
+            <img *ngIf="!data.usuario?.foto" [src]="routeFotoPerfil + 'add-profile.jpg?alt=media'">
+
         </span>
         <span class="info">
             <span class="prof-name">{{ data.usuario?.nombres }} {{ data.usuario?.apellidos }}</span>
@@ -60,3 +67,10 @@
     <app-comments (setTotal)="updateQtyComments($event)" [post]="data" *ngIf="displayComentarios"></app-comments>
 
 </div>
+
+<mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="detelePost()">
+        <mat-icon>close</mat-icon>
+        <span>Delete</span>
+    </button>
+</mat-menu>

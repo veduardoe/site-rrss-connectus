@@ -4,44 +4,64 @@
         <div fxFlex="100%">
             <div class="content-connections">
                 <div class="head-cconections">
-                    <span>My Connections</span>
+                    <span>Connections</span>
+                </div>
+                <div class="filter">
+                    <button mat-stroked-button (click)="getConexiones()" class="btn" [ngClass]="{'btn-light-filled' : actionView === 1 , 'btn-light-outline' : actionView !== 1 }">My Connections</button> 
+                    <button mat-stroked-button (click)="getConexionesEspera()" class="btn" [ngClass]="{'btn-light-filled' : actionView === 2 , 'btn-light-outline' : actionView !== 2 }">Connections Awaiting Response </button> 
+                    <button mat-stroked-button (click)="getConexionesAprobacion()" class="btn" [ngClass]="{'btn-light-filled' : actionView === 3 , 'btn-light-outline' : actionView !== 3 }">Connections Requests Sent</button> 
                 </div>
                 <div class="search">
                     <mat-form-field appearance="outline" class="full input-1 npb onwhite">
-                        <input matInput type="text" placeholder="Find a connection" />
+                        <input matInput type="text" placeholder="Find a connection" [(ngModel)]="findAConnectionStr" (keyup)="finAConnection($event)" />
                         <mat-icon matPrefix class="iconprefix"><i class="far fa-search"></i></mat-icon>
                     </mat-form-field>
+              
                 </div>
-                <div class="list-cconections">
+                <div class="loader" *ngIf="loading">
+                    <mat-progress-spinner [diameter]="60" mode="indeterminate" color="primary">
+                    </mat-progress-spinner>
+                </div>
+                <div class="list-cconections" *ngIf="!loading">
                     <ng-container *ngTemplateOutlet="connItem"></ng-container>
-                    <ng-container *ngTemplateOutlet="connItem"></ng-container>
-                    <ng-container *ngTemplateOutlet="connItem"></ng-container>
-                    <ng-container *ngTemplateOutlet="connItem"></ng-container>
-                    <ng-container *ngTemplateOutlet="connItem"></ng-container>
-                    <span class="link-cc">Keep loading...</span>
+                    <div class="pagination" *ngIf="conexiones.length > 10">
+                        <pagination-controls 
+                            (pageChange)="p = $event"  
+                            [responsive]="true"
+                            [directionLinks]="true"
+                            [previousLabel]="'Previous'"
+                            [nextLabel]="'Next'">
+                        </pagination-controls>
+                    </div>
                 </div>
             </div>
         </div>
         <div fxFlex="{{ utils.checkWidth720 ? '100%' : '300px' }}">
-            <app-awaiting-connection></app-awaiting-connection>
+            <app-incoming-events [limit]="3"></app-incoming-events>
+            <app-bar-picture></app-bar-picture>
         </div>
 
     </div>
 </div>
 <app-footer></app-footer>
 <ng-template #connItem>
-    <div class="item-sug">
-        <span class="prof-pic">
-            <img src="assets/images/p2.jpg" />
-        </span>
-        <span class="info">
-            <span class="prof-name">Lucía Smith</span>
-            <span class="prof-extra">Economist</span>
-            <span class="prof-des"> 
-                Is simply dummy text of the
-                printing and typesetting industry...</span>
-                <button mat-stroked-button class="btn btn-light-outline btn-connect">Connect</button>
-
-        </span>
-    </div>
+   
+    <ng-container  *ngFor="let item of conexionesFilter | paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
+        <div class="item-sug" >
+            <span class="prof-pic"  [routerLink]="['/profile']" [queryParams]="{usuario: item.usuario}">
+                <img *ngIf="item?.foto" [src]="routeFotoPerfil + item?.foto + '?alt=media'" >
+                <img *ngIf="!item?.foto" [src]="routeFotoPerfil + 'add-profile.jpg?alt=media'">
+            </span>
+            <span class="info"  [routerLink]="['/profile']" [queryParams]="{usuario: item.usuario}">
+                <span class="prof-name">{{ item.nombres }} {{ item.apellidos }}</span>
+                <span class="prof-extra">{{ item.summary }}</span>
+                <!-- <span class="prof-des"> ... </span> -->
+            </span>
+            <button mat-stroked-button class="btn btn-light-outline btn-connect" (click)="procesarConexion(false, item.idSolicitud, 'CONNECTED', 'REMOVE')" *ngIf="actionView === 1" >REMOVE</button> 
+            <button mat-stroked-button style="right: 135px;" (click)="procesarConexion(false, item.idSolicitud, 'ACCEPT_CONNECTION', 'REJECT')" class="btn btn-light-outline btn-connect" *ngIf="actionView === 2">REJECT</button>
+            <button mat-stroked-button (click)="procesarConexion(true, item.idSolicitud, 'ACCEPT_CONNECTION', 'APPROVE')" class="btn btn-light-filled btn-connect" *ngIf="actionView === 2">APPROVE</button>
+            <button mat-stroked-button class="btn btn-light-outline btn-connect" (click)="procesarConexion(false, item.idSolicitud, 'AWAIT_CONNECTION', 'CANCEL')" *ngIf="actionView === 3">CANCEL REQUEST</button>
+        </div>
+    </ng-container>
+    <p class="no-results" *ngIf="!loading && conexionesFilter.length === 0">No results to show</p>
 </ng-template>

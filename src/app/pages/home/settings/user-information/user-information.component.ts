@@ -76,7 +76,7 @@ export class UserInformationComponent implements OnInit {
           const checkCat = this.fullCategories.find(fc => {
             return cat === fc._id
           });
-          return checkCat.detalle;
+          return checkCat.detalleEN;
         });
       }
       setTimeout(()=> {
@@ -90,7 +90,7 @@ export class UserInformationComponent implements OnInit {
       this.commonService.getCategorias().then((res: any) => {
         this.fullCategories = res.data;
         res.data.forEach((val, idx) => {
-          this.categories.push(val.detalle);
+          this.categories.push(val.detalleEN);
           resolve(true);
         });
       });
@@ -193,7 +193,7 @@ export class UserInformationComponent implements OnInit {
 
       data.categorias = this.categoriesAdded.map(cat => {
         const cct = this.fullCategories.find(fcat => {
-          return cat.toUpperCase() === fcat.detalle.toUpperCase();
+          return cat.toUpperCase() === fcat.detalleEN.toUpperCase();
         });
         return cct._id;
       });
@@ -251,7 +251,7 @@ export class UserInformationComponent implements OnInit {
       }).catch(err => {
 
         if (err.error.code === 'CORREO_EXISTE') {
-          this.utils.fnMainDialog('Error', 'Email address is already used.', 'message');
+          this.utils.fnMainDialog('Error', 'Email address is already in use.', 'message');
         } else {
           this.utils.fnMainDialog('Error', 'The information cannot be updated. Try again later.', 'message');
         }

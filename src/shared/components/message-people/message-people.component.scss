@@ -15,7 +15,8 @@
         position: absolute;
         border: 6px solid $lightBlue;
         border-radius: 100%;
-
+        cursor:pointer;
+        
         &::after{
             content: "";
             width: 0;

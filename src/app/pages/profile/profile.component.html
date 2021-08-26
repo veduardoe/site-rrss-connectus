@@ -1,12 +1,45 @@
-<div class="pic-header"></div>
+<div class="pic-header" *ngIf="perfilUsuario && loadedUsuario && !loading"></div>
+<div class="notfound" *ngIf="!perfilUsuario && loadedUsuario && !loading">
+    <div class="container">
+        <p>The user was not found.</p>
+        <button mat-stroked-button class="btn btn-light-filled md" [routerLink]="['/home/homefeed']">
+            RETURN TO HOME
+        </button>
+    </div>
+    
+</div>
 <div class="container">
-    <div class="content-profile">
-        <img src="assets/images/p1.jpg" >
+
+    <div class="loader" *ngIf="loading">
+        <mat-progress-spinner [diameter]="60" mode="indeterminate" color="primary">
+        </mat-progress-spinner>
+    </div>
+
+    <div class="content-profile" *ngIf="perfilUsuario && loadedUsuario && !loading">
+
+        <img *ngIf="perfilUsuario?.foto" [src]="routeFotoPerfil + perfilUsuario?.foto + '?alt=media'" >
+        <img *ngIf="!perfilUsuario?.foto" [src]="routeFotoPerfil + 'add-profile.jpg?alt=media'">
+
         <div class="info-list">
             <div class="hd-list">
-                <span class="text-1">Sophia Vergara</span>
-                <span class="text-2">Graphic Designer</span>
+                <span class="text-1">{{ perfilUsuario.nombres }} {{ perfilUsuario.apellidos }}</span>
+                <span class="text-2">{{ perfilUsuario.summary }}</span>
             </div>
+        </div>
+       
+        <div class="conex-btn" *ngIf="myInfo.id !== perfilUsuario._id">
+            <button mat-stroked-button class="btn btn-light-outline " (click)="crearConexion()" *ngIf="connectInfo.action === 'CREATE_CONNECTION'"> CONNECT + </button>
+            <div *ngIf="connectInfo.action === 'AWAIT_CONNECTION'">
+                <button mat-stroked-button class="btn btn-light-outline " (click)="procesarConexion(false)"  style="margin-right: 15px;">CANCEL REQUEST CONNECTION</button>
+                <button mat-stroked-button class="btn btn-light-filled ">AWAITING RESPONSE CONNECTION</button>
+            </div>
+            <div *ngIf="connectInfo.action === 'ACCEPT_CONNECTION'">
+                <button mat-stroked-button class="btn btn-light-outline " (click)="procesarConexion(false)" style="margin-right: 15px;"> REJECT CONNECTION</button>
+                <button mat-stroked-button class="btn btn-light-filled " (click)="procesarConexion(true)"> ACCEPT CONNECTION</button>
+            </div>
+
+            <button mat-stroked-button class="btn btn-light-outline " (click)="procesarConexion(false)" *ngIf="connectInfo.action === 'CONNECTED'" style="margin-right: 15px;"> REMOVE CONNECTION</button>
+            <button mat-stroked-button class="btn btn-light-filled " *ngIf="connectInfo.action === 'CONNECTED'">CONNECTED</button>
         </div>
         <div class="dots">
             <span></span>
@@ -15,15 +48,15 @@
         </div>
         <div class="con-info">
             <div class="con-det">
-                <span class="con-val">12.7K</span>
+                <span class="con-val">0</span>
                 <span class="con-ref">Connections</span>
             </div>
             <div class="con-det">
-                <span class="con-val">6K</span>
+                <span class="con-val">{{ perfilUsuario.nPosts }}</span>
                 <span class="con-ref">Posts</span>
             </div>
             <div class="con-det">
-                <span class="con-val">1992</span>
+                <span class="con-val">{{ perfilUsuario.fechaRegistro | date: 'YYYY' }}</span>
                 <span class="con-ref">Member since</span>
             </div>
         </div>
@@ -35,7 +68,8 @@
         </span>
 
     </div>
-</div>
+</div> 
+<!-- 
 <div class="container" style="margin-top: 30px;">
     <div fxLayout="row {{ utils.checkWidth720 ? 'wrap' : '' }}" fxLayoutGap="{{ utils.checkWidth720 ? '0px' : '25px' }}">
         <div fxFlex="100%">
@@ -57,6 +91,7 @@
         </div>
     </div>
 </div>
+-->
 <div *ngIf="utils.checkWidth720">
     <app-navigation></app-navigation>
 </div>

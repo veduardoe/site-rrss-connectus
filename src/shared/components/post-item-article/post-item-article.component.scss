@@ -2,12 +2,23 @@
 
 .card-article{
 
+    position: relative;
+
     img{
         margin-top: 0px !important;
         border-radius: 10px;
     }
 
     .det-post{
+
+        .picprev{
+            height: 200px;
+            background-size: cover !important;
+            background-position:50% !important;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
         p{
             text-overflow: ellipsis;
             overflow: hidden;
@@ -15,18 +26,19 @@
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;  
             font-size: 14px;
-            margin-top: 20px !important;
+            margin-top: 10px !important;
         }
 
         .det-title{
             color:$lightBlue;
             font-weight: 700;
+            padding-right: 20px;
             text-overflow: ellipsis;
             overflow: hidden;
             display: -webkit-box;
             -webkit-line-clamp: 1;
             -webkit-box-orient: vertical;
-
+            margin-bottom: 10px;
             &.fullView{
                 display: block !important;
                 font-size: 20px;
@@ -62,4 +74,6 @@
             align-items: center;
         }
     }
+
+  
 }

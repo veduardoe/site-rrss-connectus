@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ENV } from 'src/environments/environment';
+import { AuthService } from 'src/shared/services/auth.service';
 
 @Component({
   selector: 'app-message-people',
@@ -11,10 +12,15 @@ export class MessagePeopleComponent implements OnInit {
   @Input() right = false;
   @Input() data;
   routeFotoPerfil = ENV.FOTOS_PERFIL;
-  
-  constructor() { }
+  myInfo;
+
+  constructor(
+    public authService: AuthService
+  ) { }
 
   ngOnInit(): void {
+    this.myInfo = this.authService.getAuthInfo();
+
   }
 
 }

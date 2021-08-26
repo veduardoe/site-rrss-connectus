@@ -1,38 +1,81 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, OnChanges } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { PostsService } from 'src/shared/services/posts.service';
 import { UtilsService } from 'src/shared/services/utils.service';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CommonService } from 'src/shared/services/common.service';
+import { ENV } from 'src/environments/environment';
+
 @Component({
   selector: 'app-input-post',
   templateUrl: './input-post.component.html',
   styleUrls: ['./input-post.component.scss']
 })
-export class InputPostComponent implements OnInit {
+export class InputPostComponent implements OnInit, OnChanges {
 
   @Input() placeholder;
+  @Input() isArticle = false;
+  @Input() data;
+
+  routeFicheros = ENV.FICHEROS;
 
   publishText = '';
+  publishTitulo = '';
+  publishCategoria = '';
   listadoImagenes: any = [];
   imagenes: any = [];
   listadoFicheros: any = [];
   ficheros: any = [];
   loading = false;
+  limitText;
+  loadedEditor = false;
+  categorias = [];
+
 
   @Output() postSaved: EventEmitter<any> = new EventEmitter();
 
   constructor(
     public utils: UtilsService,
     private sanitizer: DomSanitizer,
-    private postService: PostsService
+    private postService: PostsService,
+    private commonService: CommonService
   ) { }
 
-  ngOnInit(): void {
 
+  ngOnChanges() {
+    this.limitText = this.isArticle ? null : 1000;
+    this.setDataToUpdate();
+  }
+
+  ngOnInit(): void {
+    this.getCategorias();
   }
 
   openInputFile(id) {
-
     document.getElementById(id).click();
+  }
+
+  setDataToUpdate(){
+
+    if(this.data){
+
+      this.publishText = this.data.detalle;
+      this.publishTitulo = this.data.titulo;
+      this.publishCategoria = this.data.idCategoria;
+
+      let imagenes = this.data.ficheros.filter( item => {
+        return item.type === 'pic';
+      });
+
+      imagenes = imagenes.map( item => {
+        item.displayImg = this.routeFicheros + item.file + '?alt=media';
+        item.uploaded = true;
+        return item;
+      });
+
+      this.listadoImagenes = imagenes;
+
+    }
   }
 
   fileChange(e, id) {
@@ -56,6 +99,11 @@ export class InputPostComponent implements OnInit {
     }
   }
 
+  getCategorias() {
+    this.commonService.getCategorias().then((res: any) => {
+      this.categorias = res.data;
+    });
+  }
   prepareFile(file: any, id) {
 
     let reader = new FileReader();
@@ -81,7 +129,8 @@ export class InputPostComponent implements OnInit {
               file: fichero,
               image: fichero,
               nombre: file.name,
-              type: 'pic'
+              type: 'pic',
+              uploaded: false
             });
           }
 
@@ -106,7 +155,7 @@ export class InputPostComponent implements OnInit {
 
   borrarFichero(data: any, tipo: any, tipoFichero = 'FOTOS') {
 
-    const idtxt = tipoFichero === 'FOTOS' ? 'imagen' : 'fichero';
+    const idtxt = tipoFichero === 'FOTOS' ? 'image' : 'file';
     this.utils.fnMainDialog("Confirmation", "Are you sure to delete the " + idtxt + ". This action can't be reverted.", "confirm").subscribe(r => {
       if (r) {
         this[tipo].splice(data, 1);
@@ -120,25 +169,42 @@ export class InputPostComponent implements OnInit {
 
     const fich: any = this.listadoFicheros.concat(this.listadoImagenes);
     fich.forEach((val, key) => {
+      delete val.displayImg; 
       delete val.image;
       delete val.thumbImage;
       delete val.filex;
       delete val.index;
     });
 
-    if(this.publishText.trim().length == 0){
+    if (this.publishText.trim().length == 0) {
       this.utils.fnMainDialog('Error', "You need to write something to share.", 'message')
       return;
     }
 
-    const data = {
+    if(this.isArticle && this.publishCategoria.trim() === ''){
+      this.utils.fnMainDialog('Error', "You must select a category", 'message')
+      return;
+    }
+
+    if(this.isArticle && this.publishTitulo.trim() === ''){
+      this.utils.fnMainDialog('Error', "You must write a title of article", 'message')
+      return;
+    }
+
+    const data: any = {
       detalle: this.publishText,
-      tipoPost: 'POST',
-      ficheros: fich
+      tipoPost: this.isArticle ? 'ARTICLE' : 'POST',
+      ficheros: fich,
+      idCategoria: this.isArticle ? this.publishCategoria : null,
+      titulo: this.isArticle ? this.publishTitulo : null,
+      id: this.data?._id
     };
 
     this.loading = true;
-    this.postService.crearPost(data).then((res: any) => {
+
+    const request = this.data ? this.postService.actualizarPost(data) : this.postService.crearPost(data);
+
+    request.then((res: any) => {
 
       if (!res.response) {
         this.utils.fnMainDialog('Error', "Post can't be posted.", 'message')
@@ -161,11 +227,14 @@ export class InputPostComponent implements OnInit {
     });
   }
 
-  clearInputPost(){
+  clearInputPost() {
     this.publishText = '';
     this.listadoImagenes = [];
     this.listadoFicheros = [];
   }
 
+  drop(event: CdkDragDrop<any[]>) {
+    moveItemInArray(this.listadoImagenes, event.previousIndex, event.currentIndex);
+  }
 
 }

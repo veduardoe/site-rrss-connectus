@@ -4,7 +4,7 @@
     border:1px solid #ddd;
     margin-top: 30px;
     margin-bottom: 30px;
-    min-height: 600px;
+   /* min-height: 600px;*/
     background: #fff;
     border-radius: 15px;
     overflow: hidden;
@@ -24,14 +24,27 @@
     }
 }
 
+.filter{
+    padding: 20px;
+    border-bottom:1px solid #ddd;
+
+    button{
+        margin-right: 15px;
+    }
+
+}
 
 .item-sug{
     display: flex;
     align-items: center;
-    padding: 20px;
+    padding: 10px 20px;
     border-bottom:1px solid #ddd;
     position: relative;
+    cursor:pointer;
 
+    &:hover{
+        background:#eee;
+    }
     .prof-pic{
 
         display: block;
@@ -39,7 +52,7 @@
         height: 50px;
         margin-right: 35px;
         position: relative;
-        border:6px solid $lightBlue;
+        border:4px solid $lightBlue;
         border-radius: 100%;
 
         &::after{
@@ -69,7 +82,6 @@
 
     .prof-extra{
         font-size: 14px;
-        font-weight: 700;
         text-overflow: ellipsis;
         overflow: hidden;
         display: -webkit-box;
@@ -88,17 +100,23 @@
 
     .btn-connect{
         position: absolute; 
-        top:30px;
+        top:20px;
         right:30px;
         margin:0px !important
     }
 }
 
-
+.loader{
+    margin-top: 30px;
+}
 
 
 @media(max-width:720px){
     .btn-connect{
         top:15px !important;
     }
+}
+
+.pagination{
+    text-align: center;
 }

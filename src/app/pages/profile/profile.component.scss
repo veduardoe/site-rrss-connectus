@@ -12,12 +12,13 @@ $vectorUrl : 'https://www.connectus.global/wp-content/themes/twentytwentyone/ass
     background:$darkBlue url($vectorUrl) 50% 100% no-repeat;
     background-size: cover;
     position: relative;
-    height: 280px;
+    height: 330px;
     padding-top: 160px;
     border-bottom-right-radius: 50px;
     border-bottom-left-radius: 50px;
     img{
         width: 240px;
+        height: 240px;
         border:5px solid $lightBlue;
         display: block;
         border-radius: 100%;
@@ -171,3 +172,20 @@ $vectorUrl : 'https://www.connectus.global/wp-content/themes/twentytwentyone/ass
 
 }
 
+.loader{
+    margin-top: 20px;
+}
+
+.notfound{
+    text-align: center;
+    padding: 50px 0px;
+    p{
+        font-size: 32px;
+        margin-bottom: 30px !important;
+    }
+}
+
+.conex-btn{
+    text-align: center;
+    margin-top: 30px;
+}

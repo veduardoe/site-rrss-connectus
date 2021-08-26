@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ENV } from 'src/environments/environment';
+import { CommonService } from 'src/shared/services/common.service';
 
 @Component({
   selector: 'app-home-slider',
@@ -7,20 +9,41 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeSliderComponent implements OnInit {
 
-  sliders = [
-    { index: 1, sclass: { 'slide-1' : true, active: true } },
-    { index: 2, sclass: { 'slide-2' : true, active: false } }
-  ];
+  sliders = [];
   counter = 0;
   interval;
+  routeFicheros = ENV.FICHEROS;
 
-  constructor() { }
+  constructor(
+    public commonService: CommonService
+  ) { }
 
   ngOnInit(): void {
+   
+    this.getBanners();
+  }
 
-    this.interval = setInterval(()=> {
-      this.navigate('next')
-    },8000);
+  getBanners(){
+      this.commonService.getBanners('EN').then( (res:any) => {
+        let i = 1;
+        res.data.forEach((val, key) => {
+          this.sliders.push({
+            index: i,
+            dataBanner: val, 
+            sclass: {
+              active: i === 1 
+            }
+          })
+          i++;
+        });
+        
+        if(this.sliders.length > 0){
+          this.interval = setInterval(()=> {
+            this.navigate('next')
+          },8000);
+        } 
+
+      });
 
   }
 

@@ -1,8 +1,9 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { ENV } from 'src/environments/environment';
 import lgZoom from 'lightgallery/plugins/zoom';
 import { AuthService } from 'src/shared/services/auth.service';
 import { PostsService } from 'src/shared/services/posts.service';
+import { UtilsService } from 'src/shared/services/utils.service';
 
 @Component({
   selector: 'app-post-item',
@@ -12,6 +13,9 @@ import { PostsService } from 'src/shared/services/posts.service';
 export class PostItemComponent implements OnInit, OnChanges {
 
   @Input() data;
+  @Output() updateEvent:EventEmitter<boolean> = new EventEmitter();
+
+  
   listadoImagenes = [];
   listadoFicheros = [];
   displayComentarios = false;
@@ -24,6 +28,7 @@ export class PostItemComponent implements OnInit, OnChanges {
   }
 
   constructor(
+    private utils: UtilsService,
     private authService: AuthService,
     private postService: PostsService
   ) { }
@@ -57,22 +62,12 @@ export class PostItemComponent implements OnInit, OnChanges {
 
     }
 
-    if (this.data?.likes){
-      let markLike = false;
-      this.data?.likes.forEach((val, key) => {
-        if(this.usuarioFromAuth.id === val){
-          markLike = true;
-        }
-      });
-      this.data.isLike = markLike;
-      this.data.qtyLikes = this.data?.likes.length;  
-    }
+    this.data = this.utils.setLikesComments([this.data], this.usuarioFromAuth)[0];
 
-    if (this.data?.comentarios){
-      this.data.qtyComments = this.data?.comentarios.length;
-    }
+  }
 
-
+  get pertenecePost(){
+    return this.data && this.usuarioFromAuth?.id === this.data?.idUsuario;
   }
 
   async setLike(){
@@ -90,4 +85,13 @@ export class PostItemComponent implements OnInit, OnChanges {
     this.data.qtyComments = n;
   }
 
+  detelePost() {
+    this.utils.fnMainDialog("Confirm", "Are you sure to delete the post?", "confirm").subscribe( a => {
+      if(a){
+        this.postService.deletePost(this.data._id).then((res: any) => {
+          this.updateEvent.emit(true);
+        });
+      }
+    });
+  }
 }

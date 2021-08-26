@@ -29,7 +29,7 @@ body{background: #fff;}
 body { margin: 0; font-family: MuseoSans, sans-serif; background:#fafafa; }
 h1,h2,h3,h4,h5, p{margin:0px !important}
 button{ font-weight: 300 !important;}
-
+.no-results{ padding:20px}
 .container{ max-width: 1300px; margin:0px auto; width: 90%;}
 .iconprefix{
    margin-right: 20px;
@@ -151,12 +151,13 @@ mat-label, .mat-input-element, mat-option, .mat-chip{
 .btn-light-outline{
    *{
       color:$lightBlue;
-      font-weight: 900;
+      font-weight: 500;
       transition: all 0.5s;
    }
 
    border: 2px solid $lightBlue !important;
    border-radius: 30px !important;
+   font-family: 'MuseoSans' !important;
    transition: all 0.5s;
 
    &:hover{
@@ -321,3 +322,36 @@ router-outlet.mrouter ~ * {
    position: relative;
    top: -7px;
 }
+
+
+.loader{
+   display: flex;
+   margin-bottom: 20px;
+   justify-content: center;
+}
+
+
+.btn-class-action{
+      button{
+         color: #fff !important ;
+         text-transform: uppercase !important;
+         font-weight: 700 !important;
+      }
+}
+
+.cdk-drag-preview {
+   box-sizing: border-box;
+   border-radius: 4px;
+   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+               0 8px 10px 1px rgba(0, 0, 0, 0.14),
+               0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+   
+.cdk-drag-placeholder {
+   opacity: 0;
+}
+
+.cdk-drag-animating {
+   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+    

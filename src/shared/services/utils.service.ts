@@ -6,7 +6,7 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition
 export class UtilsService {
 
     curWidth;
-    public horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+    public horizontalPosition: MatSnackBarHorizontalPosition = 'center';
     public verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
     constructor(
@@ -37,11 +37,26 @@ export class UtilsService {
     }
 
     fnMessage(message) {
-        this.snackBar.open(message, 'Cerrar', {
-          duration: 3000,
+        this.snackBar.open(message, 'Close', {
+          panelClass: ['btn-class-action'],
+          duration: 5000,
           horizontalPosition: this.horizontalPosition,
           verticalPosition: this.verticalPosition,
         });
       }
     
+      setLikesComments(data, usuarioFromAuth){
+        return data.map( item => {
+            let markLike = false;
+            item.likes.forEach((val, key) => {
+              if(usuarioFromAuth.id === val){
+                markLike = true;
+              }
+            });
+            item.isLike = markLike;
+            item.qtyLikes = item.likes.length;      
+            item.qtyComments = item.comentarios.length;
+            return item;
+        });
+      }
 }

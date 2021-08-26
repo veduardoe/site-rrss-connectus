@@ -1,4 +1,7 @@
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NgModule } from "@angular/core";
+import { InterceptorService } from "src/app/app.interceptor";
+import { UserService } from "src/shared/services/user.service";
 import { UtilsService } from "src/shared/services/utils.service";
 import { SharedModule } from "src/shared/shared.module";
 import { ProfileRoutingModule } from "./profile-routing.module";
@@ -13,7 +16,10 @@ import { ProfileComponent } from './profile.component';
     ProfileComponent
   ],
     providers:[
-      UtilsService
+      UtilsService,
+      UserService,
+      { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
+
     ],
     entryComponents:[
     ]

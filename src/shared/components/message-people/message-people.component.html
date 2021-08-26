@@ -1,12 +1,14 @@
-<div class="message" [ngClass]="{'right' : right }" *ngIf="data">
-    <span class="prof-pic">
-        <img [src]="routeFotoPerfil + data?.foto + '?alt=media'" />
+<div class="message" [ngClass]="{'right' : myInfo.id !==  data?.usuarioMsgOrigen?.id}" *ngIf="data">
+    <span class="prof-pic"  [routerLink]="['/profile']" [queryParams]="{usuario: data?.usuarioMsgOrigen?.usuario}">
+        <img *ngIf="data?.usuarioMsgOrigen?.foto" [src]="routeFotoPerfil + data?.usuarioMsgOrigen?.foto + '?alt=media'" />
+        <img *ngIf="!data?.usuarioMsgOrigen?.foto" [src]="routeFotoPerfil + 'add-profile.jpg?alt=media'">
+
     </span>
     <span class="info">
         <div class="det-message">
-            <span class="prof-name">{{ data?.nombreCompleto }}</span>
+            <span class="prof-name">{{ data?.usuarioMsgOrigen?.nombres  }} {{ data?.usuarioMsgOrigen?.apellidos  }}</span>
             <p>{{ data?.mensaje }}</p>
-                <span class="date">Posted on {{ data.fecha | date:'MMMM d, y' }} at {{ data.fecha | date:'hh:mm:ss a' }}</span>
+                <span class="date">Posted on {{ data?.fechaHora | date:'MMMM d, y' }} at {{ data?.fechaHora | date:'hh:mm:ss a' }}</span>
         </div>
     </span>
 </div>

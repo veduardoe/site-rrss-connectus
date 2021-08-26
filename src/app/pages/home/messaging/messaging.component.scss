@@ -62,3 +62,29 @@
 .list-messages{
     margin:20px 0px;
 }
+
+.write-feed{
+    
+    background: #fff;
+    padding: 20px;
+    border:1px solid #ddd;
+    border-radius: 15px;
+
+}
+
+.action{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.noChat{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .noChatText{
+        color: #ccc;
+        font-size: 22px;
+    }
+}

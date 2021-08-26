@@ -5,21 +5,43 @@
         </mat-progress-spinner>
     </div>
 
-    <mat-form-field appearance="outline" class="full ">
-        <textarea matInput maxlength="1000" [(ngModel)]="publishText" placeholder="{{ placeholder }}" style="height: 50px;"></textarea>
+    <div fxLayout="row wrap" *ngIf="isArticle" fxLayoutAlign="space-between">
+        <div fxFlex="29%">
+            <mat-form-field appearance="outline" class="full">
+                <mat-label>Select a category</mat-label>
+                <mat-select [(ngModel)]="publishCategoria">
+                    <mat-option *ngFor="let cat of categorias" [value]="cat._id">{{ cat.detalleEN }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div fxFlex="69%">
+            <mat-form-field appearance="outline" class="full">
+                <mat-label>Title of article</mat-label>
+                <input matInput [(ngModel)]="publishTitulo">
+            </mat-form-field>
+        </div>
+    </div>
+    <mat-form-field appearance="outline" class="full" *ngIf="!isArticle">
+        <textarea matInput maxlength="{{ limitText }}" [(ngModel)]="publishText" placeholder="{{ placeholder }}"
+            [ngStyle]="{ 'height': isArticle ? '250px' : '50px'}"></textarea>
     </mat-form-field>
 
-    <div *ngIf="listadoImagenes.length > 0">
-        <span class="lblt">Pictures</span>
-        <div class="cont-pic" fxLayout="row wrap" fxLayoutGap="1%">
-            <div class="pic-post" fxFlex="24%" *ngFor="let img of listadoImagenes; let i = index"
-                [style.background-image]="'url(' + img.file  + ')'">
-                <span class="remove" (click)="borrarFichero(i, 'listadoImagenes', 'FOTOS')">
-                    <mat-icon>clear</mat-icon>
-                </span>
+    <div>
+        <div *ngIf="listadoImagenes.length > 0">
+            <span class="lblt">Pictures</span>
+            <div class="cont-pic" fxLayout="row wrap" fxLayoutGap="1%" cdkDropList cdkDropListOrientation="horizontal"
+                (cdkDropListDropped)="drop($event)">
+                <ng-container *ngFor="let img of listadoImagenes; let i = index">
+                    <div class="pic-post" fxFlex="24%" [style.background-image]="'url(' + (img.uploaded ? img.displayImg : img.file)  + ')'" cdkDrag>
+                        <span class="remove" (click)="borrarFichero(i, 'listadoImagenes', 'FOTOS')">
+                            <mat-icon>clear</mat-icon>
+                        </span>
+                    </div>
+                </ng-container>
             </div>
         </div>
     </div>
+
 
     <div *ngIf="listadoFicheros.length > 0">
         <span class="lblt">Files</span>
@@ -44,12 +66,13 @@
             </div>
         </div>
     </div>
+    <div [froalaEditor] [(froalaModel)]="publishText" *ngIf="isArticle"></div>
 
     <div class="actions">
-        <div fxLayout="row">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between">
             <div fxFlex="50%">
-                <span class="countint" [ngClass]="{ 'exceed' : publishText.length > 1000 }">
-                    {{ publishText.length }}/1000</span>
+                <span class="countint" [ngClass]="{ 'exceed' : publishText.length > limitText }" *ngIf="!isArticle">
+                    {{ publishText.length }}/{{ limitText }}</span>
             </div>
             <div fxFlex="50%" class="sec-ac">
 
@@ -60,14 +83,12 @@
                     accept=".jpg, .png, .jpeg, .gif" hidden multiple>
 
                 <button mat-stroked-button class="btn btn-light-outline"
-                    *ngIf="listadoFicheros.length < 5"
-                    (click)="openInputFile('ficheros')">
+                    *ngIf="listadoFicheros.length < 5 && !isArticle" (click)="openInputFile('ficheros')">
                     ADD FILES
                     <i class="fal fa-paperclip"></i>
                 </button>
 
-                <button mat-stroked-button class="btn btn-light-outline"
-                    *ngIf="listadoImagenes.length < 8"
+                <button mat-stroked-button class="btn btn-light-outline" *ngIf="listadoImagenes.length < 8"
                     (click)="openInputFile('imagenes')">
                     ADD PICTURES
                     <i class="fas fa-images"></i>

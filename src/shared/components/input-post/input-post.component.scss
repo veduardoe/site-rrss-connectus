@@ -13,10 +13,9 @@
      }
 
      .sec-ac{
-         color:$lightBlue;
-         text-align: right;
-
-         button{
+        color:$lightBlue;
+        text-align: right;
+        button{
              margin-left: 5px;
          }
 
@@ -37,6 +36,7 @@
 
 .prev-pic, .pic-post{
     position: relative;
+    cursor: pointer;
     .remove{
         position: absolute;
         top: -15px;
@@ -150,4 +150,12 @@
 .disable{
     opacity: 0.5;
     cursor:not-allowed;
+}
+
+::ng-deep{
+    .fr-second-toolbar{
+        a{
+            visibility: hidden;
+        }
+    }
 }

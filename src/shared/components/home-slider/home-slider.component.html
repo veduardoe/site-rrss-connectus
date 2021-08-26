@@ -1,20 +1,20 @@
-<div class="slide-content">
-    <span class="nav nav-right" (click)="navigate('next', true)">
+<div class="slide-content" *ngIf="sliders.length > 0">
+    <span class="nav nav-right" (click)="navigate('next', true)" *ngIf="sliders.length > 1">
         <i class="fal fa-chevron-right"></i>
     </span>
-    <span class="nav nav-left" (click)="navigate('prev', true)">
+    <span class="nav nav-left" (click)="navigate('prev', true)" *ngIf="sliders.length > 1">
         <i class="fal fa-chevron-left"></i>
     </span>
 
-    <div class="slide" [ngClass]="slide.sclass" *ngFor="let slide of sliders">
+    <div class="slide" [ngClass]="slide.sclass" [style.background-image]="'url('  + routeFicheros + slide.dataBanner.imagen  + '?alt=media)'"  *ngFor="let slide of sliders">
         <div class="container">
             <div class="sl-content">
                 <span class="text">
-                    EVERYTHING
-                    <b>IS REALLY POSSIBLE</b>
-                    <span class="btn-wt custom">
+                    {{ slide.dataBanner.titulo }}
+                    <b>{{ slide.dataBanner.tituloResaltado }}</b>
+                    <a class="btn-wt custom" [href]="slide.dataBanner.url" target="_blank">
                         <i>View more</i>
-                    </span>
+                    </a>
                 </span>
 
             </div>

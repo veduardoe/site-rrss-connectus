@@ -12,4 +12,8 @@ export class CommonService{
     getCategorias(){
         return this.http.get(ENV.BACKEND + '/common/listado-categorias').toPromise();
     }
+
+    getBanners(idioma = 'ES'){
+        return this.http.get(ENV.BACKEND + '/common/banners?habilitado=true&idioma=' + idioma).toPromise();
+    }
 }

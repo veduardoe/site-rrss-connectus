@@ -1,45 +1,80 @@
-<div class="card-post card-article">
+<div class="card-post card-article" *ngIf="data">
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="actionPost" *ngIf="pertenecePost">
+        <mat-icon>more_vert</mat-icon>
+    </button>
     <div class="head-post">
-        <span class="prof-pic">
-            <img src="assets/images/p2.jpg" />
+        <span class="prof-pic" [routerLink]="['/profile']" [queryParams]="{usuario: data.usuario.usuario}">
+            <img *ngIf="data.usuario?.foto" [src]="routeFotoPerfil + data.usuario?.foto + '?alt=media'" />
+            <img *ngIf="!data.usuario?.foto" [src]="routeFotoPerfil + 'add-profile.jpg?alt=media'">
         </span>
         <span class="info">
-            <span class="prof-name">Carolina Herrera</span>
-            <span class="prof-date">Posted on May 25<sup>th</sup>, 2021</span>
+            <span class="prof-name">{{ data.usuario?.nombres }} {{ data.usuario?.apellidos }}</span>
+            <span class="prof-date">Posted on {{ data.fechaRegistro | date:'MMMM d, y' }} </span>
         </span>
     </div>
+    <ng-container *ngTemplateOutlet="detailPost"></ng-container>
+    <ng-container *ngTemplateOutlet="actions"></ng-container>
+    <app-comments (setTotal)="updateQtyComments($event)" [post]="data" *ngIf="displayComentarios"></app-comments>
+</div>
+
+<mat-menu #menu="matMenu">
+    <button mat-menu-item [routerLink]="['/home/articles/view']" [queryParams]="{curView: 'create', id: data?._id}">
+        <mat-icon>create</mat-icon>
+        <span>Edit</span>
+    </button>
+    <button mat-menu-item (click)="detelePost()">
+        <mat-icon>close</mat-icon>
+        <span>Delete</span>
+    </button>
+</mat-menu>
+
+<ng-template #detailPost>
     <div class="det-post">
-        <img [src]="image" class="pic-post">
+        
+        <div *ngIf="view !== 'FULL'">
+            <div class="picprev" [style.background-image]="'url(' + (routeFicheros + data.images[0]?.file + '?alt=media')   + ')'"></div>
+            <span class="det-title">{{ data.titulo }}</span>
+            <span class="det-cat">{{ data.categoria.detalleEN}}</span>
+            <p class="infprev">{{ stripTags(data.detalle) }}</p>
+        </div>
 
-        <span class="det-title" [ngClass]="{'fullView' : view }">{{ title }}
-        </span>
-        <span class="det-cat">{{ category }}</span>
+        <div *ngIf="view === 'FULL'">
+            <div *ngIf="data.images.length > 0">
+                <lightgallery [settings]="settings" fxLayout="row wrap" fxLayoutAlign="center" class="cont-gal">
+                    <a fxFlex="{{ ((100 / (data.images.length > 3 ? 3 : data.images.length )) - 1) +'%'  }}"
+                        [attr.href]="img.img" class="picgal" [style.background-image]="'url(' + img.img  + ')'"
+                        *ngFor="let img of data.images">
+                        <span class="overlay">
+                            <i class="fal fa-search icc"></i>
+                        </span>
+                    </a>
+                </lightgallery>
+            </div>
 
-        <p>Is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-            standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not only five centuries.</p>
-        <div *ngIf="view">
-            <p>Is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-                standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-                and scrambled it to make a type specimen book. It has survived not only five centuries. Is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-                standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-                and scrambled it to make a type specimen book. It has survived not only five centuries.</p>
-
-            <p>Is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-                standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-                and scrambled it to make a type specimen book. It has survived not only five centuries.</p>
-
+            <span class="det-title fullView">{{ data.titulo }}</span>
+            <span class="det-cat" style="margin-bottom: 10px;">{{ data.categoria.detalleEN}}</span>
+            <div [innerHTML]="data.detalle"></div>
         </div>
 
     </div>
+</ng-template>
+
+<ng-template #actions>
     <div class="actions">
         <div class="stats">
-            <span><b>1.2K</b><i class="fal fa-heart"></i></span>
-            <span><b>125</b><i class="fal fa-comment-alt-lines"></i></span>
+            <span (click)="setLike()">
+                <b>{{ data.qtyLikes }}</b>
+                <i class="fal fa-heart" *ngIf="!data.isLike"></i>
+                <i class="fas fa-heart" *ngIf="data.isLike"></i>
+            </span>
+            <span (click)="setComentarios()">
+                <b>{{ data.qtyComments }}</b>
+                <i class="fal fa-comment-alt-lines"></i>
+            </span>
         </div>
-        <div *ngIf="!view">
-            <button mat-stroked-button class="btn btn-light-outline" 
-                [routerLink]="'/home/articles/view'">Keep Reading</button>
+        <div *ngIf="view !== 'FULL'">
+            <button mat-stroked-button class="btn btn-light-outline" [routerLink]="['/home/articles/view']"
+                [queryParams]="{curView: 'view', id: data._id}">Keep Reading</button>
         </div>
     </div>
-</div>
+</ng-template>

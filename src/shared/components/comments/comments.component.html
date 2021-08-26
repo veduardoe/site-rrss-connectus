@@ -9,10 +9,21 @@
             <i class="fad fa-paper-plane"></i>
         </button>
     </div>
-
+    <mat-divider></mat-divider>
+    <br />
     <mat-progress-spinner [diameter]="40" mode="indeterminate" color="primary" *ngIf="loading"></mat-progress-spinner>
+   
+    <app-message-people [data]="com" *ngFor="let com of comentarios | paginate: { itemsPerPage: 10, currentPage: p };"></app-message-people>
 
-    <app-message-people [data]="com" *ngFor="let com of comentarios"></app-message-people>
+    <div class="pagination" *ngIf="comentarios.length > 10">
+        <pagination-controls 
+            (pageChange)="p = $event"  
+            [responsive]="true"
+            [directionLinks]="true"
+            [previousLabel]="'Previous'"
+            [nextLabel]="'Next'">
+        </pagination-controls>
+    </div>
 
     <p *ngIf="!loading && comentarios.length === 0">No comments added.</p>
 </div>

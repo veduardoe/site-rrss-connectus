@@ -2,20 +2,7 @@
 <div class="" >
     <div fxLayout="row {{ utils.checkWidth720 ? 'wrap' : '' }}" fxLayoutGap="{{ utils.checkWidth720 ? '0px' : '25px' }}">
         <div fxFlex="100%">
-            <div class="padtb">
-                <span class="iftext" [routerLink]="['//home/articles']">
-                    <i class="fal fa-arrow-left"></i>
-                    RETURN TO ARTICLES
-                </span>
-                <app-post-item-article
-                [title]="'Bitcoin raised over 30.000 USD and it is preparing to reach
-                the unreachable zones.'"
-                [image]="'assets/images/bg-article-3.jpg'"
-                [category]="'Economy'"
-                [view]="true"
-                ></app-post-item-article>
-            </div>
-
+            <ng-container *ngTemplateOutlet="curView === 'view' ? view : create"></ng-container>
         </div>
         <div fxFlex="{{ utils.checkWidth720 ? '100%' : '300px' }}">
             <app-articles-suggestion></app-articles-suggestion>
@@ -24,3 +11,31 @@
     </div>
 </div>
 <app-footer></app-footer>
+
+<ng-template #view>
+    <div class="padtb">
+        <span class="iftext" [routerLink]="['/home/articles']">
+            <i class="fal fa-arrow-left"></i>
+            RETURN TO ARTICLES
+        </span>
+        <div class="loader" *ngIf="loading">
+            <mat-progress-spinner [diameter]="60" mode="indeterminate" color="primary">
+            </mat-progress-spinner>
+        </div>
+        <app-post-item-article [data]="article" [view]="'FULL'"> </app-post-item-article>
+    </div>
+</ng-template>
+
+
+<ng-template #create>
+    <div class="padtb">
+        <span class="iftext" [routerLink]="['/home/articles']">
+            <i class="fal fa-arrow-left"></i>
+            RETURN TO ARTICLES
+        </span>
+        <div style="margin-bottom: 20px;">
+            <app-bar-page [namePage]="'CREATE AN ARTICLE'"></app-bar-page>
+        </div>
+        <app-input-post (postSaved)="getArticles()" [data]="article" [isArticle]="true" [placeholder]="'Write something interesting...'"></app-input-post>
+    </div>
+</ng-template>

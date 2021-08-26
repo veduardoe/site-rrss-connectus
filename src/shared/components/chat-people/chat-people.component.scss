@@ -12,3 +12,19 @@
         }
     }
 }
+
+.qtychats{
+    font-size: 12px;
+    background:$lightBlue;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    border-radius: 50%;
+    position: absolute;
+    top: 35px;
+    right: 0px;
+}
