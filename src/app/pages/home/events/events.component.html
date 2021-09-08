@@ -6,62 +6,47 @@
                 <div *ngTemplateOutlet="filterArticle"></div>
                 <div class="calendar-preview">
                   <ng-container *ngTemplateOutlet="dateCalendar"></ng-container>
-                  <ng-container *ngTemplateOutlet="dateCalendar"></ng-container>
-                  <ng-container *ngTemplateOutlet="dateCalendar"></ng-container>
-                  <ng-container *ngTemplateOutlet="dateCalendar"></ng-container>
-                  <ng-container *ngTemplateOutlet="dateCalendar"></ng-container>
-                  <ng-container *ngTemplateOutlet="dateCalendar"></ng-container>
-                  <ng-container *ngTemplateOutlet="dateCalendar"></ng-container>
                 </div>
 
             </div>
 
         </div>
         <div fxFlex="{{ utils.checkWidth720 ? '100%' : '300px' }}">
-            <app-incoming-events></app-incoming-events>
+            <app-incoming-events [limit]="5" [eventos]="eventosRes" [fromHome]="false"></app-incoming-events>
             <app-bar-picture></app-bar-picture>
         </div>
     </div>
 </div>
 <app-footer></app-footer>
 <ng-template #dateCalendar>
-    <div class="cal-day day31">
-        <div class="item-day">
-            <div class="picprev" style="background: url(&quot;https://www.connectus.global/wp-content/themes/twentytwentyone/assets/images/calendar4.png&quot;) 50% center no-repeat;"></div>
-            <div class="cal-info">
-                <span class="cal-title">PHYSIO FIT RUN 1K,3K, 5K, 10K, KIDS RUN</span>
-                <span class="cal-extr"><i class="fal fa-map-marker-check"></i> VIRTUAL</span>
-            </div>
-            <div class="day">
-                <span class="number-day">31</span>
-                <span class="month-day">MAY</span>
-                <span class="time-day">09:00</span>
+    <ng-container *ngFor="let e of eventos">
+        <div class="cal-day day31" *ngIf="!categoriaSelected || categoriaSelected === e.idCategoria || categoriaSelected === 'ALL'">
+            <div class="item-day">
+                <div class="picprev"  [style.background-image]="'url(' + (routeFicheros + e.foto + '?alt=media')   + ')'"></div>
+                <div class="cal-info">
+                    <span class="cal-title">{{ e.titulo }}</span>
+                    <span class="cal-extr"><i class="fal fa-map-marker-check"></i> {{ e.lugar }}</span>
+                </div>
+                <div class="day">
+                    <i class="fas fa-star resEvent" *ngIf="e.resaltado"></i>
+                    <span class="number-day">{{ e.day }}</span>
+                    <span class="month-day">{{ e.monthIn }}</span>
+                    <span class="time-day">{{ e.hora }}</span>
+                </div>
             </div>
         </div>
-    </div>
+    </ng-container>
 </ng-template>
 <ng-template #filterArticle>
     <div class="filter">
         <div class="sbox">
-            <mat-form-field appearance="outline" style="margin-right: 20px;">
-                <mat-label>Ordenar por</mat-label>
-                <mat-select>
-                    <mat-option>Date</mat-option>
-                    <mat-option>A-Z</mat-option>
-                    <mat-option>Z-A</mat-option>
-                </mat-select>
-            </mat-form-field>
-    
             <mat-form-field appearance="outline">
-                <mat-label>Categorias</mat-label>
-                <mat-select>
-                    <mat-option>A-Z</mat-option>
-                    <mat-option>Z-A</mat-option>
+                <mat-label>Categories</mat-label>
+                <mat-select [(ngModel)]="categoriaSelected">
+                    <mat-option [value]="'ALL'">SHOW ALL</mat-option>
+                    <mat-option *ngFor="let cat of categorias" [value]="cat._id">{{ cat.detalleEN }}</mat-option>
                 </mat-select>
             </mat-form-field>
-        </div>
-        <div class="btn-find">
-            <button mat-stroked-button class="btn-dark">FILTRAR</button>
         </div>
     </div>
 </ng-template>

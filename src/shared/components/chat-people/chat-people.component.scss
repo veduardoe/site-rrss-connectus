@@ -4,6 +4,7 @@
     margin-bottom: 25px;
 
     .chat-item{
+        position: relative;
         &.active{
             background: $darkBlue !important;
             *{
@@ -27,4 +28,15 @@
     position: absolute;
     top: 35px;
     right: 0px;
+}
+
+.loadingChat{
+    position: absolute;
+    right: 10px;
+    top:10px;
+}
+
+.usuSection{
+    max-height: 604px;
+    overflow-y: auto;
 }

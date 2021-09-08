@@ -19,7 +19,7 @@ export class MensajesService{
     }
 
     marcarMensajeVisto(idChat){
-        return this.http.post(ENV.BACKEND + '/mensajeria/crear-mensaje', { idChat }).toPromise();
+        return this.http.post(ENV.BACKEND + '/mensajeria/marcar-mensaje-visto', { idChat }).toPromise();
     }
 
     borrarChat(idChat){

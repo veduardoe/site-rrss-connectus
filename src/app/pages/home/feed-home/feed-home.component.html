@@ -27,7 +27,7 @@
         <div fxFlex="{{ utils.checkWidth720 ? '100%' : '300px' }}">
             <app-home-suggestions [titleCard]="'Connections Awaiting Response'" [data]="conexionesEspera"></app-home-suggestions>
             <app-simple-text></app-simple-text>
-            <app-incoming-events [limit]="3"></app-incoming-events>
+            <app-incoming-events [limit]="4" [eventos]="eventos"></app-incoming-events>
             <app-bar-picture></app-bar-picture>
         </div>
     </div>

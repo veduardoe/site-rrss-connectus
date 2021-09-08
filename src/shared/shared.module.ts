@@ -35,6 +35,7 @@ import 'froala-editor/js/plugins/fullscreen.min.js'
 import 'froala-editor/js/plugins/link.min.js'
 import 'froala-editor/js/plugins/lists.min.js'
 import { NgxPaginationModule } from 'ngx-pagination';
+import { EventosService } from './services/eventos.service';
 
 @NgModule({
     imports: [
@@ -74,7 +75,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     providers: [
         UserService,
         AuthService,
-        ConexionService
+        ConexionService, 
+        EventosService
     ],
     exports: [
         CommonModule,

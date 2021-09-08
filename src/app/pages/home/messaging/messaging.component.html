@@ -8,8 +8,14 @@
         <div fxFlex="100%">
             <div class="content-messaging" [ngClass]="{ 'noChat' : !curUsuarioDestino }">
                 <div class="head-msg" *ngIf="curUsuarioDestino">
+                    <!-- 
+                    <span class="closeChat" matRipple (click)="closeChat()">
+                        <mat-icon>close</mat-icon>
+                    </span>
+                    -->
                     <span class="prof-pic">
-                        <img *ngIf="curUsuarioDestino.foto" [src]="routeFotoPerfil + curUsuarioDestino.foto + '?alt=media'" />
+                        <img *ngIf="curUsuarioDestino.foto"
+                            [src]="routeFotoPerfil + curUsuarioDestino.foto + '?alt=media'" />
                         <img *ngIf="!curUsuarioDestino.foto" [src]="routeFotoPerfil + 'add-profile.jpg?alt=media'">
                     </span>
                     <span class="info">
@@ -18,17 +24,23 @@
                     </span>
                 </div>
                 <div class="list-messages">
-                    <ng-container *ngFor="let msg of curUsuarioDestino?.mensajes">
-                        <app-message-people [data]="msg"></app-message-people>
-
-                    </ng-container>
-                    <app-message-people [right]="true"></app-message-people>
-                    <app-message-people></app-message-people>
+                    <div *ngIf="curUsuarioDestino?.mensajes.length > 0">
+                        <ng-container
+                            *ngFor="let msg of curUsuarioDestino?.mensajes | paginate: { itemsPerPage: 4, currentPage: p }">
+                            <app-message-people [data]="msg"></app-message-people>
+                        </ng-container>
+                    </div>
+                    <p class="noChatText" *ngIf="!curUsuarioDestino">Find a connection and start messaging.</p>
                 </div>
-                <p class="noChatText" *ngIf="!curUsuarioDestino">Find a connection and start messaging.</p>
+
+            </div>
+            <div class="pagination" *ngIf="curUsuarioDestino?.mensajes.length > 4">
+                <pagination-controls (pageChange)="p = $event" [responsive]="true" [directionLinks]="true"
+                    [previousLabel]="'Previous'" [nextLabel]="'Next'">
+                </pagination-controls>
             </div>
             <div class="mt-30 write-feed" *ngIf="curUsuarioDestino">
-                <mat-form-field appearance="outline" class="full" >
+                <mat-form-field appearance="outline" class="full">
                     <textarea matInput maxlength="1000" [(ngModel)]="publishText" style="height:60px"
                         placeholder="Leave a message"></textarea>
                 </mat-form-field>

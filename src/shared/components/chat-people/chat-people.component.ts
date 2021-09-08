@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { Observable, Observer } from 'rxjs';
@@ -14,10 +14,10 @@ import { UtilsService } from 'src/shared/services/utils.service';
   selector: 'app-chat-people',
   templateUrl: './chat-people.component.html',
   styleUrls: ['./chat-people.component.scss',
-              '../home-suggestions/home-suggestions.component.scss',
-              '../header/header.component.scss']
+    '../home-suggestions/home-suggestions.component.scss',
+    '../header/header.component.scss']
 })
-export class ChatPeopleComponent implements OnInit {
+export class ChatPeopleComponent implements OnInit, OnDestroy {
 
   plcFocus = false;
   filterUsuarios: any;
@@ -28,14 +28,17 @@ export class ChatPeopleComponent implements OnInit {
   chatList = [];
   idCurUserChat;
   usuarioFromAuth;
+  mensajeSubscriber;
+  borrarMensajeSubscriber;
+
+  loading = false;
 
   @ViewChild('triggerUsuarios', { read: MatAutocompleteTrigger, static: false }) triggerUsuarios: MatAutocompleteTrigger;
-  @Output() usuarioSelected:EventEmitter<any> = new EventEmitter();
+  @Output() usuarioSelected: EventEmitter<any> = new EventEmitter();
 
   constructor(
     public utils: UtilsService,
     private authService: AuthService,
-    private userService: UserService,
     private conexionesService: ConexionService,
     private mensajesService: MensajesService
   ) { }
@@ -44,6 +47,25 @@ export class ChatPeopleComponent implements OnInit {
     this.setAutoComplete();
     this.getChats();
     this.usuarioFromAuth = this.authService.getAuthInfo();
+    this.mensajeSubscriber = this.utils.fnMensajeEmitter().get().subscribe( async (idChat:any) => {
+      await this.getChats();
+      const chatId = idChat.hasOwnProperty('fromInterval') ? idChat.idChat : idChat;
+      const fromInterval = idChat.hasOwnProperty('fromInterval');
+      const usu = this.chatList.find(item => item.idChat === chatId);
+      if(usu){
+        this.setUsuario(usu, fromInterval);
+      }
+    });
+
+    this.borrarMensajeSubscriber = this.utils.fnBorrarMensajeEmitter().get().subscribe( idChat => {
+      this.idCurUserChat = null;
+      this.borrarMensajeSubscriber.unsubscribe();
+    });
+
+  }
+
+  ngOnDestroy(){
+    this.mensajeSubscriber.unsubscribe();
   }
 
   setAutoComplete() {
@@ -51,7 +73,7 @@ export class ChatPeopleComponent implements OnInit {
     this.usuariosCtrl.valueChanges.pipe(
       debounceTime(500),
       tap(() => {
-          this.loadingUsuarios = true;
+        this.loadingUsuarios = true;
       }),
       switchMap(value => {
         if (value.length > 2) {
@@ -64,15 +86,15 @@ export class ChatPeopleComponent implements OnInit {
         }
       })
     ).subscribe((r: any) => {
-        this.filterUsuarios =  r?.data.map(item => {
-          item.usuario.idSolicitud = item._id;
-          item.usuario.detalle = `${item.usuario.nombres} ${item.usuario.apellidos}`;
-          return item.usuario;
-        });
-        this.loadingUsuarios = false;
-      }, () => {
-        this.loadingUsuarios = false;
+      this.filterUsuarios = r?.data.map(item => {
+        item.usuario.idSolicitud = item._id;
+        item.usuario.detalle = `${item.usuario.nombres} ${item.usuario.apellidos}`;
+        return item.usuario;
       });
+      this.loadingUsuarios = false;
+    }, () => {
+      this.loadingUsuarios = false;
+    });
 
   }
 
@@ -83,8 +105,8 @@ export class ChatPeopleComponent implements OnInit {
   usuarioSelection(e) {
     this.usuariosCtrl.setValue('');
     const usuario = e.option.value;
-    const usuCheck = this.chatList.find( item => item.id === usuario.id);
-    if(!usuCheck){
+    const usuCheck = this.chatList.find(item => item.id === usuario.id);
+    if (!usuCheck) {
       usuario.idChat = null;
       this.chatList.push(usuario);
     }
@@ -92,32 +114,41 @@ export class ChatPeopleComponent implements OnInit {
     this.usuarioSelected.emit(usuario)
   }
 
-  setUsuario(u){
+  async setUsuario(u, fromInterval = false) {
     this.idCurUserChat = u.id;
-    this.usuarioSelected.emit(u)
+    this.loading = true;
+    if(!fromInterval){
+      await this.mensajesService.marcarMensajeVisto(u.idChat);
+    }
+    u.nChatsNoLeidos = [];
+    this.loading = false;
+    this.usuarioSelected.emit(u);
   }
 
-  getChats(){
-    this.mensajesService.obtenerChats().then((res:any) => {
-      this.chatList = res.data.map( item => {
-        const usu = item.usuario;
-        usu[item.usuario.id] = item.usuario;
-        usu[this.usuarioFromAuth.id] = this.usuarioFromAuth;
-        usu.idChat = item._id;
-        usu.esDestino = item.idUsuarioDestino === this.usuarioFromAuth.id;
-        usu.detalle = `${usu.nombres} ${usu.apellidos}`;
-        usu.mensajes = item.mensajes.reverse().map( item => {
-          item.usuarioMsgDestino = usu[item.idUsuarioDestino];
-          item.usuarioMsgOrigen = usu[item.idUsuarioOrigen];
-          return item;
-          
+  getChats() {
+    return new Promise(resolve => {
+      this.mensajesService.obtenerChats().then((res: any) => {
+        this.chatList = res.data.map(item => {
+          const usu = item.usuario;
+          usu[item.usuario.id] = item.usuario;
+          usu[this.usuarioFromAuth.id] = this.usuarioFromAuth;
+          usu.idChat = item._id;
+          usu.detalle = `${usu.nombres} ${usu.apellidos}`;
+          usu.mensajes = item.mensajes.reverse().map(item => {
+            item.usuarioMsgDestino = usu[item.idUsuarioDestino];
+            item.usuarioMsgOrigen = usu[item.idUsuarioOrigen];
+            return item;
+          });
+          usu.nChatsNoLeidos = item.mensajes.filter(itmesg => {
+            return !itmesg.vistoDestino && itmesg.idUsuarioDestino === this.usuarioFromAuth.id;
+          });
+          return item.usuario;
         });
-        usu.nChatsNoLeidos = item.mensajes.filter( itmesg => {
-            return usu.esDestino && !itmesg.vistoDestino;
-        });
-        return item.usuario;
-      });
+        resolve(true);
+      }).catch(err => resolve(true));
     });
+
   }
+    
 
 }

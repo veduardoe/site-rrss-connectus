@@ -20,7 +20,6 @@
                                    </div>
                                </div>
                            </mat-option>
-      
                        </mat-autocomplete>
                        <mat-progress-spinner matSuffix [diameter]="20" mode="indeterminate" color="primary" *ngIf="loadingUsuarios">
                        </mat-progress-spinner>
@@ -28,19 +27,26 @@
             </mat-form-field>
         </div>
         <div class="no-results" *ngIf="chatList.length === 0">No active chats</div>
-        <ng-container *ngFor="let usu of chatList">
-            <div class="item-sug chat-item active" matRipple [ngClass]="{ 'active' : idCurUserChat === usu.id }" (click)="setUsuario(usu)">
-                <span class="prof-pic">
-                    <img *ngIf="usu.foto" [src]="routeFotoPerfil + usu.foto + '?alt=media'" />
-                    <img *ngIf="!usu.foto" [src]="routeFotoPerfil + 'add-profile.jpg?alt=media'">
-                    <span class="qtychats" *ngIf="usu.nChatsNoLeidos?.length > 0"> {{ usu.nChatsNoLeidos?.length > 9 ? '+9' : usu.nChatsNoLeidos?.length }}</span>
-                </span>
-                <span class="info">
-                    <span class="prof-name">{{ usu.detalle }}</span>
-                    <span class="prof-extra">{{ usu.summary }}</span>
-                </span>
-            </div>
-        </ng-container>
+        <div class="usuSection">
+            <ng-container *ngFor="let usu of chatList">
+                <div class="item-sug chat-item active" matRipple [ngClass]="{ 'active' : idCurUserChat === usu.id }" (click)="setUsuario(usu)">
+                    <div class="loadingChat" *ngIf="idCurUserChat === usu.id && loading">
+                        <mat-progress-spinner [diameter]="20" mode="indeterminate" color="primary">
+                        </mat-progress-spinner>
+                    </div>
+                    <span class="prof-pic">
+                        <img *ngIf="usu.foto" [src]="routeFotoPerfil + usu.foto + '?alt=media'" />
+                        <img *ngIf="!usu.foto" [src]="routeFotoPerfil + 'add-profile.jpg?alt=media'">
+                        <span class="qtychats" *ngIf="usu.nChatsNoLeidos?.length > 0"> {{ usu.nChatsNoLeidos?.length > 9 ? '+9' : usu.nChatsNoLeidos?.length }}</span>
+                    </span>
+                    <span class="info">
+                        <span class="prof-name">{{ usu.detalle }}</span>
+                        <span class="prof-extra">{{ usu.summary }}</span>
+                    </span>
+                </div>
+            </ng-container>
+
+        </div>
 
     </div>
 </div>

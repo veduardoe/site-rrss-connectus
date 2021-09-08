@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-incoming-events',
@@ -9,7 +9,9 @@ import { Component, Input, OnInit } from '@angular/core';
 export class IncomingEventsComponent implements OnInit {
 
   @Input() limit = 4;
-
+  @Input() eventos = [];
+  @Input() fromHome = true;
+  
   constructor() { }
 
   ngOnInit(): void {

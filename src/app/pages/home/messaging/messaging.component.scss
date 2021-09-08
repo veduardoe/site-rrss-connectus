@@ -3,7 +3,7 @@
 .content-messaging{
     border:1px solid #ddd;
     margin-top: 30px;
-    min-height: 600px;
+    min-height: 757px;
     background: #fff;
     border-radius: 15px;
     overflow: hidden;
@@ -15,6 +15,7 @@
     align-items: center;
     padding: 5px 20px;
     background: $darkBlue;
+    position: relative;
 
     .info{
         color:#fff !important;
@@ -87,4 +88,14 @@
         color: #ccc;
         font-size: 22px;
     }
+}
+
+.pagination{
+    text-align: center;
+}
+.closeChat{
+    color: #fff;
+    position: absolute;
+    right: 20px;
+    cursor: pointer;
 }
