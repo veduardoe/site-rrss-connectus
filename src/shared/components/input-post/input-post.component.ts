@@ -5,6 +5,8 @@ import { UtilsService } from 'src/shared/services/utils.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CommonService } from 'src/shared/services/common.service';
 import { ENV } from 'src/environments/environment';
+import * as $ from 'jquery';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
   selector: 'app-input-post',
@@ -30,7 +32,26 @@ export class InputPostComponent implements OnInit, OnChanges {
   limitText;
   loadedEditor = false;
   categorias = [];
+  displayEmoji = false;
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+    spellcheck: false,
+    height: 'auto',
+    minHeight: '200px',
+    maxHeight: 'auto',
+    width: 'auto',
+    minWidth: '0',
+    translate: 'no',
+    enableToolbar: false,
+    showToolbar: true,
+    sanitize: true,
+    toolbarPosition: 'top',
+    toolbarHiddenButtons:[ 
+      ['fontName', 'outdent','indent', 'heading'],
+      ['fontSize', 'textColor', 'backgroundColor', 'insertVideo',
+      'customClasses','toggleEditorMode','removeFormat', 'insertImage']]
 
+  };
 
   @Output() postSaved: EventEmitter<any> = new EventEmitter();
 
@@ -55,19 +76,19 @@ export class InputPostComponent implements OnInit, OnChanges {
     document.getElementById(id).click();
   }
 
-  setDataToUpdate(){
+  setDataToUpdate() {
 
-    if(this.data){
+    if (this.data) {
 
       this.publishText = this.data.detalle;
       this.publishTitulo = this.data.titulo;
       this.publishCategoria = this.data.idCategoria;
 
-      let imagenes = this.data.ficheros.filter( item => {
+      let imagenes = this.data.ficheros.filter(item => {
         return item.type === 'pic';
       });
 
-      imagenes = imagenes.map( item => {
+      imagenes = imagenes.map(item => {
         item.displayImg = this.routeFicheros + item.file + '?alt=media';
         item.uploaded = true;
         return item;
@@ -110,7 +131,7 @@ export class InputPostComponent implements OnInit, OnChanges {
     let size = Math.round((file['size'] / 1000) * 100) / 100;
     const idtxt = id === 'imagenes' ? 'imágenes' : 'ficheros';
 
-    if (size < 1000) {
+    if (size < 6000) {
 
       reader.readAsDataURL(file);
       reader.onload = () => {
@@ -148,7 +169,7 @@ export class InputPostComponent implements OnInit, OnChanges {
         }
       };
     } else {
-      this.utils.fnMessage("Some " + idtxt + " couldn't be loaded because of size over 1MB");
+      this.utils.fnMessage("Some " + idtxt + " couldn't be loaded because of size over 6MB");
     }
 
   }
@@ -169,7 +190,7 @@ export class InputPostComponent implements OnInit, OnChanges {
 
     const fich: any = this.listadoFicheros.concat(this.listadoImagenes);
     fich.forEach((val, key) => {
-      delete val.displayImg; 
+      delete val.displayImg;
       delete val.image;
       delete val.thumbImage;
       delete val.filex;
@@ -181,12 +202,12 @@ export class InputPostComponent implements OnInit, OnChanges {
       return;
     }
 
-    if(this.isArticle && this.publishCategoria.trim() === ''){
+    if (this.isArticle && this.publishCategoria.trim() === '') {
       this.utils.fnMainDialog('Error', "You must select a category", 'message')
       return;
     }
 
-    if(this.isArticle && this.publishTitulo.trim() === ''){
+    if (this.isArticle && this.publishTitulo.trim() === '') {
       this.utils.fnMainDialog('Error', "You must write a title of article", 'message')
       return;
     }
@@ -214,6 +235,7 @@ export class InputPostComponent implements OnInit, OnChanges {
         this.loading = false;
         this.clearInputPost();
         this.postSaved.emit(true);
+        this.displayEmoji = false;
       }, 1500);
 
     }).catch(err => {
@@ -237,4 +259,12 @@ export class InputPostComponent implements OnInit, OnChanges {
     moveItemInArray(this.listadoImagenes, event.previousIndex, event.currentIndex);
   }
 
-}
+  emojiSelected(e) {
+    const cursorPosition = $('#inputText').prop("selectionStart");
+    const nStrText = this.publishText.length;
+    this.publishText = this.publishText.substr(0, cursorPosition) + e + this.publishText.substr(cursorPosition, nStrText);
+    $('#inputText').focus();
+  }
+
+}  
+

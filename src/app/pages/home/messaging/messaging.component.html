@@ -23,36 +23,46 @@
                         <span class="prof-extra">{{ curUsuarioDestino.summary }}</span>
                     </span>
                 </div>
-                <div class="list-messages">
-                    <div *ngIf="curUsuarioDestino?.mensajes.length > 0">
-                        <ng-container
-                            *ngFor="let msg of curUsuarioDestino?.mensajes | paginate: { itemsPerPage: 4, currentPage: p }">
-                            <app-message-people [data]="msg"></app-message-people>
-                        </ng-container>
+                <div class="list-messages" [ngClass]="{ 'centerFlex' : !curUsuarioDestino, 'hide' : !loadingChat }" id="chatList">
+                    <div id="contMessage">
+                        <div *ngIf="curUsuarioDestino?.mensajes?.length > 0">
+                            <ng-container
+                                *ngFor="let msg of curUsuarioDestino?.mensajes; let i = index">
+                                <app-message-people [from]="'CHAT'" [data]="msg"></app-message-people>
+                            </ng-container>
+                        </div>
                     </div>
-                    <p class="noChatText" *ngIf="!curUsuarioDestino">Find a connection and start messaging.</p>
-                </div>
 
-            </div>
-            <div class="pagination" *ngIf="curUsuarioDestino?.mensajes.length > 4">
-                <pagination-controls (pageChange)="p = $event" [responsive]="true" [directionLinks]="true"
-                    [previousLabel]="'Previous'" [nextLabel]="'Next'">
-                </pagination-controls>
-            </div>
-            <div class="mt-30 write-feed" *ngIf="curUsuarioDestino">
-                <mat-form-field appearance="outline" class="full">
-                    <textarea matInput maxlength="1000" [(ngModel)]="publishText" style="height:60px"
-                        placeholder="Leave a message"></textarea>
-                </mat-form-field>
-                <div class="action">
-                    <span class="countint">
-                        {{ publishText.length }}/1000</span>
-                    <button mat-stroked-button class="btn btn-light-filled" (click)="postMessage()">
-                        SEND
-                        <i class="fad fa-paper-plane"></i>
-                    </button>
+      
+                </div>
+                <p class="noChatText" *ngIf="!curUsuarioDestino">Find a connection and start messaging.</p>
+
+
+                <div *ngIf="curUsuarioDestino" class="write-feed">
+                    <mat-form-field appearance="outline" class="full">
+                        <textarea matInput maxlength="1000" [(ngModel)]="publishText" style="height:60px" id="inputText"
+                            placeholder="Leave a message"></textarea>
+                    </mat-form-field>
+                    <app-emojis-picker (emojiSelected)="emojiSelected($event)" *ngIf="displayEmoji"></app-emojis-picker>
+
+                    <div class="action">
+                        <span class="countint">
+                            {{ publishText.length }}/1000</span>
+                            <div>
+                                <button mat-icon-button class="btn isEmojiBtn" (click)="showEmojis()">
+                                    <i class="fal fa-smile-beam"></i>
+                                </button>
+
+                                <button mat-stroked-button class="btn btn-light-filled" (click)="postMessage()">
+                                    SEND
+                                    <i class="fad fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        
+                    </div>
                 </div>
             </div>
+            
         </div>
 
 

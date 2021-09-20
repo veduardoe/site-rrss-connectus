@@ -35,14 +35,14 @@
                 <div class="input-form" [ngClass]="{ 'invalid' : loginData.usuarioError }"
                     style="margin-bottom:0px !important">
                     <label>USERNAME OR EMAIL</label>
-                    <input type="text" [(ngModel)]="loginData.usuario" (keyup)="restoreValidation('usuarioError')">
+                    <input type="text" [(ngModel)]="loginData.usuario" (keyup)="restoreValidation('usuarioError', $event)">
                     <span class="alert">{{ loginData.usuarioMsg }}</span>
                 </div>
             </div>
             <div fxFlex="100%">
                 <div class="input-form" [ngClass]="{ 'invalid' : loginData.claveError }">
                     <label>PASSWORD</label>
-                    <input type="password" [(ngModel)]="loginData.clave" (keyup)="restoreValidation('claveError')"
+                    <input type="password" [(ngModel)]="loginData.clave" (keyup)="restoreValidation('claveError', $event)"
                         maxlength="15">
                     <span class="alert">{{ loginData.claveMsg }}</span>
                 </div>

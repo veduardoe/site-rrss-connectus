@@ -1,7 +1,8 @@
-import { Component, Input, OnChanges, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { AuthService } from 'src/shared/services/auth.service';
 import { PostsService } from 'src/shared/services/posts.service';
 import { UtilsService } from 'src/shared/services/utils.service';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-comments',
@@ -13,6 +14,7 @@ export class CommentsComponent implements OnInit, OnChanges {
   publishText = '';
   comentarios = [];
   loading = false;
+  displayEmoji = false;
   myInfo;
   p = 1;
 
@@ -74,8 +76,22 @@ export class CommentsComponent implements OnInit, OnChanges {
       if (res.response) {
         this.getComments();
         this.publishText = '';
-        this.utils.fnMessage("Comment added succesfully.")
+        this.utils.fnMessage("Comment added succesfully.");
+        this.displayEmoji = false;
+      }else{
+        this.utils.fnMainDialog('Error', 'There was an error. Try again later!', 'message');
       }
+    }).catch( err => {
+      this.utils.fnMainDialog('Error', 'There was an error. Try again later!', 'message');
     });
   }
+
+  emojiSelected(e) {
+    const cursorPosition = $('#inputText').prop("selectionStart");
+    const nStrText = this.publishText.length;
+    this.publishText = this.publishText.substr(0, cursorPosition) + e + this.publishText.substr(cursorPosition, nStrText);
+    $('#inputText').focus();
+  }
+
+  
 }

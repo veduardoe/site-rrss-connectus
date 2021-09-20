@@ -4,6 +4,7 @@ import { UtilsService } from 'src/shared/services/utils.service';
 import jwt_decode from "jwt-decode";
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { W } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-login',
@@ -57,8 +58,11 @@ export class LoginComponent implements OnInit {
     this.clearLogin();
   }
 
-  restoreValidation(item) {
+  restoreValidation(item, e = null) {
     this.loginData[item] = false;
+    if(e && e.which === 13){
+      this.login();
+    }
   }
 
   clearLogin(){

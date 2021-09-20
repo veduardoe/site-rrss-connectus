@@ -16,7 +16,7 @@
 
 .qtychats{
     font-size: 12px;
-    background:$lightBlue;
+    background:red;
     width: 20px;
     height: 20px;
     display: flex;
@@ -37,6 +37,14 @@
 }
 
 .usuSection{
-    max-height: 604px;
+    max-height: 466px;
     overflow-y: auto;
+}
+
+.prof-name{
+    font-size: 14px !important;
+}
+
+.prof-extra{
+    font-size: 12px !important;
 }

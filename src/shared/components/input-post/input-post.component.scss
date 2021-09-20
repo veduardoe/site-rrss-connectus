@@ -159,3 +159,40 @@
         }
     }
 }
+
+
+.isEmojiBtn{
+    font-size: 25px;
+    position: relative;
+    top: 5px;
+    margin-right: 5px;
+    color:$lightBlue;
+ }
+
+ ::ng-deep{
+    .angular-editor-toolbar{
+        background:$lightBlue !important;
+        padding: 10px !important;
+        border-radius: 7px !important;
+        text-align: center;
+        button{
+            color:#fff !important;
+            background:transparent !important;
+            border: 1px $lightBlue solid !important;
+            &:hover, &.active{
+                background:#fff !important;
+                color:$lightBlue !important;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .angular-editor-textarea{
+        font-size: 14px !important;
+        font-weight: 400 !important;
+        padding: 20px !important;
+        margin-top: 20px !important;
+        border-radius: 7px !important;
+    }
+ }
+ 

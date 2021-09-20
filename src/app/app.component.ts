@@ -23,10 +23,9 @@ export class AppComponent implements OnInit {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         const top = $(window).scrollTop();
+        $("body, html").scrollTop(0)
        // if(top >= 100){
-          $("body, html").animate({
-            scrollTop: 0
-          },1000)
+          
         //}
       }
     });
@@ -34,14 +33,14 @@ export class AppComponent implements OnInit {
 
   @HostListener('window:scroll', [])
   onScroll(): void {
-    const top = $(window).scrollTop();
+  /*  const top = $(window).scrollTop();
     if (top > 0 || window.innerWidth <= 720) {
       $("header").addClass("fixed");
       $("#content-router").addClass("header-fixed");
     } else {
       $("header").removeClass("fixed");
       $("#content-router").removeClass("header-fixed");
-    }
+    }*/
   }
 
 }

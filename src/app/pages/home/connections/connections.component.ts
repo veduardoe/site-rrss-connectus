@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ENV } from 'src/environments/environment';
 import { ConexionService } from 'src/shared/services/conexion.service';
+import { EventosService } from 'src/shared/services/eventos.service';
 import { UtilsService } from 'src/shared/services/utils.service';
 
 @Component({
@@ -17,15 +18,18 @@ export class ConnectionsComponent implements OnInit {
   findAConnectionStr = '';
   actionView = 1;
   loading = false;
+  eventos = [];
   p = 1;
 
   constructor(
     public utils: UtilsService,
-    private conexionesService: ConexionService
+    private conexionesService: ConexionService,
+    public eventosService: EventosService
   ) { }
 
   ngOnInit(): void {
     this.getConexiones();
+    this.getEventos();
   }
 
   getConexiones() {
@@ -109,4 +113,10 @@ export class ConnectionsComponent implements OnInit {
             item.usuario.toLowerCase().includes(str) || str === ''
     })
   } 
+
+  getEventos() {
+    this.eventosService.obtenerEventos().then((ev: any) => {
+      this.eventos = this.utils.procesarEventosLateral(ev.data);
+    });
+  }
 }

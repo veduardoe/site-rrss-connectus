@@ -28,14 +28,11 @@ import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
 import { ConexionService } from './services/conexion.service';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
-import 'froala-editor/js/plugins/align.min.js'
-import 'froala-editor/js/plugins/char_counter.min.js'
-import 'froala-editor/js/plugins/fullscreen.min.js'
-import 'froala-editor/js/plugins/link.min.js'
-import 'froala-editor/js/plugins/lists.min.js'
 import { NgxPaginationModule } from 'ngx-pagination';
 import { EventosService } from './services/eventos.service';
+import { EmojisPickerComponent } from './components/emojis-picker/emojis-picker.component';
+import { AngularEmojisModule } from 'angular-emojis';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({
     imports: [
@@ -47,10 +44,11 @@ import { EventosService } from './services/eventos.service';
         ReactiveFormsModule,
         RouterModule,
         LightgalleryModule,
-        FroalaEditorModule.forRoot(), 
-        FroalaViewModule.forRoot(),
         DragDropModule ,
-        NgxPaginationModule
+        NgxPaginationModule,
+        AngularEmojisModule,
+        AngularEditorModule 
+
     ],
     declarations: [
         HeaderProfileComponent,
@@ -70,7 +68,8 @@ import { EventosService } from './services/eventos.service';
         HomeSliderComponent,
         SimpleTextComponent,
         HomeArticlesComponent,
-        CommentsComponent
+        CommentsComponent,
+        EmojisPickerComponent,
     ],
     providers: [
         UserService,
@@ -103,9 +102,10 @@ import { EventosService } from './services/eventos.service';
         SimpleTextComponent,
         HomeArticlesComponent,
         CommentsComponent,
-        FroalaEditorModule, 
-        FroalaViewModule,
-        DragDropModule 
+        DragDropModule,
+        AngularEmojisModule,
+        EmojisPickerComponent,
+        AngularEditorModule 
     ]
 })
 export class SharedModule { }

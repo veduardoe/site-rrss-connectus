@@ -53,5 +53,6 @@ export class ArticlesComponent implements OnInit {
      this.articlesFiltered = this.articles.filter( item => {
        return item.idCategoria === idCategoria || idCategoria === 'ALL';
      });
+     this.p = 1;
   }
 }

@@ -3,6 +3,7 @@ import { ENV } from 'src/environments/environment';
 import { AuthService } from 'src/shared/services/auth.service';
 import { MensajesService } from 'src/shared/services/mensajes.service';
 import { UtilsService } from 'src/shared/services/utils.service';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-messaging',
@@ -18,6 +19,9 @@ export class MessagingComponent implements OnInit, OnDestroy {
   routeFotoPerfil = ENV.FOTOS_PERFIL;
   curIdChat;
   intervalChat;
+  loadingChat = false;
+  posted = false;
+  displayEmoji = false;
   p = 1;
 
   constructor(
@@ -35,10 +39,35 @@ export class MessagingComponent implements OnInit, OnDestroy {
     clearInterval(this.intervalChat);
   }
 
-  usuarioSelected(u) {
-    this.curUsuarioDestino = u;
-    this.curIdChat = u.idChat;
+  usuarioSelected(data) {
+    this.curUsuarioDestino = data.u;
+    this.curIdChat = data.u.idChat;
+    if(data.fromInterval){
+      if(data.u.nChatsNoLeidos.length > 0){
+        this.scrollContent();
+      }
+    }else{
+      setTimeout(()=> {
+        this.posted ? this.scrollContent() : this.scrollContent(false);
+        this.posted = false;
+      },500);
+      setTimeout(()=> {
+        this.loadingChat = true;
+      },1000);
+    }
+
   }
+
+  scrollContent(withAnimate = true){
+    const contMesHei = $('#contMessage').height();
+    if(withAnimate){
+      $("#chatList").animate({
+        scrollTop: contMesHei
+      },1000);
+    }else{
+      $("#chatList").scrollTop(contMesHei);
+    }
+  } 
 
   postMessage() {
     const data = {
@@ -49,6 +78,7 @@ export class MessagingComponent implements OnInit, OnDestroy {
       this.publishText = '';
       this.utils.fnMessage('Message sent!')
       this.curIdChat = res.data;
+      this.posted = true;
       this.utils.fnMensajeEmitter().set(this.curIdChat);
     });
   }
@@ -56,7 +86,7 @@ export class MessagingComponent implements OnInit, OnDestroy {
   setUpdateAsync() {
     this.intervalChat = setInterval(() => {
       this.utils.fnMensajeEmitter().set({ fromInterval: true, idChat: this.curIdChat });
-    }, 60000);
+    }, 6000);
   }
 
   closeChat(){
@@ -70,4 +100,16 @@ export class MessagingComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  emojiSelected(e){
+    const cursorPosition = $('#inputText').prop("selectionStart");
+    const nStrText = this.publishText.length;
+    this.publishText = this.publishText.substr(0, cursorPosition) + e + this.publishText.substr(cursorPosition, nStrText);
+    $('#inputText').focus();
+  }
+
+  showEmojis(){
+    this.displayEmoji = !this.displayEmoji;
+  }
+  
 }

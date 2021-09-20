@@ -13,16 +13,6 @@
                         <app-post-item-article [data]="art" (updateEvent)="getArticles()"></app-post-item-article>
                     </div>
                 </div>
-
-                <div class="pagination" *ngIf="articlesFiltered.length > 4">
-                    <pagination-controls 
-                        (pageChange)="p = $event"  
-                        [responsive]="true"
-                        [directionLinks]="true"
-                        [previousLabel]="'Previous'"
-                        [nextLabel]="'Next'">
-                    </pagination-controls>
-                </div>
             </div>
             <p class="no-results" *ngIf="!loading && articlesFiltered.length === 0">No results to show</p>
 
@@ -47,9 +37,19 @@
                 </mat-select>
             </mat-form-field>
 
-        </div>
-        <div class="btn-find">
             <button mat-stroked-button class="btn btn-light-outline" [routerLink]="['/home/articles/view']" [queryParams]="{curView: 'create'}">CREATE ARTICLE</button>
+
+
+        </div>
+        <div class="btn-find" *ngIf="articlesFiltered.length > 4">
+            <pagination-controls 
+                (pageChange)="p = $event"  
+                [responsive]="true"
+                [directionLinks]="true"
+                [previousLabel]="''"
+                [nextLabel]="''">
+            </pagination-controls>
+
         </div>
     </div>
 </ng-template>

@@ -1,3 +1,5 @@
+@import "src/assets/theming/global.scss";
+
 .list-comments{
     padding: 20px;
     border:1px solid #ddd;
@@ -7,3 +9,11 @@
 .pagination{
     text-align: center;
 }
+
+.isEmojiBtn{
+    font-size: 25px;
+    position: relative;
+    top: 5px;
+    margin-right: 5px;
+    color:$lightBlue;
+ }

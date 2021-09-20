@@ -22,7 +22,7 @@
         </div>
     </div>
     <mat-form-field appearance="outline" class="full" *ngIf="!isArticle">
-        <textarea matInput maxlength="{{ limitText }}" [(ngModel)]="publishText" placeholder="{{ placeholder }}"
+        <textarea matInput maxlength="{{ limitText }}" [(ngModel)]="publishText" placeholder="{{ placeholder }}" id="inputText"
             [ngStyle]="{ 'height': isArticle ? '250px' : '50px'}"></textarea>
     </mat-form-field>
 
@@ -66,21 +66,28 @@
             </div>
         </div>
     </div>
-    <div [froalaEditor] [(froalaModel)]="publishText" *ngIf="isArticle"></div>
+
+    <angular-editor [(ngModel)]="publishText" [config]="editorConfig" *ngIf="isArticle"></angular-editor>
+     {{ publishText }}
+    <app-emojis-picker (emojiSelected)="emojiSelected($event)" *ngIf="displayEmoji"></app-emojis-picker>
 
     <div class="actions">
         <div fxLayout="row wrap" fxLayoutAlign="space-between">
-            <div fxFlex="50%">
+            <div fxFlex="20%">
                 <span class="countint" [ngClass]="{ 'exceed' : publishText.length > limitText }" *ngIf="!isArticle">
                     {{ publishText.length }}/{{ limitText }}</span>
             </div>
-            <div fxFlex="50%" class="sec-ac">
+            <div fxFlex="80%" class="sec-ac">
 
                 <input type="file" id="ficheros" (change)="fileChange($event, 'ficheros')"
                     accept=".pdf, .doc, .docx, .xls, .xlsx" hidden multiple>
 
                 <input type="file" id="imagenes" (change)="fileChange($event, 'imagenes')"
                     accept=".jpg, .png, .jpeg, .gif" hidden multiple>
+
+                <button mat-icon-button class="btn isEmojiBtn" (click)="displayEmoji = !displayEmoji" *ngIf="!isArticle">
+                    <i class="fal fa-smile-beam"></i>
+                </button>
 
                 <button mat-stroked-button class="btn btn-light-outline"
                     *ngIf="listadoFicheros.length < 5 && !isArticle" (click)="openInputFile('ficheros')">

@@ -11,6 +11,8 @@ export class MessagePeopleComponent implements OnInit {
 
   @Input() right = false;
   @Input() data;
+  @Input() from;
+  
   routeFotoPerfil = ENV.FOTOS_PERFIL;
   myInfo;
 
@@ -22,5 +24,6 @@ export class MessagePeopleComponent implements OnInit {
     this.myInfo = this.authService.getAuthInfo();
 
   }
+
 
 }

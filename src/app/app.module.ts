@@ -18,7 +18,6 @@ import { MAT_DATE_FORMATS } from '@angular/material/core';
 import localeES from '@angular/common/locales/es';
 import localeEN from '@angular/common/locales/en';
 import { NgImageSliderModule } from 'ng-image-slider';
-
 let LOCALE_ES = 'es-ES';
 let LOCALE_EN = 'en-US';
 let GLOBAL_LOCALE = '';
@@ -43,7 +42,7 @@ if(localStorage.getItem('globalLanguage') === 'ES'){
     HammerModule,
     AppRouting,
     SharedModule,
-    NgImageSliderModule
+    NgImageSliderModule,
   ],
   providers: [
     UtilsService,

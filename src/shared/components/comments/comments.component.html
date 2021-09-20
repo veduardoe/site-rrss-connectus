@@ -1,9 +1,18 @@
 <div class="list-comments">
     <span>Comments</span>
     <mat-form-field appearance="outline" class="full" style="margin-top: 20px;">
-        <textarea matInput maxlength="1000" [(ngModel)]="publishText" placeholder="Leave a comment" style="height: 50px;"></textarea>
+        <textarea matInput maxlength="1000" [(ngModel)]="publishText" placeholder="Leave a comment" style="height: 50px;" id="inputText"></textarea>
     </mat-form-field>
+
+    <div *ngIf="displayEmoji" style="margin-bottom: 20px;">
+        <app-emojis-picker (emojiSelected)="emojiSelected($event)" ></app-emojis-picker>
+    </div>
+
     <div class="actions right" style="margin-top: 0px !important;">
+        <button mat-icon-button class="btn isEmojiBtn" (click)="displayEmoji = !displayEmoji" >
+            <i class="fal fa-smile-beam"></i>
+        </button>
+
         <button mat-stroked-button class="btn btn-light-filled" (click)="postComment()">
             SEND
             <i class="fad fa-paper-plane"></i>
@@ -13,7 +22,7 @@
     <br />
     <mat-progress-spinner [diameter]="40" mode="indeterminate" color="primary" *ngIf="loading"></mat-progress-spinner>
    
-    <app-message-people [data]="com" *ngFor="let com of comentarios | paginate: { itemsPerPage: 10, currentPage: p };"></app-message-people>
+    <app-message-people [from]="'COMMENT'" [data]="com" *ngFor="let com of comentarios | paginate: { itemsPerPage: 10, currentPage: p };"></app-message-people>
 
     <div class="pagination" *ngIf="comentarios.length > 10">
         <pagination-controls 

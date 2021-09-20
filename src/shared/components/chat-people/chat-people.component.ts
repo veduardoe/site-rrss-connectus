@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { Observable, Observer } from 'rxjs';
-import { debounceTime, switchMap, tap } from 'rxjs/operators';
+import { debounceTime, map, startWith, switchMap, tap } from 'rxjs/operators';
 import { ENV } from 'src/environments/environment';
 import { AuthService } from 'src/shared/services/auth.service';
 import { ConexionService } from 'src/shared/services/conexion.service';
@@ -47,6 +47,7 @@ export class ChatPeopleComponent implements OnInit, OnDestroy {
     this.setAutoComplete();
     this.getChats();
     this.usuarioFromAuth = this.authService.getAuthInfo();
+
     this.mensajeSubscriber = this.utils.fnMensajeEmitter().get().subscribe( async (idChat:any) => {
       await this.getChats();
       const chatId = idChat.hasOwnProperty('fromInterval') ? idChat.idChat : idChat;
@@ -69,32 +70,27 @@ export class ChatPeopleComponent implements OnInit, OnDestroy {
   }
 
   setAutoComplete() {
+    let conexiones = [];
 
-    this.usuariosCtrl.valueChanges.pipe(
-      debounceTime(500),
-      tap(() => {
-        this.loadingUsuarios = true;
-      }),
-      switchMap(value => {
-        if (value.length > 2) {
-          return this.conexionesService.misConexiones();
-        } else {
-          return new Observable((observer: Observer<any>) => {
-            observer.next({ data: [] })
-            observer.complete();
-          });
-        }
-      })
-    ).subscribe((r: any) => {
-      this.filterUsuarios = r?.data.map(item => {
+    this.conexionesService.misConexiones().then((r:any) => {
+      conexiones = r?.data.map(item => {
         item.usuario.idSolicitud = item._id;
         item.usuario.detalle = `${item.usuario.nombres} ${item.usuario.apellidos}`;
         return item.usuario;
       });
-      this.loadingUsuarios = false;
-    }, () => {
-      this.loadingUsuarios = false;
+
+      this.filterUsuarios = this.usuariosCtrl.valueChanges.pipe(
+        startWith(''),
+        map(value => {
+          return conexiones.filter( item => {
+            return item.detalle.toLowerCase().includes(value.toLowerCase())
+          });
+        })
+      );
+      
     });
+
+    
 
   }
 
@@ -111,18 +107,16 @@ export class ChatPeopleComponent implements OnInit, OnDestroy {
       this.chatList.push(usuario);
     }
     this.idCurUserChat = usuario.id;
-    this.usuarioSelected.emit(usuario)
+    this.usuarioSelected.emit({ u: usuario, fromInterval : false})
   }
 
   async setUsuario(u, fromInterval = false) {
     this.idCurUserChat = u.id;
-    this.loading = true;
-    if(!fromInterval){
-      await this.mensajesService.marcarMensajeVisto(u.idChat);
-    }
+    //this.loading = true;
+    await this.mensajesService.marcarMensajeVisto(u.idChat);
+    //this.loading = false;
+    this.usuarioSelected.emit({u, fromInterval});
     u.nChatsNoLeidos = [];
-    this.loading = false;
-    this.usuarioSelected.emit(u);
   }
 
   getChats() {
@@ -134,7 +128,7 @@ export class ChatPeopleComponent implements OnInit, OnDestroy {
           usu[this.usuarioFromAuth.id] = this.usuarioFromAuth;
           usu.idChat = item._id;
           usu.detalle = `${usu.nombres} ${usu.apellidos}`;
-          usu.mensajes = item.mensajes.reverse().map(item => {
+          usu.mensajes = item.mensajes.map(item => {
             item.usuarioMsgDestino = usu[item.idUsuarioDestino];
             item.usuarioMsgOrigen = usu[item.idUsuarioOrigen];
             return item;

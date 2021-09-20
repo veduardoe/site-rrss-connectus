@@ -10,7 +10,7 @@
                     #triggerUsuarios="matAutocompleteTrigger" [matAutocomplete]="auto" autocomplete="off" />
                     <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayTextAutocomplete" (optionSelected)="usuarioSelection($event)">
                         <div class="layerl" *ngIf="loadingUsuarios"></div>
-                           <mat-option class="hvac" *ngFor="let usu of filterUsuarios" [value]="usu">
+                           <mat-option class="hvac" *ngFor="let usu of filterUsuarios | async" [value]="usu">
                                <div class="viewac">
                                    <img *ngIf="usu.foto" [src]="routeFotoPerfil + usu.foto + '?alt=media'" />
                                    <img *ngIf="!usu.foto" [src]="routeFotoPerfil + 'add-profile.jpg?alt=media'">
