@@ -68,7 +68,7 @@
     </div>
 
     <angular-editor [(ngModel)]="publishText" [config]="editorConfig" *ngIf="isArticle"></angular-editor>
-     {{ publishText }}
+     
     <app-emojis-picker (emojiSelected)="emojiSelected($event)" *ngIf="displayEmoji"></app-emojis-picker>
 
     <div class="actions">

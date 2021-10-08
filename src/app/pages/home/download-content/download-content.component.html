@@ -3,73 +3,23 @@
 <div class="content-download">
   
     <div class="items-download">
-        <div fxLayout="row wrap" fxLayoutAlign="space-between">
-            <div fxFlex="32%" fxFlex.xs="100%" fxFlex.sm="100%">
-                <div class="itm-download" [routerLink]="['/home/downloadble-content/view']">
-                    <img src="assets/images/download-1.png" />
+        <div class="loader" *ngIf="loading">
+            <mat-progress-spinner [diameter]="60" mode="indeterminate" color="primary">
+            </mat-progress-spinner>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="center" *ngIf="!loading" fxLayoutGap="1%">
+            <div fxFlex="32%" fxFlex.xs="100%" fxFlex.sm="100%" *ngFor="let it of items;" >
+                <div class="itm-download" [routerLink]="['/home/downloadble-content/view']" [queryParams]="{item: it._id}">
+                    <img [src]="routeHostStorage + pathContenidoDescargable + it.fotoPortada + '?alt=media'" />
                     <div class="overlay-idw">
                         <div>
-                            <i class="fal fa-headphones-alt"></i>
-                            <span>Audible Books</span>
+                            <div class="isicon" [innerHTML]="it.icon"></div>
+                            <span>{{ it.titulo }}</span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div fxFlex="32%" fxFlex.xs="100%" fxFlex.sm="100%">
-                <div class="itm-download" [routerLink]="['/home/downloadble-content/view']">
-                    <img src="assets/images/download-2.jpg" />
-                    <div class="overlay-idw">
-                        <div>
-                            <i class="fal fa-book-open"></i>
-                            <span>Digital Books</span>    
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div fxFlex="32%" fxFlex.xs="100%" fxFlex.sm="100%">
-                <div class="itm-download" [routerLink]="['/home/downloadble-content/view']">
-                    <img src="assets/images/download-3.jpg" />
-                    <div class="overlay-idw">
-                        <div>
-                            <i class="fal fa-podcast"></i>
-                            <span>Podcasts</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div fxFlex="32%" fxFlex.xs="100%" fxFlex.sm="100%">
-                <div class="itm-download" [routerLink]="['/home/downloadble-content/view']">
-                    <img src="assets/images/download-4.jpg" />
-                    <div class="overlay-idw">
-                        <div>
-                            <i class="fal fa-video"></i>
-                            <span>Videos</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div fxFlex="32%" fxFlex.xs="100%" fxFlex.sm="100%">
-                <div class="itm-download" [routerLink]="['/home/downloadble-content/view']">
-                    <img src="assets/images/download-5.jpg" />
-                    <div class="overlay-idw">
-                        <div>
-                            <i class="fal fa-image"></i>
-                            <span>Pictures</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div fxFlex="32%" fxFlex.xs="100%" fxFlex.sm="100%">
-                <div class="itm-download" [routerLink]="['/home/downloadble-content/view']">
-                    <img src="assets/images/download-6.jpg" />
-                    <div class="overlay-idw">
-                        <div>
-                            <i class="fal fa-file"></i>
-                            <span>Digital Content</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+           
         </div>
     </div>
 </div>

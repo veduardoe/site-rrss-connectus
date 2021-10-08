@@ -19,6 +19,7 @@
  }
 
  .items-download{
+     
      .itm-download{
         
         cursor: pointer;
@@ -26,7 +27,8 @@
         border-radius: 15px;;
         overflow: hidden;
         margin-bottom: 25px;
-        
+        height: 254px;
+
          img{
              width: 100%;
          }
@@ -50,10 +52,13 @@
             opacity: 1;
             flex-wrap: wrap;
             text-align: center;
-            i{
+
+            .isicon{
                 color:#fff;
                 font-size: 108px
-            };
+
+            }
+
             span{
                 display: block;
                 width: 100%;

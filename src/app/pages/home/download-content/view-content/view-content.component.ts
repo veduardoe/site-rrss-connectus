@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ENV } from 'src/environments/environment';
+import { ContenidoDescargablesService } from 'src/shared/services/contenidodescargable.service';
+import { UtilsService } from 'src/shared/services/utils.service';
 
 @Component({
   selector: 'app-view-content',
@@ -7,9 +11,58 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewContentComponent implements OnInit {
 
-  constructor() { }
+  items = [];
+  routeHostStorage = ENV.HOST_STORAGE;
+  pathContenidoDescargable = '/contenidosdescargables%2F';
+  loading = true;
+  idCategoria = null;
+  categoria = null;
+
+  constructor(
+    public contenidoDescargableService: ContenidoDescargablesService,
+    public aRouter: ActivatedRoute,
+    public router: Router,
+    public utils: UtilsService
+  ) { }
 
   ngOnInit(): void {
+
+    this.aRouter.queryParams.subscribe(async param => {
+
+      if (param.item) {
+
+        this.idCategoria = param.item;
+        this.loading = true;
+        const contDesService = this.contenidoDescargableService.obtenerCategorias({ id: param.item });
+        const contDescarables = this.contenidoDescargableService.obtenerContenidos({ idCategoriaDescargable: param.item });
+        const response: any = await Promise.all([contDesService, contDescarables]);
+        
+        if (response[0].data.length === 1){
+          this.categoria = response[0].data[0]
+          this.items = response[1].data;
+        }else{
+          this.utils.fnMainDialog('Error', 'The resource was not found!', 'message');
+          this.router.navigate(['/home/downloadble-content']);
+        }
+        
+        setTimeout(()=> {
+          this.loading = false;
+        },2000);
+
+      } else {
+        this.utils.fnMainDialog('Error', 'The resource was not found!', 'message');
+        this.router.navigate(['/home/downloadble-content']);
+      }
+    });
   }
 
+  getCategorias() {
+    this.loading = true;
+    this.contenidoDescargableService.obtenerCategorias({})
+  }
+
+  openFile(file){
+    const urlFile = this.routeHostStorage + this.pathContenidoDescargable + file + '?alt=media';
+    window.open(urlFile, '_blank');
+  }
 }

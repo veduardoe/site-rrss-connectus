@@ -2,51 +2,25 @@
     <i class="fal fa-arrow-left"></i>
     RETURN
 </span>
-<img src="assets/images/download-slide.jpg" class="slide-pic">
-<span class="sld-title"><i class="fal fa-headphones-alt"></i>Audible Books</span>
 
-<div fxLayout="row wrap" fxLayoutAlign="space-between" style="margin-top: 30px;">
-    <div fxFlex="32%" fxFlex.xs="100%" fxFlex.sm="100%">
-        <span class="btn-download" matRipple>
+<div class="loader" *ngIf="loading">
+    <mat-progress-spinner [diameter]="60" mode="indeterminate" color="primary">
+    </mat-progress-spinner>
+</div>
+<div *ngIf="!loading">
+    <img [src]="routeHostStorage + pathContenidoDescargable + categoria.fotoPresentacion + '?alt=media'" class="slide-pic">
+    <span class="sld-title"><i class="fal fa-headphones-alt"></i>{{ categoria.titulo }}</span>
+</div>
+
+
+<div fxLayout="row wrap" fxLayoutAlign="center" style="margin-top: 30px;" *ngIf="items.length > 0 && !loading" fxLayoutGap="1%">
+    <div fxFlex="32%" fxFlex.xs="100%" fxFlex.sm="100%" *ngFor="let it of items">
+        <span class="btn-download" matRipple (click)="openFile(it.fichero)">
             <i class="fal fa-arrow-alt-to-bottom"></i>
-            Superando obstáculos
-            <b>David Martin</b>
-        </span>
-    </div>
-    <div fxFlex="32%" fxFlex.xs="100%" fxFlex.sm="100%">
-        <span class="btn-download" matRipple>
-            <i class="fal fa-arrow-alt-to-bottom"></i>
-            Superando obstáculos
-            <b>David Martin</b>
-        </span>
-    </div>
-    <div fxFlex="32%" fxFlex.xs="100%" fxFlex.sm="100%">
-        <span class="btn-download" matRipple>
-            <i class="fal fa-arrow-alt-to-bottom"></i>
-            Superando obstáculos
-            <b>David Martin</b>
-        </span>
-    </div>
-    <div fxFlex="32%" fxFlex.xs="100%" fxFlex.sm="100%">
-        <span class="btn-download" matRipple>
-            <i class="fal fa-arrow-alt-to-bottom"></i>
-            Superando obstáculos
-            <b>David Martin</b>
-        </span>
-    </div>
-    <div fxFlex="32%" fxFlex.xs="100%" fxFlex.sm="100%">
-        <span class="btn-download" matRipple>
-            <i class="fal fa-arrow-alt-to-bottom"></i>
-            Superando obstáculos
-            <b>David Martin</b>
-        </span>
-    </div>
-    <div fxFlex="32%" fxFlex.xs="100%" fxFlex.sm="100%">
-        <span class="btn-download" matRipple>
-            <i class="fal fa-arrow-alt-to-bottom"></i>
-            Superando obstáculos
-            <b>David Martin</b>
+            {{ it.titulo }}
+            <b>{{ it.descripcion }}</b>
         </span>
     </div>
 </div>
+<p *ngIf="items.length === 0 && !loading">There are not {{ categoria.titulo }} to show</p>
 <app-footer></app-footer>

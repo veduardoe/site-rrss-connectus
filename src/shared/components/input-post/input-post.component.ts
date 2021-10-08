@@ -50,7 +50,6 @@ export class InputPostComponent implements OnInit, OnChanges {
       ['fontName', 'outdent','indent', 'heading'],
       ['fontSize', 'textColor', 'backgroundColor', 'insertVideo',
       'customClasses','toggleEditorMode','removeFormat', 'insertImage']]
-
   };
 
   @Output() postSaved: EventEmitter<any> = new EventEmitter();
