@@ -26,6 +26,7 @@ import { PostsService } from "src/shared/services/posts.service";
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MensajesService } from "src/shared/services/mensajes.service";
 import { ContenidoDescargablesService } from "src/shared/services/contenidodescargable.service";
+import { ArticulosPublicosService } from "src/shared/services/articulospublicos.service";
 @NgModule({
     imports: [
         SharedModule,
@@ -57,6 +58,7 @@ import { ContenidoDescargablesService } from "src/shared/services/contenidodesca
         PostsService,
         MensajesService,
         ContenidoDescargablesService,
+        ArticulosPublicosService,
         { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
 
     ],

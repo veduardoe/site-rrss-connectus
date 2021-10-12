@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ArticulosPublicosService } from 'src/shared/services/articulospublicos.service';
 import { ConexionService } from 'src/shared/services/conexion.service';
 import { EventosService } from 'src/shared/services/eventos.service';
 import { PostsService } from 'src/shared/services/posts.service';
@@ -16,18 +17,28 @@ export class FeedHomeComponent implements OnInit {
   posts = [];
   conexionesEspera = [];
   eventos = [];
+  articulospublicos = [];
 
   constructor(
     public utils: UtilsService,
     private postService: PostsService,
     private conexionesService: ConexionService,
-    private eventosService: EventosService
+    private eventosService: EventosService,
+    private articulosPublicosService: ArticulosPublicosService
   ) { }
 
   ngOnInit(): void {
     this.getPosts();
     this.getEventos();
     this.getConexionesEspera();
+    this.getArticulosPublicos();
+  }
+
+  getArticulosPublicos() {
+    this.articulosPublicosService.getArticulosPublicos('EN').then((res: any) => {
+      this.articulospublicos = res.data;
+      console.log(this.articulospublicos);
+    });
   }
 
   getPosts() {
@@ -57,5 +68,9 @@ export class FeedHomeComponent implements OnInit {
     this.eventosService.obtenerEventos().then((ev: any) => {
       this.eventos = this.utils.procesarEventosLateral(ev.data);
     });
+  }
+
+  goToSite(){
+    window.open('http://site.connectus.global/home', '_blank');
   }
 }

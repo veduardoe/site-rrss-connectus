@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ENV } from 'src/environments/environment';
 import { UtilsService } from 'src/shared/services/utils.service';
 
 @Component({
@@ -8,11 +9,19 @@ import { UtilsService } from 'src/shared/services/utils.service';
 })
 export class HomeArticlesComponent implements OnInit {
 
+  routeFicheros = ENV.HOST_STORAGE;
+  pathFicheros = '/articulospublicos%2F'
+  @Input() articulospublicos = [];
+
   constructor(
     public utils:UtilsService
   ) { }
 
   ngOnInit(): void {
+  }
+
+  goToSite(slug){
+    window.open("http://site.connectus.global/article/" + slug, '_blank')
   }
 
 }

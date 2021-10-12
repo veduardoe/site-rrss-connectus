@@ -8,9 +8,11 @@
                     <span class="iftext">
                         We recommend the following articles...
                     </span>
-                    <button mat-stroked-button class="btn btn-light-outline btn-connect">VIEW ALL </button>    
+                    <button mat-stroked-button class="btn btn-light-outline btn-connect" (click)="goToSite()">VIEW ALL </button>    
                 </div>
-                <app-home-articles></app-home-articles>
+                <div *ngIf="articulospublicos.length > 0">
+                    <app-home-articles [articulospublicos]="articulospublicos"></app-home-articles>
+                </div>
             </div>
             <div class="ipot">
                 <div *ngTemplateOutlet="inputPost"></div>
