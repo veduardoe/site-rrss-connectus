@@ -146,3 +146,14 @@ video{
     margin-bottom: 25px;
     
 }
+
+.input-form.disabled{
+    margin-bottom: 0px !important;
+    opacity: 0.5 !important;
+    transition: all 0.5s;
+}
+
+.succrec{
+    color: #fff;
+    padding: 20px 0px;
+}

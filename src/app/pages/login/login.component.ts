@@ -4,8 +4,8 @@ import { UtilsService } from 'src/shared/services/utils.service';
 import jwt_decode from "jwt-decode";
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { W } from '@angular/cdk/keycodes';
-
+import { ENV } from 'src/environments/environment';
+declare var grecaptcha;
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   errorClave = false;
   errorCorreo = false;
+  btnRecoverTxt = 'RECOVER PASSWORD';
   loginData = {
     usuario: '',
     clave: '',
@@ -26,6 +27,22 @@ export class LoginComponent implements OnInit {
     claveError: false,
     usuarioMsg: '',
     claveMsg: ''
+  }
+
+  recoverPassData = {
+    usuario: '',
+    validCode: '',
+    clave: '',
+    confirmarClave: '',
+    usuarioError: false,
+    claveError: false,
+    cclaveError: false,
+    codigoError: false,
+    usuarioMsg: '',
+    claveMsg: '',
+    cclaveMsg: '',
+    codigoMsg: '',
+    etapa: 1
   }
 
   registerForm = new FormGroup({
@@ -56,16 +73,17 @@ export class LoginComponent implements OnInit {
   changeView(view) {
     this.curView = view;
     this.clearLogin();
+    this.clearRecoverPass();
   }
 
   restoreValidation(item, e = null) {
     this.loginData[item] = false;
-    if(e && e.which === 13){
+    if (e && e.which === 13) {
       this.login();
     }
   }
 
-  clearLogin(){
+  clearLogin() {
     this.loginData = {
       usuario: '',
       clave: '',
@@ -73,6 +91,24 @@ export class LoginComponent implements OnInit {
       claveError: false,
       usuarioMsg: '',
       claveMsg: ''
+    }
+  }
+
+  clearRecoverPass() {
+    this.recoverPassData = {
+      usuario: '',
+      validCode: '',
+      clave: '',
+      confirmarClave: '',
+      usuarioError: false,
+      claveError: false,
+      cclaveError: false,
+      codigoError: false,
+      usuarioMsg: '',
+      claveMsg: '',
+      cclaveMsg: '',
+      codigoMsg: '',
+      etapa: 1
     }
   }
 
@@ -85,9 +121,11 @@ export class LoginComponent implements OnInit {
     if (key === 'email') {
       this.errorCorreo = false;
     }
+    const usuario = this.registerForm.getRawValue()['usuario'];
+    this.registerForm.patchValue({ usuario : usuario.split(" ").join("")});
   }
 
-  login() {
+  async login() {
 
     this.alertMessage = '';
 
@@ -111,13 +149,15 @@ export class LoginComponent implements OnInit {
       return;
     }
 
+    const token = await grecaptcha.execute(ENV.GOOGLESECRET, { action: 'login' });
+
     const data = {
       usuario: this.loginData.usuario,
-      clave: this.loginData.clave
+      clave: this.loginData.clave,
+      token
     }
 
     this.loading = true;
-
     this.loginService.postLogin(data).then((res: any) => {
 
       if (res.response) {
@@ -139,8 +179,12 @@ export class LoginComponent implements OnInit {
             this.alertMessage = 'WRONG USERNAME AND PASSWORD';
             break;
 
+          case 'ERROR_RECAPTCHA':
+            this.alertMessage = 'USER COULD NOT BE VALIDATED. TRY AGAIN LATER';
+            break;
+
           default:
-            this.alertMessage = 'CANNOT LOGIN NOW';
+            this.alertMessage = 'CANNOT LOGIN NOW. TRY AGAIN LATER';
             break;
 
         }
@@ -148,6 +192,10 @@ export class LoginComponent implements OnInit {
           this.loading = false;
         });
       }
+
+    }).catch(err => {
+      this.loading = false;
+      this.alertMessage = 'CANNOT LOGIN NOW. TRY AGAIN LATER';
 
     });
 
@@ -160,7 +208,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  save() {
+  async save() {
 
     this.triggedValidation(true);
     const data = this.registerForm.getRawValue();
@@ -169,6 +217,8 @@ export class LoginComponent implements OnInit {
     this.errorCorreo = data.email.length > 0 && !this.utils.validateEmail(data.email);
 
     if (this.registerForm.valid && !this.errorClave && !this.errorCorreo) {
+      const token = await grecaptcha.execute(ENV.GOOGLESECRET, { action: 'save' });
+      data.token = token;
       this.loading = true;
       this.loginService.postRegister(data).then((res: any) => {
 
@@ -186,7 +236,7 @@ export class LoginComponent implements OnInit {
 
         }
 
-      }).catch( err => {
+      }).catch(err => {
 
         switch (err.error.code) {
 
@@ -198,8 +248,12 @@ export class LoginComponent implements OnInit {
             this.alertMessageReg = 'EMAIL IS NOT AVAILABLE. USER ANOTHER...';
             break;
 
+          case 'ERROR_RECAPTCHA':
+            this.alertMessage = 'REQUEST COULD NOT BE VALIDATED. TRY AGAIN LATER';
+            break;
+
           default:
-            this.alertMessageReg = 'CANNOT REGISTER NOW';
+            this.alertMessageReg = 'CANNOT REGISTER NOW. TRY AGAIN LATER';
             break;
 
         }
@@ -213,4 +267,156 @@ export class LoginComponent implements OnInit {
 
   }
 
+  async requestPassword(stage) {
+
+    this.alertMessageReg = '';
+
+    switch (stage) {
+      case 1: this.callValidCode(); break;
+      case 2: this.validateCode(); break;
+      case 3: this.changePassword(); break;
+    }
+  }
+
+  async callValidCode() {
+
+    this.recoverPassData.usuarioError = false;
+    this.recoverPassData.usuarioMsg = '';
+
+    if (!this.recoverPassData.usuario.trim()) {
+      this.recoverPassData.usuarioError = true;
+      this.recoverPassData.usuarioMsg = 'EMAIL OR USERNAME IS REQUIRED. TRY AGAIN.';
+      return;
+    }
+
+    const token = await grecaptcha.execute(ENV.GOOGLESECRET, { action: 'recoverpass' });
+
+    const dataReq = {
+      token,
+      usuario: this.recoverPassData.usuario.trim()
+    };
+    this.loading = true;
+
+    this.loginService.solicitarCodigoClave(dataReq).then((res: any) => {
+
+      this.loading = false;
+
+      if (res.response) {
+        this.recoverPassData.etapa = 2;
+        this.btnRecoverTxt = 'VALIDATE CODE';
+      } else if (res.code === 'USUARIO_NO_ENCONTRADO') {
+        this.alertMessageReg = 'EMAIL OR USERNAME WAS NOT FOUND. TRY AGAIN';
+      } else {
+        this.alertMessageReg = 'CANNOT RECOVER PASSWORD NOW. TRY AGAIN LATER';
+      }
+
+    }).catch(err => {
+
+      this.loading = false;
+      this.alertMessageReg = 'CANNOT RECOVER PASSWORD NOW. TRY AGAIN LATER';
+
+    });
+  }
+
+  async validateCode() {
+    
+    this.recoverPassData.codigoError = false;
+    this.recoverPassData.codigoMsg = '';
+
+    if (!this.recoverPassData.validCode.trim()) {
+      this.recoverPassData.codigoError = true;
+      this.recoverPassData.codigoMsg = 'VALIDATION CODE IS REQUIRED. TRY AGAIN.';
+      return;
+    }
+
+    const token = await grecaptcha.execute(ENV.GOOGLESECRET, { action: 'recoverpass' });
+
+    const dataReq = {
+      token,
+      usuario: this.recoverPassData.usuario.trim(),
+      codigo: this.recoverPassData.validCode.trim()
+    };
+    this.loading = true;
+
+    this.loginService.validarCodigoClave(dataReq).then((res: any) => {
+
+      this.loading = false;
+
+      if (res.response) {
+        this.recoverPassData.etapa = 3;
+        this.btnRecoverTxt = 'CHANGE PASSWORD';
+      } else {
+        this.alertMessageReg = 'VALIDATION CODE IS WRONG. TRY AGAIN';
+      }
+
+    }).catch(err => {
+
+      this.loading = false;
+      this.alertMessageReg = 'CANNOT VALIDATE THE CODE NOW. TRY AGAIN LATER';
+
+    });
+  }
+
+  async changePassword() {
+    
+    this.recoverPassData.claveError = false;
+    this.recoverPassData.claveMsg = '';
+    this.recoverPassData.cclaveError = false;
+    this.recoverPassData.cclaveMsg = '';
+
+    if (!this.recoverPassData.clave.trim()) {
+      this.recoverPassData.claveError = true;
+      this.recoverPassData.claveMsg = 'PASSWORD IS REQUIRED. TRY AGAIN.';
+      return;
+    }
+
+    if (!this.recoverPassData.confirmarClave.trim()) {
+      this.recoverPassData.cclaveError = true;
+      this.recoverPassData.cclaveMsg = 'CONFIRM PASSWORD IS REQUIRED. TRY AGAIN.';
+      return;
+    }
+
+    if(this.recoverPassData.clave.trim().length < 8 || this.recoverPassData.clave.trim().length > 15){
+      this.alertMessageReg = 'PASSWORD MUST CONTAIN BETWEEN 8 AND 15 CHARACTERS. TRY AGAIN';
+      return;
+    }
+
+    if(this.recoverPassData.clave.trim() !== this.recoverPassData.confirmarClave.trim()){
+      this.alertMessageReg = 'PASSWORDS DO NOT MATCH. TRY AGAIN';
+      return;
+    }
+
+    const token = await grecaptcha.execute(ENV.GOOGLESECRET, { action: 'recoverpass' });
+
+    const dataReq = {
+      token,
+      usuario: this.recoverPassData.usuario.trim(),
+      codigo: this.recoverPassData.validCode.trim(),
+      clave: this.recoverPassData.clave.trim()
+    };
+
+    this.loading = true;
+
+    this.loginService.cambiarClave(dataReq).then((res: any) => {
+
+      this.loading = false;
+
+      if (res.response) {
+        this.recoverPassData.etapa = 4;
+      } else {
+        this.alertMessageReg = 'PASSWORD COULD NOT BE CHANGED. TRY AGAIN';
+      }
+
+    }).catch(err => {
+
+      this.loading = false;
+      this.alertMessageReg = 'CANNOT CHANGE THE PASSWORD NOW. TRY AGAIN LATER';
+
+    });
+  }
+
+  resetInput(index, indexMsg) {
+    this.recoverPassData[index] = '';
+    this.recoverPassData[indexMsg] = '';
+  }
 }

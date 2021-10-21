@@ -16,4 +16,16 @@ export class LoginService{
     postRegister(data){
         return this.http.post(ENV.BACKEND + '/usuarios-rs/crear-usuario', data).toPromise();
     }
+
+    solicitarCodigoClave(data){
+        return this.http.post(ENV.BACKEND + '/usuarios-rs/solicitar-codigo-clave', data).toPromise();
+    }
+
+    validarCodigoClave(data){
+        return this.http.post(ENV.BACKEND + '/usuarios-rs/validar-codigo-clave', data).toPromise();
+    }
+
+    cambiarClave(data){
+        return this.http.post(ENV.BACKEND + '/usuarios-rs/cambiar-clave', data).toPromise();
+    }
 }

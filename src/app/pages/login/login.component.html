@@ -16,6 +16,8 @@
                     <div class="cont-form" [ngClass]="{ 'opac' : loading }">
                         <div [ngTemplateOutlet]="loginTemplate" *ngIf="curView === 'login'"></div>
                         <div [ngTemplateOutlet]="registerTemplate" *ngIf="curView === 'register'"></div>
+                        <div [ngTemplateOutlet]="recoverPassTemplate" *ngIf="curView === 'recoverpass'"></div>
+
                     </div>
                 </div>
                 <div fxFlex="100%">
@@ -53,7 +55,7 @@
         {{ alertMessage }}
     </div>
     <div class="actions-banner">
-        <button mat-stroked-button class="btn btn-light-outline md">FORGOT PASSWORD?</button>
+        <button mat-stroked-button class="btn btn-light-outline md" (click)="changeView('recoverpass')">FORGOT PASSWORD?</button>
         <button mat-stroked-button class="btn btn-light-filled md" (click)="login()">LOGIN</button>
     </div>
     <div class="actions-banner topline">
@@ -120,5 +122,61 @@
     <div class="actions-banner">
         <button mat-stroked-button class="btn btn-light-outline md" (click)="changeView('login')">GO TO LOGIN</button>
         <button mat-stroked-button class="btn btn-light-filled md" (click)="save()">REGISTER AND CONNECT</button>
+    </div>
+</ng-template>
+
+<ng-template #recoverPassTemplate>
+        <h1 class="main-text small-mtxt">RECOVER YOUR PASSWORD</h1>
+        <div *ngIf="recoverPassData.etapa === 4" class="succrec">
+            YOUR PASSWORD HAS BEEN CHANGED SUCCESSFULLY
+        </div>
+        <div class="form-login" *ngIf="recoverPassData.etapa <= 3">
+            <div fxLayout="row wrap" fxLayoutAlign="space-between">
+                <div fxFlex="100%" *ngIf="recoverPassData.etapa >= 1">
+                    <div class="input-form" [ngClass]="{ 'invalid' : recoverPassData.usuarioError, 'disabled' : recoverPassData.etapa >= 2 }">
+                        <label>WRITE YOUR USERNAME OR EMAIL</label>
+                        <input type="text" maxlength="200" [disabled]="recoverPassData.etapa >= 2" [(ngModel)]="recoverPassData.usuario" (keyup)="resetInput('usuarioError','usuarioMsg')">
+                        <span class="alert" *ngIf="recoverPassData.usuarioError">
+                            {{ recoverPassData.usuarioMsg }}
+                        </span>
+                    </div>
+                </div>
+                <div fxFlex="100%" *ngIf="recoverPassData.etapa >= 2">
+                    <div class="input-form" [ngClass]="{ 'invalid' : recoverPassData.codigoError, 'disabled' : recoverPassData.etapa >= 3  }">
+                        <label>WRITE THE VALIDATION CODE SENT TO YOUR EMAIL</label>
+                        <input type="password" maxlength="8" [(ngModel)]="recoverPassData.validCode" (keyup)="resetInput('codigoError','codigoMsg')">
+                        <span class="alert" *ngIf="recoverPassData.codigoError">
+                            {{ recoverPassData.codigoMsg }}
+                        </span>
+                    </div>
+                </div>
+
+                <div fxFlex="48%" *ngIf="recoverPassData.etapa >= 3" style="margin-bottom: 20px;">
+                    <div class="input-form" [ngClass]="{ 'invalid' : recoverPassData.claveError  }">
+                        <label>NEW PASSWORD</label>
+                        <input type="password" maxlength="8" [(ngModel)]="recoverPassData.clave" (keyup)="resetInput('claveError','claveMsg')">
+                        <span class="alert" *ngIf="recoverPassData.claveError">
+                            {{ recoverPassData.claveMsg }}
+                        </span>
+                    </div>
+                </div>
+                <div fxFlex="48%" *ngIf="recoverPassData.etapa >= 3">
+                    <div class="input-form" [ngClass]="{ 'invalid' : recoverPassData.cclaveError }">
+                        <label>CONFIRM NEW PASSWORD</label>
+                        <input type="password" maxlength="8" [(ngModel)]="recoverPassData.confirmarClave">
+                        <span class="alert" *ngIf="recoverPassData.cclaveError">
+                            {{ recoverPassData.cclaveMsg }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="alert-message" *ngIf="alertMessageReg">
+            {{ alertMessageReg }}
+        </div>
+
+    <div class="actions-banner">
+        <button mat-stroked-button class="btn btn-light-outline md" (click)="changeView('login')" >RETURN</button>
+        <button mat-stroked-button class="btn btn-light-filled md" (click)="requestPassword(recoverPassData.etapa)" *ngIf="recoverPassData.etapa <= 3">{{ btnRecoverTxt }}</button>
     </div>
 </ng-template>
