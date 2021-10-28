@@ -95,6 +95,7 @@ export class LoginComponent implements OnInit {
   }
 
   clearRecoverPass() {
+    this.alertMessageReg = '';
     this.recoverPassData = {
       usuario: '',
       validCode: '',

@@ -90,4 +90,18 @@ export class PostItemArticleComponent implements OnInit, OnChanges {
     });
   }
 
+  denunciarPost() {
+    this.utils.fnMainDialog("Confirm", "Are you sure to report the post?", "confirm").subscribe( a => {
+      if(a){
+        this.postService.denunciarePost(this.data._id).then((res: any) => {
+          if(res.response){
+            this.utils.fnMainDialog('Notification', 'Article has been reported successfully', 'message');
+          }else{
+            this.utils.fnMainDialog('Notification', 'You have already reported this article.', 'message');
+          }
+        });
+      }
+    });
+  }
+
 }

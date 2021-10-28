@@ -154,7 +154,7 @@
                 <div fxFlex="48%" *ngIf="recoverPassData.etapa >= 3" style="margin-bottom: 20px;">
                     <div class="input-form" [ngClass]="{ 'invalid' : recoverPassData.claveError  }">
                         <label>NEW PASSWORD</label>
-                        <input type="password" maxlength="8" [(ngModel)]="recoverPassData.clave" (keyup)="resetInput('claveError','claveMsg')">
+                        <input type="password" maxlength="15" [(ngModel)]="recoverPassData.clave" (keyup)="resetInput('claveError','claveMsg')">
                         <span class="alert" *ngIf="recoverPassData.claveError">
                             {{ recoverPassData.claveMsg }}
                         </span>
@@ -163,7 +163,7 @@
                 <div fxFlex="48%" *ngIf="recoverPassData.etapa >= 3">
                     <div class="input-form" [ngClass]="{ 'invalid' : recoverPassData.cclaveError }">
                         <label>CONFIRM NEW PASSWORD</label>
-                        <input type="password" maxlength="8" [(ngModel)]="recoverPassData.confirmarClave">
+                        <input type="password" maxlength="15" [(ngModel)]="recoverPassData.confirmarClave">
                         <span class="alert" *ngIf="recoverPassData.cclaveError">
                             {{ recoverPassData.cclaveMsg }}
                         </span>

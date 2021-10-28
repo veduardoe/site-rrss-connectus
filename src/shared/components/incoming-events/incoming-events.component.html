@@ -14,7 +14,7 @@
 
 <ng-template #dayEvent>
     <ng-container *ngFor="let e of eventos; let i = index">
-        <div class="item-sug event-sug" matRipple *ngIf=" (i + 1) <= limit"> 
+        <div class="item-sug event-sug" matRipple *ngIf=" (i + 1) <= limit" (click)="goToEvent(e._id, e.titulo)"> 
             <div class="day ">
                 <span class="number-day">{{ e.day }}</span>
                 <span class="month-day">{{ e.monthIn }}</span>

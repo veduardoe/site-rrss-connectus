@@ -20,7 +20,8 @@
 <app-footer></app-footer>
 <ng-template #dateCalendar>
     <ng-container *ngFor="let e of eventos">
-        <div class="cal-day day31" *ngIf="!categoriaSelected || categoriaSelected === e.idCategoria || categoriaSelected === 'ALL'">
+        <div class="cal-day day31" (click)="goToEvent(e._id, e.titulo)"
+        *ngIf="!categoriaSelected || categoriaSelected === e.idCategoria || categoriaSelected === 'ALL'">
             <div class="item-day">
                 <div class="picprev"  [style.background-image]="'url(' + (routeFicheros + e.foto + '?alt=media')   + ')'"></div>
                 <div class="cal-info">

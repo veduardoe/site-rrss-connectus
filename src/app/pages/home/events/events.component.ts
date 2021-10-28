@@ -3,6 +3,7 @@ import { ENV } from 'src/environments/environment';
 import { CommonService } from 'src/shared/services/common.service';
 import { EventosService } from 'src/shared/services/eventos.service';
 import { UtilsService } from 'src/shared/services/utils.service';
+import slugify from 'slugify';
 
 @Component({
   selector: 'app-events',
@@ -41,5 +42,12 @@ export class EventsComponent implements OnInit {
       this.categorias = res.data;
     });
   }
+
+  goToEvent(id, titulo){
+    const slug = slugify(titulo);
+    const path = `https://site.connectus.global/event/${id}/${slug}`;
+    window.open(path, '_blank');
+  }
+
 
 }

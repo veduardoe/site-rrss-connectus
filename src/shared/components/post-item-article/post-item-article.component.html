@@ -1,5 +1,5 @@
 <div class="card-post card-article" *ngIf="data">
-    <button mat-icon-button [matMenuTriggerFor]="menu" class="actionPost" *ngIf="pertenecePost">
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="actionPost" >
         <mat-icon>more_vert</mat-icon>
     </button>
     <div class="head-post">
@@ -18,13 +18,17 @@
 </div>
 
 <mat-menu #menu="matMenu">
-    <button mat-menu-item [routerLink]="['/home/articles/view']" [queryParams]="{curView: 'create', id: data?._id}">
+    <button mat-menu-item  *ngIf="pertenecePost" [routerLink]="['/home/articles/view']" [queryParams]="{curView: 'create', id: data?._id}">
         <mat-icon>create</mat-icon>
         <span>Edit</span>
     </button>
-    <button mat-menu-item (click)="detelePost()">
+    <button mat-menu-item  *ngIf="pertenecePost" (click)="detelePost()">
         <mat-icon>close</mat-icon>
         <span>Delete</span>
+    </button>
+    <button mat-menu-item (click)="denunciarPost()" *ngIf="!pertenecePost">
+        <mat-icon>warning</mat-icon>
+        <span>Report</span>
     </button>
 </mat-menu>
 

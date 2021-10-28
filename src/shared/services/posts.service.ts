@@ -38,4 +38,8 @@ export class PostsService {
         return this.http.delete(ENV.BACKEND + '/posts/' + idPost).toPromise();
     }
 
+    denunciarePost(idPost) {
+        return this.http.put(ENV.BACKEND + '/posts/denunciar-post/' + idPost, {}).toPromise();
+    }
+
 }
