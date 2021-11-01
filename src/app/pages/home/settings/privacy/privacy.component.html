@@ -1,38 +1,54 @@
-<h2 class="tpass"> Privacy Settings</h2>
+<h2 class="tpass"> Preferences</h2>
+<div class="loadingItem" *ngIf="loading">
+    <mat-progress-spinner [diameter]="60" mode="indeterminate" color="primary">
+    </mat-progress-spinner>
+</div>
 <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="isSettings">
     <div fxFlex="68%">
-        YOUR POSTS AND ARTICLES ARE PUBLIC.
+        {{ ln.o('PREF_TX1')}}
     </div>
     <div fxFlex="30%">
         <mat-form-field class="full" appearance="outline">
-            <mat-label>Action</mat-label>
-            <mat-select>
-                <mat-option [value]="true">ALLOWED</mat-option>
-                <mat-option [value]="false">NOT ALLOWED</mat-option>
+            <mat-label> {{ ln.o('CUS_ACTION')}}</mat-label>
+            <mat-select [(ngModel)]="perfilPublico" (selectionChange)="changeOption()">
+                <mat-option [value]="true">{{ ln.o('CUS_ALLW')}}</mat-option>
+                <mat-option [value]="false">{{ ln.o('CUS_NALLW')}}</mat-option>
             </mat-select>
         </mat-form-field>
     </div>
     <div fxFlex="68%">
-        DISPLAY YOUR EMAIL ADDRESS
+        {{ ln.o('PREF_TX2')}}
     </div>
     <div fxFlex="30%">
         <mat-form-field class="full" appearance="outline">
-            <mat-label>Action</mat-label>
-            <mat-select>
-                <mat-option [value]="true">ALLOWED</mat-option>
-                <mat-option [value]="false">NOT ALLOWED</mat-option>
+            <mat-label> {{ ln.o('CUS_ACTION')}}</mat-label>
+            <mat-select [(ngModel)]="mostrarEmail" (selectionChange)="changeOption()">
+                <mat-option [value]="true">{{ ln.o('CUS_ALLW')}}</mat-option>
+                <mat-option [value]="false">{{ ln.o('CUS_NALLW')}}</mat-option>
             </mat-select>
         </mat-form-field>
     </div>
     <div fxFlex="68%">
-        DISPLAY YOUR PHONE NUMBER
+        {{ ln.o('PREF_TX3')}}
     </div>
     <div fxFlex="30%">
         <mat-form-field class="full" appearance="outline">
-            <mat-label>Action</mat-label>
-            <mat-select>
-                <mat-option [value]="true">ALLOWED</mat-option>
-                <mat-option [value]="false">NOT ALLOWED</mat-option>
+            <mat-label> {{ ln.o('CUS_ACTION')}}</mat-label>
+            <mat-select [(ngModel)]="mostrarTelefono" (selectionChange)="changeOption()">
+                <mat-option [value]="true">{{ ln.o('CUS_ALLW')}}</mat-option>
+                <mat-option [value]="false">{{ ln.o('CUS_NALLW')}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div fxFlex="68%">
+        {{ ln.o('PREF_TX4')}}
+    </div>
+    <div fxFlex="30%">
+        <mat-form-field class="full" appearance="outline">
+            <mat-label> {{ ln.o('CUS_ACTION')}}</mat-label>
+            <mat-select [(ngModel)]="idioma" (selectionChange)="changeOption()">
+                <mat-option [value]="'EN'">ENGLISH</mat-option>
+                <mat-option [value]="'ES'">ESPAÑOL</mat-option>
             </mat-select>
         </mat-form-field>
     </div>

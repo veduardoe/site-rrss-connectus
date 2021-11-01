@@ -9,6 +9,7 @@ import { UserService } from 'src/shared/services/user.service';
 import { UtilsService } from 'src/shared/services/utils.service';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { CommonService } from 'src/shared/services/common.service';
+import { Ln } from 'src/shared/services/language.service';
 
 @Component({
   selector: 'app-user-information',
@@ -49,7 +50,8 @@ export class UserInformationComponent implements OnInit {
   constructor(
     public utils: UtilsService,
     private userService: UserService,
-    private commonService: CommonService
+    private commonService: CommonService,
+    public ln: Ln
   ) { }
 
   ngOnInit(): void {
@@ -70,13 +72,14 @@ export class UserInformationComponent implements OnInit {
     this.loading = true;
     this.userService.getMisDatos().then(async (res: any) => {
       await this.getCategorias();
+      console.log(res.data[0]);
       this.mainForm.patchValue(res.data[0]);
       if(res.data[0]){
         this.categoriesAdded = res.data[0].categorias.map( cat => {
           const checkCat = this.fullCategories.find(fc => {
             return cat === fc._id
           });
-          return checkCat.detalleEN;
+          return this.ln.gln() === 'ES' ? checkCat.detalle  : checkCat.detalleEN;
         });
       }
       setTimeout(()=> {
@@ -90,7 +93,7 @@ export class UserInformationComponent implements OnInit {
       this.commonService.getCategorias().then((res: any) => {
         this.fullCategories = res.data;
         res.data.forEach((val, idx) => {
-          this.categories.push(val.detalleEN);
+          this.categories.push(this.ln.gln() === 'ES' ? val.detalle  : val.detalleEN);
           resolve(true);
         });
       });
@@ -116,7 +119,7 @@ export class UserInformationComponent implements OnInit {
     let reader = new FileReader();
     let size = Math.round((file['size'] / 1000) * 100) / 100;
 
-    if (size < 1000) {
+    if (size < 5000) {
 
       reader.readAsDataURL(file);
       reader.onload = () => {
@@ -131,17 +134,17 @@ export class UserInformationComponent implements OnInit {
           this.fotoPerfil = fichero;
           this.mainForm.patchValue({ foto: fichero });
         } else {
-          this.utils.fnMessage("Illegal file type");
+          this.utils.fnMessage(this.ln.o('NOT_ALW_FILE'));
         }
       };
     } else {
-      this.utils.fnMessage("The profile picture should not be larger than 1MB");
+      this.utils.fnMessage(this.ln.o('PIC_PROF_ERRSIZE'));
     }
 
   }
 
   removerImagen() {
-    this.utils.fnMainDialog('Notification', 'are you sure to remove profile picture?', 'confirm').subscribe(res => {
+    this.utils.fnMainDialog(this.ln.o('NOTIF'), this.ln.o('CONF_REMOVE_PROFPIC'), 'confirm').subscribe(res => {
       if (res) {
         this.mainForm.patchValue({ foto: null });
       }
@@ -169,7 +172,7 @@ export class UserInformationComponent implements OnInit {
     if (!check) {
       this.categoriesAdded.push(event.option.viewValue);
     } else {
-      this.utils.fnMainDialog('Error adding a category', 'The category has been already added', 'message');
+      this.utils.fnMainDialog(this.ln.o('ERR_ADD_CATG'), this.ln.o('ERR_ADD_CATG_TX'), 'message');
     }
     this.categoryInput.nativeElement.value = '';
     this.categoryCtrl.setValue(null);
@@ -187,36 +190,37 @@ export class UserInformationComponent implements OnInit {
     if (this.mainForm.valid) {
       const data = this.mainForm.getRawValue();
       if (!this.utils.validateEmail(data.email)) {
-        this.utils.fnMainDialog('Error', 'The email is invalid. Review and try again.', 'message');
+        this.utils.fnMainDialog('Error', this.ln.o('EMAIL_INVALID'), 'message');
         return;
       }
 
       data.categorias = this.categoriesAdded.map(cat => {
         const cct = this.fullCategories.find(fcat => {
-          return cat.toUpperCase() === fcat.detalleEN.toUpperCase();
+          return  cat.toUpperCase() === fcat.detalleEN.toUpperCase() ||
+                  cat.toUpperCase() === fcat.detalle.toUpperCase();
         });
         return cct._id;
       });
 
-
+      console.log(this.from)
       if(this.from === 'security'){
         if(!data.clave){
-          this.utils.fnMainDialog('Error', 'Please, write your password', 'message');
+          this.utils.fnMainDialog('Error', this.ln.o('REQ_PASS'), 'message');
           return;
         }
 
         if(!data.confirmarClave){
-          this.utils.fnMainDialog('Error', 'Please, confirm your password', 'message');
+          this.utils.fnMainDialog('Error', this.ln.o('REQ_CPASS'), 'message');
           return;
         }
         
         if(data.clave !== data.confirmarClave){
-          this.utils.fnMainDialog('Error', 'The passwords do not match. Review and try again.', 'message');
+          this.utils.fnMainDialog('Error', this.ln.o('PAS_NOMATCH'), 'message');
           return;
         }
 
         if(data.clave.length < 8 || data.clave.length > 15){
-          this.utils.fnMainDialog('Error', 'Password must contain between 8 and 15 characters.', 'message');
+          this.utils.fnMainDialog('Error', this.ln.o('PAS_LEN'), 'message');
           return;
         }
 
@@ -229,7 +233,7 @@ export class UserInformationComponent implements OnInit {
 
         if (res.response) {
 
-          this.utils.fnMainDialog('Notification', 'The information has been updated successfully.', 'message');
+          this.utils.fnMainDialog(this.ln.o('NOTIF'), this.ln.o('INFO_UPT'), 'message');
 
           if(this.from === 'security'){
             this.mainForm.patchValue({ clave: '', confirmarClave: ''})
@@ -238,9 +242,9 @@ export class UserInformationComponent implements OnInit {
         } else {
 
           if (res.code === 'ARCHIVO_ERROR') {
-            this.utils.fnMainDialog('Error', 'Profile picture format is not allowed.', 'message');
+            this.utils.fnMainDialog('Error', this.ln.o('ERR_PROFPIC'), 'message');
           } else {
-            this.utils.fnMainDialog('Error', 'The information cannot be updated. Try again later.', 'message');
+            this.utils.fnMainDialog('Error', this.ln.o('INFO_NOUPT'), 'message');
           }
         }
 
@@ -251,9 +255,9 @@ export class UserInformationComponent implements OnInit {
       }).catch(err => {
 
         if (err.error.code === 'CORREO_EXISTE') {
-          this.utils.fnMainDialog('Error', 'Email address is already in use.', 'message');
+          this.utils.fnMainDialog('Error', this.ln.o('EXIST_EMAIL'), 'message');
         } else {
-          this.utils.fnMainDialog('Error', 'The information cannot be updated. Try again later.', 'message');
+          this.utils.fnMainDialog('Error', this.ln.o('INFO_NOUPT'), 'message');
         }
 
         setTimeout(()=> {

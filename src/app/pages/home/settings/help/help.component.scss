@@ -2,4 +2,16 @@
 
 .tpass{
     color:$lightBlue;
+    margin-bottom: 20px !important;
+}
+
+::ng-deep{
+    .linke{
+        color:$lightBlue;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .lnh{
+        line-height: 28px;
+    }
 }

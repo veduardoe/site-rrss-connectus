@@ -9,7 +9,7 @@
             <div fxFlex="100%" *ngIf="!utils.checkWidth720">
                 <mat-form-field appearance="outline" class="full input-1 npb">
                     
-                    <input matInput (focusin)="plcFocus = true" (focusout)="plcFocus = false" type="text" placeholder="{{ plcFocus ? '' : 'Find and discover people in Connectus...' }}"
+                    <input matInput (focusin)="plcFocus = true" (focusout)="plcFocus = false" type="text" placeholder="{{ plcFocus ? '' : ln.o('FIN_HD') }}"
                     [formControl]="usuariosCtrl"  #triggerUsuarios="matAutocompleteTrigger" [matAutocomplete]="auto" autocomplete="off" />
                     <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayTextAutocomplete" (optionSelected)="usuarioSelection($event)">
                      <div class="layerl" *ngIf="loadingUsuarios"></div>
@@ -33,17 +33,17 @@
             </div>
             <div fxFlex=" {{ utils.checkWidth720 ? '100%' : '250px'}}">
                 <div class="btn-hd-icons">
-                    <span matRipple matTooltip="MY NOTIFICATIONS" matTooltipPosition="below">
+                    <span matTooltip="{{ ln.o('TOLT_MYNOTIF')}}" matTooltipPosition="below">
                         <i class="fal fa-bell"></i>
                     </span>
-                    <span matRipple matTooltip="MY MESSAGES" matTooltipPosition="below">
+                    <span matTooltip="{{ ln.o('TOLT_MYMSS')}}" matTooltipPosition="below">
                         <i class="fal fa-comment-alt"></i>
                     </span>
                     <span [routerLink]="['/profile']" [queryParams]="{usuario: myInfo.usuario}" class="userpic" matTooltip="MY PROFILE" matTooltipPosition="below">
                         <img *ngIf="!myInfo.foto" [src]="routeFotoPerfil + 'add-profile.jpg?alt=media'">
                         <img *ngIf="myInfo.foto" [src]="routeFotoPerfil + myInfo.foto + '?alt=media'">
                     </span>
-                    <span matRipple matTooltip="LOGOUT" matTooltipPosition="below" (click)="logout()">
+                    <span matRipple matTooltip="{{ ln.o('TOLT_LOGOUT')}}" matTooltipPosition="below" (click)="logout()">
                         <i class="fal fa-sign-out-alt"></i>             
                     </span>
                 </div>

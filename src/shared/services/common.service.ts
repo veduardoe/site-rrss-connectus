@@ -13,7 +13,7 @@ export class CommonService{
         return this.http.get(ENV.BACKEND + '/common/listado-categorias').toPromise();
     }
 
-    getBanners(idioma = 'ES'){
-        return this.http.get(ENV.BACKEND + '/common/banners?habilitado=true&idioma=' + idioma).toPromise();
+    getBanners(idioma = 'ES', tipoBanner){
+        return this.http.get(ENV.BACKEND + '/common/banners?habilitado=true&idioma=' + idioma + '&tipo=' + tipoBanner).toPromise();
     }
 }

@@ -1,32 +1,29 @@
-<app-bar-page [namePage]="'SETTINGS'"></app-bar-page>
+<app-bar-page [namePage]="ln.o('TIT_SET') "></app-bar-page>
 <div class="">
     <div fxLayout="row {{ utils.checkWidth720 ? 'wrap' : '' }}" fxLayoutGap="{{ utils.checkWidth720 ? '0px' : '25px' }}">
 
         <div fxFlex="{{ utils.checkWidth720 ? '100%' : '300px' }}">
             <div class="card-suggestions">
                 <div class="cs-header">
-                    Opciones Disponibles
+                    {{ ln.o('AVOP') }}
                 </div>
                 <div class="list-sug ">
                     <div class="item-opt" [ngClass]="{ 'active' : curView === 'userInformation'}" matRipple (click)="curView = 'userInformation'">
                         <i class="fal fa-user"></i>
-                        User Information
+                        {{ ln.o('USIN') }}
                     </div>
                     <div class="item-opt" [ngClass]="{ 'active' : curView === 'privacy'}" matRipple (click)="curView = 'privacy'">
-                        <i class="fal fa-user-secret"></i>
-                        Privacy
+                        <i class="fal fa-ballot-check"></i>
+                        {{ ln.o('PREF') }}
                     </div>
-                    <div class="item-opt" [ngClass]="{ 'active' : curView === 'accessibility'}" matRipple (click)="curView = 'accessibility'">
-                        <i class="fal fa-universal-access"></i>
-                        Accessibility
-                    </div>
+    
                     <div class="item-opt" [ngClass]="{ 'active' : curView === 'security'}" matRipple (click)="curView = 'security'">
                         <i class="fal fa-shield-check"></i>
-                        Security
+                        {{ ln.o('SECTY') }}
                     </div>
                     <div class="item-opt" [ngClass]="{ 'active' : curView === 'help'}" matRipple (click)="curView = 'help'">
                         <i class="fal fa-hands-helping"></i>
-                        Help
+                        {{ ln.o('HELP') }}
                     </div>
                 </div>
 
@@ -37,7 +34,7 @@
             <div class="card-suggestions">
                 <div class="cs-header">
                     <i class="{{ viewDescription[curView].icon }}"></i>
-                    {{ viewDescription[curView].det }}
+                    {{ ln.o(viewDescription[curView].det) }}
                 </div>
                 <div class="list-sug info-settings loadingContainer">
                     <ng-container [ngSwitch]="curView">

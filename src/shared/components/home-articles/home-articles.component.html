@@ -1,5 +1,5 @@
 <div fxLayout="row wrap" fxLayoutAlign="" fxLayoutGap="1%">
-    <div fxFlex="32%" fxFlex.sm="100%" fxFlex.xs="100%" *ngFor="let ar of articulospublicos; let i = index" 
+    <div fxFlex="32%" fxFlex.md="49%" fxFlex.sm="100%" fxFlex.xs="100%" *ngFor="let ar of articulospublicos; let i = index" 
         [ngClass]="{ 'hide' : i > 5}">
         <div class="item-home-article" [style.background-image]="'url('  + routeFicheros + pathFicheros + ar.imagenSlider  + '?alt=media)'" (click)="goToSite(ar.slug)">
             <div class="content-iha">

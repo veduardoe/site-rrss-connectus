@@ -11,11 +11,20 @@
         b{
             color:$lightBlue;
         }
+        u{
+            text-decoration: none;
+        }
     }
-    i{
-        color:#fff;
-        font-size: 32px;
-        margin-bottom: 20px;
+    div{
+        ::ng-deep{
+            i{
+                color:#fff;
+                font-size: 32px;
+                margin-bottom: 20px;
+            }
+        }
+
     }
+
 
 }

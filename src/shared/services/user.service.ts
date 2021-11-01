@@ -24,4 +24,8 @@ export class UserService{
     putActualizarPerfil(data){
         return this.http.put(ENV.BACKEND + '/usuarios-rs/modificar-usuario', data).toPromise();
     }
+
+    putActualizarPreferencias(data){
+        return this.http.put(ENV.BACKEND + '/usuarios-rs/modificar-preferencias', data).toPromise();
+    }
 }

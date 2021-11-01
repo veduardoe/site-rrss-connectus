@@ -7,6 +7,7 @@ import { debounceTime, switchMap, tap } from 'rxjs/operators';
 import { ENV } from 'src/environments/environment';
 import { AuthService } from 'src/shared/services/auth.service';
 import { ConexionService } from 'src/shared/services/conexion.service';
+import { Ln } from 'src/shared/services/language.service';
 import { UserService } from 'src/shared/services/user.service';
 import { UtilsService } from 'src/shared/services/utils.service';
 
@@ -30,7 +31,8 @@ export class HeaderComponent implements OnInit {
     public router: Router,
     public utils: UtilsService,
     public authService: AuthService,
-    public userService: UserService
+    public userService: UserService,
+    public ln: Ln
   ) { }
 
   ngOnInit(): void {

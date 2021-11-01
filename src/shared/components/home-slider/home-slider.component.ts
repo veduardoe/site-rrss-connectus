@@ -24,17 +24,17 @@ export class HomeSliderComponent implements OnInit {
   }
 
   getBanners(){
-      this.commonService.getBanners('EN').then( (res:any) => {
+      this.commonService.getBanners('EN', 'UPPER_BANNER').then( (res:any) => {
         let i = 1;
         res.data.forEach((val, key) => {
-          this.sliders.push({
-            index: i,
-            dataBanner: val, 
-            sclass: {
-              active: i === 1 
-            }
-          })
-          i++;
+            this.sliders.push({
+              index: i,
+              dataBanner: val, 
+              sclass: {
+                active: i === 1 
+              }
+            })
+            i++;
         });
         
         if(this.sliders.length > 0){

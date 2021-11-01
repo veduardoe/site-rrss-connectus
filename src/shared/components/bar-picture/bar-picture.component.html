@@ -1,9 +1,13 @@
-<div class="bar-picture">
-    <span class="txt-bp">
-        <span>You can <br />do it </span>
-        <span>if you put &nbsp;<br />your mind it</span>
-    </span>
-    <span class="btn-wt">
-        <i>View more</i>
-    </span>
+<div class="bar-slide-content">
+    <ng-container *ngFor="let slide of sliders">
+        <div class="bar-picture" [ngClass]="slide.sclass" [style.background-image]="'url('  + routeFicheros + slide.dataBanner.imagen  + '?alt=media)'"  >
+            <span class="txt-bp">
+                <span [innerHTML]="slide.titulo"></span>
+                <span [innerHTML]="slide.tituloResaltado"></span>
+            </span>
+            <span class="btn-wt" (click)="goTo(slide.url)">
+                <i>View more</i>
+            </span>
+        </div>
+    </ng-container>
 </div>

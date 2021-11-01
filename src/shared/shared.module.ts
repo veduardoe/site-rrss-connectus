@@ -33,6 +33,7 @@ import { EventosService } from './services/eventos.service';
 import { EmojisPickerComponent } from './components/emojis-picker/emojis-picker.component';
 import { AngularEmojisModule } from 'angular-emojis';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { Ln } from './services/language.service';
 
 @NgModule({
     imports: [
@@ -75,7 +76,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
         UserService,
         AuthService,
         ConexionService, 
-        EventosService
+        EventosService,
+        Ln
     ],
     exports: [
         CommonModule,

@@ -1,8 +1,5 @@
-<div class="simple-text">
-    <i class="fal fa-star"></i>
-    <p>Is simply dummy text
-        of the printing and
-        typesetting industry,
-        <b>Lorem Ipsum has been
-        the indus.</b></p>
+<div class="simple-text" *ngFor="let slide of sliders">
+    <div [innerHTML]="slide.url"></div>
+    <p><u [innerHTML]="slide.titulo"></u>&nbsp;
+        <b [innerHTML]="slide.tituloResaltado"></b></p>
 </div>
