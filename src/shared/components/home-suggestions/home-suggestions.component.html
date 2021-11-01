@@ -4,7 +4,7 @@
     </div>
     <div class="list-sug">
         <ng-container *ngTemplateOutlet="suggestion"></ng-container>
-        <span class="link-cc" [routerLink]="['/connections']" [queryParams]="{actionView: 2}">View all...</span>
+        <span class="link-cc" [routerLink]="['/connections']" [queryParams]="{actionView: 2}">{{ ln.o('VIEWALL') }}</span>
 
     </div>
 

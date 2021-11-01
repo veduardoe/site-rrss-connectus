@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CommonService } from 'src/shared/services/common.service';
+import { Ln } from 'src/shared/services/language.service';
 
 @Component({
   selector: 'app-simple-text',
@@ -15,7 +16,8 @@ export class SimpleTextComponent implements OnInit {
 
   constructor(
     public commonService: CommonService,
-    private sanitize: DomSanitizer
+    private sanitize: DomSanitizer,
+    public ln: Ln
   ) { }
 
   ngOnInit(): void {
@@ -24,7 +26,7 @@ export class SimpleTextComponent implements OnInit {
 
   
   getBanners(){
-    this.commonService.getBanners('EN', 'TEXTUAL_BANNER').then( (res:any) => {
+    this.commonService.getBanners(this.ln.gln(), 'TEXTUAL_BANNER').then( (res:any) => {
       let i = 1;
       res.data.forEach((val, key) => {
           this.sliders.push({

@@ -3,6 +3,7 @@ import { AuthService } from 'src/shared/services/auth.service';
 import { PostsService } from 'src/shared/services/posts.service';
 import { UtilsService } from 'src/shared/services/utils.service';
 import * as $ from 'jquery';
+import { Ln } from 'src/shared/services/language.service';
 
 @Component({
   selector: 'app-comments',
@@ -24,7 +25,8 @@ export class CommentsComponent implements OnInit, OnChanges {
   constructor(
     private postService: PostsService,
     public utils: UtilsService,
-    public auth: AuthService
+    public auth: AuthService,
+    public ln: Ln
   ) { }
 
   ngOnInit(): void {

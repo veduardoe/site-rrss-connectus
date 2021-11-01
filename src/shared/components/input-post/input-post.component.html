@@ -8,15 +8,17 @@
     <div fxLayout="row wrap" *ngIf="isArticle" fxLayoutAlign="space-between">
         <div fxFlex="29%">
             <mat-form-field appearance="outline" class="full">
-                <mat-label>Select a category</mat-label>
+                <mat-label>{{ ln.o('SELCATG') }}</mat-label>
                 <mat-select [(ngModel)]="publishCategoria">
-                    <mat-option *ngFor="let cat of categorias" [value]="cat._id">{{ cat.detalleEN }}</mat-option>
+                    <mat-option *ngFor="let cat of categorias" [value]="cat._id">
+                        {{ this.ln.gln() === 'ES' ? cat.detalle : cat.detalleEN }}
+                    </mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
         <div fxFlex="69%">
             <mat-form-field appearance="outline" class="full">
-                <mat-label>Title of article</mat-label>
+                <mat-label> {{ ln.o('TITCATG') }}</mat-label>
                 <input matInput [(ngModel)]="publishTitulo">
             </mat-form-field>
         </div>
@@ -28,7 +30,7 @@
 
     <div>
         <div *ngIf="listadoImagenes.length > 0">
-            <span class="lblt">Pictures</span>
+            <span class="lblt">{{ ln.o('PICTX') }}</span>
             <div class="cont-pic" fxLayout="row wrap" fxLayoutGap="1%" cdkDropList cdkDropListOrientation="horizontal"
                 (cdkDropListDropped)="drop($event)">
                 <ng-container *ngFor="let img of listadoImagenes; let i = index">
@@ -44,7 +46,7 @@
 
 
     <div *ngIf="listadoFicheros.length > 0">
-        <span class="lblt">Files</span>
+        <span class="lblt">{{ ln.o('FILESTX') }}</span>
         <div class="cont-pic">
             <div fxLayout="row wrap" fxLayoutGap="1%" fxLayout.xs="column">
                 <div fxFlex="15%" class="prev-pic" *ngFor="let fic of listadoFicheros; let i = index">
@@ -91,18 +93,18 @@
 
                 <button mat-stroked-button class="btn btn-light-outline"
                     *ngIf="listadoFicheros.length < 5 && !isArticle" (click)="openInputFile('ficheros')">
-                    ADD FILES
+                    {{ ln.o('ADDFILESTX') }}
                     <i class="fal fa-paperclip"></i>
                 </button>
 
                 <button mat-stroked-button class="btn btn-light-outline" *ngIf="listadoImagenes.length < 8"
                     (click)="openInputFile('imagenes')">
-                    ADD PICTURES
+                    {{ ln.o('ADDPICTURESTX') }}
                     <i class="fas fa-images"></i>
                 </button>
 
                 <button mat-stroked-button class="btn btn-light-filled" (click)="postItem()">
-                    SEND
+                    {{ ln.o('SENDTX') }}
                     <i class="fad fa-paper-plane"></i>
                 </button>
             </div>

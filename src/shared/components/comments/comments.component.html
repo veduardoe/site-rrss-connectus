@@ -1,7 +1,7 @@
 <div class="list-comments">
-    <span>Comments</span>
+    <span>{{ ln.o('COMMENTSTX')}}</span>
     <mat-form-field appearance="outline" class="full" style="margin-top: 20px;">
-        <textarea matInput maxlength="1000" [(ngModel)]="publishText" placeholder="Leave a comment" style="height: 50px;" id="inputText"></textarea>
+        <textarea matInput maxlength="1000" [(ngModel)]="publishText" placeholder="{{ ln.o('LEAVECOMM') }}" style="height: 50px;" id="inputText"></textarea>
     </mat-form-field>
 
     <div *ngIf="displayEmoji" style="margin-bottom: 20px;">
@@ -29,10 +29,10 @@
             (pageChange)="p = $event"  
             [responsive]="true"
             [directionLinks]="true"
-            [previousLabel]="'Previous'"
-            [nextLabel]="'Next'">
+            [previousLabel]="ln.o('PREVNAV')"
+            [nextLabel]="ln.o('NEXTNAV')">
         </pagination-controls>
     </div>
 
-    <p *ngIf="!loading && comentarios.length === 0">No comments added.</p>
+    <p *ngIf="!loading && comentarios.length === 0">{{ ln.o('NOCOMMENTSTX')}}</p>
 </div>

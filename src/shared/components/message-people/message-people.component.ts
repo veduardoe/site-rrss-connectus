@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ENV } from 'src/environments/environment';
 import { AuthService } from 'src/shared/services/auth.service';
+import { Ln } from 'src/shared/services/language.service';
 
 @Component({
   selector: 'app-message-people',
@@ -17,7 +18,8 @@ export class MessagePeopleComponent implements OnInit {
   myInfo;
 
   constructor(
-    public authService: AuthService
+    public authService: AuthService,
+    public ln: Ln
   ) { }
 
   ngOnInit(): void {

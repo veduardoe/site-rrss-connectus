@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ENV } from 'src/environments/environment';
+import { Ln } from 'src/shared/services/language.service';
 
 @Component({
   selector: 'app-home-suggestions',
@@ -13,7 +14,9 @@ export class HomeSuggestionsComponent implements OnInit {
   @Input() titleCard = '';
   routeFotoPerfil = ENV.FOTOS_PERFIL;
 
-  constructor() { }
+  constructor(
+    public ln:Ln
+  ) { }
 
   ngOnInit(): void {
   }

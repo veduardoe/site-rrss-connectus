@@ -1,13 +1,13 @@
 <div class="card-suggestions" >
     <div class="cs-header">
-        Highlighted Events
+        {{ ln.o('HLEVENTS') }}
     </div>
     <div class="list-events " *ngIf="eventos.length > 0">
         <ng-container *ngTemplateOutlet="dayEvent"></ng-container>
-        <span class="link-cc" [routerLink]="'/home/events'" *ngIf="fromHome">View all...</span>
+        <span class="link-cc" [routerLink]="'/home/events'" *ngIf="fromHome">{{ ln.o('VIEWALL') }}.</span>
     </div>
     <div class="list-events"  *ngIf="eventos.length === 0">
-        <p class="nem">No events to show</p>
+        <p class="nem">{{ ln.o('NOEVENTSTX') }}</p>
     </div>
 
 </div>
@@ -22,7 +22,8 @@
             </div>
             <span class="info">
                 <span class="prof-name">{{ e.titulo }}</span>
-                <span class="prof-extra">{{ e.categoria?.detalleEN | lowercase }}</span>
+                <span class="prof-extra" *ngIf="ln.gln() === 'EN'">{{ e.categoria?.detalleEN | lowercase }}</span>
+                <span class="prof-extra" *ngIf="ln.gln() === 'ES'">{{ e.categoria?.detalle | lowercase }}</span>
                 <span class="prof-des"> 
                     {{ e.preDetalle }}</span>
             </span>

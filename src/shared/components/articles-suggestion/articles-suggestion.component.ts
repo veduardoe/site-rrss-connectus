@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Ln } from 'src/shared/services/language.service';
 
 @Component({
   selector: 'app-articles-suggestion',
@@ -8,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArticlesSuggestionComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public ln:Ln
+  ) { }
 
   ngOnInit(): void {
   }

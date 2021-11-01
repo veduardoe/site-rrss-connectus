@@ -7,6 +7,7 @@ import { CommonService } from 'src/shared/services/common.service';
 import { ENV } from 'src/environments/environment';
 import * as $ from 'jquery';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { Ln } from 'src/shared/services/language.service';
 
 @Component({
   selector: 'app-input-post',
@@ -58,13 +59,15 @@ export class InputPostComponent implements OnInit, OnChanges {
     public utils: UtilsService,
     private sanitizer: DomSanitizer,
     private postService: PostsService,
-    private commonService: CommonService
+    private commonService: CommonService,
+    public ln:Ln
   ) { }
 
 
   ngOnChanges() {
     this.limitText = this.isArticle ? null : 1000;
     this.setDataToUpdate();
+    
   }
 
   ngOnInit(): void {

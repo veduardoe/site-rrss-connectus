@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ArticulosPublicosService } from 'src/shared/services/articulospublicos.service';
 import { ConexionService } from 'src/shared/services/conexion.service';
 import { EventosService } from 'src/shared/services/eventos.service';
+import { Ln } from 'src/shared/services/language.service';
 import { PostsService } from 'src/shared/services/posts.service';
 import { UtilsService } from 'src/shared/services/utils.service';
 
@@ -24,7 +25,8 @@ export class FeedHomeComponent implements OnInit {
     private postService: PostsService,
     private conexionesService: ConexionService,
     private eventosService: EventosService,
-    private articulosPublicosService: ArticulosPublicosService
+    private articulosPublicosService: ArticulosPublicosService,
+    public ln:Ln
   ) { }
 
   ngOnInit(): void {
@@ -35,7 +37,7 @@ export class FeedHomeComponent implements OnInit {
   }
 
   getArticulosPublicos() {
-    this.articulosPublicosService.getArticulosPublicos('EN').then((res: any) => {
+    this.articulosPublicosService.getArticulosPublicos(this.ln.gln()).then((res: any) => {
       this.articulospublicos = res.data;
       console.log(this.articulospublicos);
     });
@@ -65,12 +67,13 @@ export class FeedHomeComponent implements OnInit {
   }
 
   getEventos() {
-    this.eventosService.obtenerEventos().then((ev: any) => {
+    this.eventosService.obtenerEventos(this.ln.gln()).then((ev: any) => {
       this.eventos = this.utils.procesarEventosLateral(ev.data);
     });
   }
 
   goToSite(){
-    window.open('http://site.connectus.global/home', '_blank');
+    const path = this.ln.gln() === 'ES' ? 'inicio' : 'home';
+    window.open('http://site.connectus.global/'+ path , '_blank');
   }
 }

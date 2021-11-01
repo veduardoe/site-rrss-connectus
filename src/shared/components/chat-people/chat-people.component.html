@@ -1,12 +1,12 @@
 <div class="card-suggestions chat-bar">
     <div class="cs-header">
-        Active Chats
+        {{ ln.o('ACTCHTX')}}
     </div>
     <div class="list-sug ">
         <div class="search">
             <mat-form-field appearance="outline" class="full input-1 npb onwhite">
                 <input matInput (focusin)="plcFocus = true" (focusout)="plcFocus = false" type="text"
-                    placeholder="{{ plcFocus ? '' : 'Find a connection...' }}" [formControl]="usuariosCtrl"
+                    placeholder="{{ plcFocus ? '' : ln.o('FNDCONTX') }}" [formControl]="usuariosCtrl"
                     #triggerUsuarios="matAutocompleteTrigger" [matAutocomplete]="auto" autocomplete="off" />
                     <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayTextAutocomplete" (optionSelected)="usuarioSelection($event)">
                         <div class="layerl" *ngIf="loadingUsuarios"></div>
@@ -26,7 +26,7 @@
                 <mat-icon matPrefix class="iconprefix"><i class="far fa-search"></i></mat-icon>
             </mat-form-field>
         </div>
-        <div class="no-results" *ngIf="chatList.length === 0">No active chats</div>
+        <div class="no-results" *ngIf="chatList.length === 0">{{ ln.o('NACTCHTX')}}</div>
         <div class="usuSection">
             <ng-container *ngFor="let usu of chatList">
                 <div class="item-sug chat-item active" matRipple [ngClass]="{ 'active' : idCurUserChat === usu.id }" (click)="setUsuario(usu)">

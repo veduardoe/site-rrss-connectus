@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ENV } from 'src/environments/environment';
 import { CommonService } from 'src/shared/services/common.service';
+import { Ln } from 'src/shared/services/language.service';
 
 @Component({
   selector: 'app-home-slider',
@@ -15,7 +16,8 @@ export class HomeSliderComponent implements OnInit {
   routeFicheros = ENV.FICHEROS;
 
   constructor(
-    public commonService: CommonService
+    public commonService: CommonService,
+    public ln: Ln
   ) { }
 
   ngOnInit(): void {
@@ -24,7 +26,7 @@ export class HomeSliderComponent implements OnInit {
   }
 
   getBanners(){
-      this.commonService.getBanners('EN', 'UPPER_BANNER').then( (res:any) => {
+      this.commonService.getBanners(this.ln.gln(), 'UPPER_BANNER').then( (res:any) => {
         let i = 1;
         res.data.forEach((val, key) => {
             this.sliders.push({

@@ -1,13 +1,12 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
-import { Observable, Observer } from 'rxjs';
-import { debounceTime, map, startWith, switchMap, tap } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import { ENV } from 'src/environments/environment';
 import { AuthService } from 'src/shared/services/auth.service';
 import { ConexionService } from 'src/shared/services/conexion.service';
+import { Ln } from 'src/shared/services/language.service';
 import { MensajesService } from 'src/shared/services/mensajes.service';
-import { UserService } from 'src/shared/services/user.service';
 import { UtilsService } from 'src/shared/services/utils.service';
 
 @Component({
@@ -40,7 +39,8 @@ export class ChatPeopleComponent implements OnInit, OnDestroy {
     public utils: UtilsService,
     private authService: AuthService,
     private conexionesService: ConexionService,
-    private mensajesService: MensajesService
+    private mensajesService: MensajesService,
+    public ln: Ln
   ) { }
 
   ngOnInit(): void {

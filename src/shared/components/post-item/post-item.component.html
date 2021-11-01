@@ -1,6 +1,6 @@
 <div class="card-post" *ngIf="data">
 
-    <button mat-icon-button [matMenuTriggerFor]="menu" class="actionPost" >
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="actionPost">
         <mat-icon>more_vert</mat-icon>
     </button>
 
@@ -12,22 +12,25 @@
         </span>
         <span class="info">
             <span class="prof-name">{{ data.usuario?.nombres }} {{ data.usuario?.apellidos }}</span>
-            <span class="prof-date">Posted on {{ data.fechaRegistro | date:'MMMM d, y' }} at {{ data.fechaRegistro | date:'hh:mm:ss a' }}</span>
+            <span class="prof-date">
+                {{ ln.o('POSTEDTX')}}
+                {{ data.fechaRegistro | date:'MMMM d, y' }}
+                {{ ln.o('ATTX') }}
+                {{ data.fechaRegistro | date:'hh:mm:ss a' }}
+            </span>
         </span>
     </div>
 
     <div *ngIf="listadoImagenes.length > 0">
-        <lightgallery [settings]="settings" fxLayout="row wrap" fxLayoutAlign="center" class="cont-gal" >
-            <a  fxFlex="{{ ((100 / (listadoImagenes.length > 3 ? 3 : listadoImagenes.length )) - 1) +'%'  }}" 
-                [attr.href]="img.src"
-                 class="picgal" 
-                [style.background-image]="'url(' + img.image  + ')'" 
+        <lightgallery [settings]="settings" fxLayout="row wrap" fxLayoutAlign="center" class="cont-gal">
+            <a fxFlex="{{ ((100 / (listadoImagenes.length > 3 ? 3 : listadoImagenes.length )) - 1) +'%'  }}"
+                [attr.href]="img.src" class="picgal" [style.background-image]="'url(' + img.image  + ')'"
                 *ngFor="let img of listadoImagenes">
                 <span class="overlay">
                     <i class="fal fa-search icc"></i>
                 </span>
             </a>
-        </lightgallery> 
+        </lightgallery>
     </div>
 
     <div *ngIf="listadoFicheros.length > 0">
@@ -71,10 +74,10 @@
 <mat-menu #menu="matMenu">
     <button mat-menu-item (click)="detelePost()" *ngIf="pertenecePost">
         <mat-icon>close</mat-icon>
-        <span>Delete</span>
+        <span>{{ ln.o('DELETETX') }}</span>
     </button>
     <button mat-menu-item (click)="denunciarPost()" *ngIf="!pertenecePost">
         <mat-icon>warning</mat-icon>
-        <span>Report</span>
+        <span>{{ ln.o('REPORTX') }}</span>
     </button>
 </mat-menu>

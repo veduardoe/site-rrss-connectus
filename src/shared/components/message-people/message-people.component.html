@@ -8,7 +8,7 @@
         <div class="det-message">
             <span class="prof-name">{{ data?.usuarioMsgOrigen?.nombres  }} {{ data?.usuarioMsgOrigen?.apellidos  }}</span>
             <p>{{ data?.mensaje }}</p>
-                <span class="date">Posted on {{ data?.fechaHora | date:'short' }}</span>
+                <span class="date">{{ ln.o('POSTEDTX')}} {{ data?.fechaHora | date:'short' }}</span>
         </div>
     </span>
 </div>
@@ -22,7 +22,7 @@
         <div class="det-message">
             <span class="prof-name">{{ data?.nombreCompleto  }}</span>
             <p>{{ data?.mensaje }}</p>
-                <span class="date">Posted on {{ data?.fecha | date:'short' }}</span>
+                <span class="date">{{ ln.o('POSTEDTX')}} {{ data?.fecha | date:'short' }}</span>
         </div>
     </span>
 </div>

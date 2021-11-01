@@ -80,12 +80,56 @@ export const in18 = {
         'EN': '<p class="lnh">IF YOU NEED ANY HELP, YOU CAN CONTACT US FILLING THE FORM <a class="linke" href="http://site.connectus.global/contact" target="_new">CLICKING HERE</a></p>',
         'ES': '<p class="lnh">SI NECESITAS AYUDA, PUEDES CONTACTARNOS COMPLETANDO EL FORMULARIO HACIENDO <a class="linke" href="http://site.connectus.global/contacto" target="_new">CLIC AQUÍ</a></p>.'
     },
-    'FIN_HD': { 'EN' : 'Find and discover people in Connectus...', 'ES' : 'Busca y encuentra personas en Connectus...'},
-    'TOLT_MYMSS': { 'EN' : 'MY MESSAGES', 'ES' : 'MIS MENSAJES'},
-    'TOLT_MYNOTIF': { 'EN' : 'MY NOTIFICATIONS', 'ES' : 'MIS NOTIFICACIONES'},
-    'TOLT_LOGOUT': { 'EN' : 'LOGOUT', 'ES' : 'SALIR'},
-    'HOME' : { 'EN' : 'HOME', 'ES' : 'INICIO'},
-    'HOME_RCMART' : { 'EN' : 'We recommend the following articles...', 'ES' : ''},
+    'FIN_HD': { 'EN': 'Find and discover people in Connectus...', 'ES': 'Busca y encuentra personas en Connectus...' },
+    'TOLT_MYMSS': { 'EN': 'MY MESSAGES', 'ES': 'MIS MENSAJES' },
+    'TOLT_MYNOTIF': { 'EN': 'MY NOTIFICATIONS', 'ES': 'MIS NOTIFICACIONES' },
+    'TOLT_LOGOUT': { 'EN': 'LOGOUT', 'ES': 'SALIR' },
+    'HOME': { 'EN': 'HOME', 'ES': 'INICIO' },
+    'HOME_RCMART': { 'EN': 'We recommend the following articles...', 'ES': 'Te recomendamos los siguientes artículos...' },
+    'CONAWRES': { 'EN': 'Connections waiting response', 'ES': 'Conexiones esperando respuesta' },
+    'CONFEED': { 'EN': 'Connectus Feed', 'ES': 'Actividad Connectus' },
+    'HOME_INPFEED': { 'EN': 'Share something great in Connectus...', 'ES': 'Comparte algo grandioso en Connectus...' },
+    'VIEWMORE': { 'EN': 'View more', 'ES': 'Ver más' },
+    'VIEWALL': { 'EN': 'View all', 'ES': 'Ver todos' },
+    'ACTCHTX': { 'EN': 'Active Chats', 'ES': 'Chats Activos' },
+    'NACTCHTX': { 'EN': 'No active chats', 'ES': 'No hay chats activos' },
+    'FNDCONTX': { 'EN': 'Find a connection', 'ES': 'Encuentra una conexión' },
+    'COMMENTSTX': { 'EN': 'Comments', 'ES': 'Comentarios' },
+    'LEAVECOMM': { 'EN': 'Leave a comment', 'ES': 'Deja un comentario' },
+    'NEXTNAV': { 'EN': 'Next', 'ES': 'Siguiente' },
+    'PREVNAV': { 'EN': 'Previous', 'ES': 'Anterior' },
+    'NOCOMMENTSTX': { 'EN': 'No comments', 'ES': 'Sin comentarios' },
+    'HLEVENTS': { 'EN': 'Highlighted Events', 'ES': 'Eventos Destacados' },
+    'NOEVENTSTX': { 'EN': 'No events to show', 'ES': 'No hay eventos para mostrar' },
+    'SELCATG': { 'EN': 'Select a category', 'ES': 'Selecciona una categoría' },
+    'TITCATG': { 'EN': 'Title of category', 'ES': 'Título de la categoría' },
+    'PICTX': { 'EN': 'Pictures', 'ES': 'Imágenes' },
+    'FILESTX': { 'EN': 'Files', 'ES': 'Archivos' },
+    'ADDFILESTX': { 'EN': 'Add Files', 'ES': 'Agregar Archivos' },
+    'ADDPICTURESTX': { 'EN': 'Add Pictures', 'ES': 'Agregar Imágenes' },
+    'SENDTX': { 'EN': 'Send', 'ES': 'Enviar' },
+    'POSTEDTX': { 'EN': 'Posted on', 'ES': 'Publicado el' },
+    'ATTX': { 'EN': 'at', 'ES': 'a las' },
+    'REPORTX': { 'EN': 'Report', 'ES': 'Denunciar' },
+    'DELETETX': { 'EN': 'Delete', 'ES': 'Eliminar' },
+    'EDITTX': { 'EN': 'Edit', 'ES': 'Editar' },
+    'CONFIRMTX': { 'EN': 'Confirm', 'ES': 'Confirmar' },
+    'CONFDELPOST': {
+        'EN': 'Are you sure to delete the post?',
+        'ES': '¿estás seguro de eliminar esta publicación?'
+    },
+    'CONFREPPOST': {
+        'EN': 'Are you sure to report this post?',
+        'ES': '¿estás seguro de denunciar esta publicación?'
+    },
+    'SUCCREPPOST': {
+        'EN': 'The post has been reported successfully.',
+        'ES': 'La publicación ha sido denunciada correctamente.'
+    },
+    'DUPREPPOST': {
+        'EN': 'You have already reported this post',
+        'ES': 'Ya has denunciado esta publicación'
+    },
 
 
 }

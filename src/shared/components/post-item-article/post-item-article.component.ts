@@ -5,6 +5,7 @@ import * as striptags from 'striptags'
 import lgZoom from 'lightgallery/plugins/zoom';
 import { UtilsService } from 'src/shared/services/utils.service';
 import { AuthService } from 'src/shared/services/auth.service';
+import { Ln } from 'src/shared/services/language.service';
 
 @Component({
   selector: 'app-post-item-article',
@@ -30,7 +31,8 @@ export class PostItemArticleComponent implements OnInit, OnChanges {
   constructor(
     private postService: PostsService,
     private utils: UtilsService,
-    private authService: AuthService
+    private authService: AuthService,
+    public ln: Ln
   ) { }
 
   ngOnInit(): void {
@@ -81,7 +83,7 @@ export class PostItemArticleComponent implements OnInit, OnChanges {
   }
 
   detelePost() {
-    this.utils.fnMainDialog("Confirm", "Are you sure to delete the post?", "confirm").subscribe( a => {
+    this.utils.fnMainDialog(this.ln.o('CONFIRMTX'), this.ln.o('CONFDELPOST'), "confirm").subscribe( a => {
       if(a){
         this.postService.deletePost(this.data._id).then((res: any) => {
           this.updateEvent.emit(true);
@@ -91,13 +93,13 @@ export class PostItemArticleComponent implements OnInit, OnChanges {
   }
 
   denunciarPost() {
-    this.utils.fnMainDialog("Confirm", "Are you sure to report the post?", "confirm").subscribe( a => {
+    this.utils.fnMainDialog(this.ln.o('CONFIRMTX'), this.ln.o('CONFREPPOST'), "confirm").subscribe( a => {
       if(a){
         this.postService.denunciarePost(this.data._id).then((res: any) => {
           if(res.response){
-            this.utils.fnMainDialog('Notification', 'Article has been reported successfully', 'message');
+            this.utils.fnMainDialog(this.ln.o('NOTIF'), this.ln.o('SUCCREPPOST'), 'message');
           }else{
-            this.utils.fnMainDialog('Notification', 'You have already reported this article.', 'message');
+            this.utils.fnMainDialog(this.ln.o('NOTIF'), this.ln.o('DUPREPPOST'), 'message');
           }
         });
       }

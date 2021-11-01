@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ENV } from 'src/environments/environment';
 import { CommonService } from 'src/shared/services/common.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Ln } from 'src/shared/services/language.service';
 
 @Component({
   selector: 'app-bar-picture',
@@ -17,7 +18,8 @@ export class BarPictureComponent implements OnInit {
   
   constructor(
     public commonService: CommonService,
-    private sanitize: DomSanitizer
+    private sanitize: DomSanitizer,
+    public ln: Ln
   ) { }
 
   ngOnInit(): void {
@@ -26,7 +28,7 @@ export class BarPictureComponent implements OnInit {
 
   
   getBanners(){
-    this.commonService.getBanners('EN', 'SIDE_BANNER').then( (res:any) => {
+    this.commonService.getBanners(this.ln.gln(), 'SIDE_BANNER').then( (res:any) => {
       let i = 1;
       res.data.forEach((val, key) => {
           this.sliders.push({
