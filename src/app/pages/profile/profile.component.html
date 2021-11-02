@@ -1,9 +1,9 @@
 <div class="pic-header" *ngIf="perfilUsuario && loadedUsuario && !loading"></div>
 <div class="notfound" *ngIf="!perfilUsuario && loadedUsuario && !loading">
     <div class="container">
-        <p>The user was not found.</p>
+        <p>{{ ln.o('USERNOTFOUND')}}</p>
         <button mat-stroked-button class="btn btn-light-filled md" [routerLink]="['/home/homefeed']">
-            RETURN TO HOME
+            {{ ln.o('RETURNHOME')}}
         </button>
     </div>
     
@@ -28,18 +28,18 @@
         </div>
        
         <div class="conex-btn" *ngIf="myInfo.id !== perfilUsuario._id">
-            <button mat-stroked-button class="btn btn-light-outline " (click)="crearConexion()" *ngIf="connectInfo.action === 'CREATE_CONNECTION'"> CONNECT + </button>
+            <button mat-stroked-button class="btn btn-light-outline " (click)="crearConexion()" *ngIf="connectInfo.action === 'CREATE_CONNECTION'"> {{ ln.o('CONNECT')}} + </button>
             <div *ngIf="connectInfo.action === 'AWAIT_CONNECTION'">
-                <button mat-stroked-button class="btn btn-light-outline " (click)="procesarConexion(false)"  style="margin-right: 15px;">CANCEL REQUEST CONNECTION</button>
-                <button mat-stroked-button class="btn btn-light-filled ">AWAITING RESPONSE CONNECTION</button>
+                <button mat-stroked-button class="btn btn-light-outline " (click)="procesarConexion(false)"  style="margin-right: 15px;">{{ ln.o('CANCELREQCON')}}</button>
+                <button mat-stroked-button class="btn btn-light-filled ">{{ ln.o('AWAREQCON')}}</button>
             </div>
             <div *ngIf="connectInfo.action === 'ACCEPT_CONNECTION'">
-                <button mat-stroked-button class="btn btn-light-outline " (click)="procesarConexion(false)" style="margin-right: 15px;"> REJECT CONNECTION</button>
-                <button mat-stroked-button class="btn btn-light-filled " (click)="procesarConexion(true)"> ACCEPT CONNECTION</button>
+                <button mat-stroked-button class="btn btn-light-outline " (click)="procesarConexion(false)" style="margin-right: 15px;"> {{ ln.o('REJECTCON')}}</button>
+                <button mat-stroked-button class="btn btn-light-filled " (click)="procesarConexion(true)"> {{ ln.o('ACCEPTCON')}}</button>
             </div>
 
-            <button mat-stroked-button class="btn btn-light-outline " (click)="procesarConexion(false)" *ngIf="connectInfo.action === 'CONNECTED'" style="margin-right: 15px;"> REMOVE CONNECTION</button>
-            <button mat-stroked-button class="btn btn-light-filled " *ngIf="connectInfo.action === 'CONNECTED'">CONNECTED</button>
+            <button mat-stroked-button class="btn btn-light-outline " (click)="procesarConexion(false)" *ngIf="connectInfo.action === 'CONNECTED'" style="margin-right: 15px;"> {{ ln.o('REMOVECON')}}</button>
+            <button mat-stroked-button class="btn btn-light-filled " *ngIf="connectInfo.action === 'CONNECTED'">{{ ln.o('CONNECTEDX')}}</button>
         </div>
         <div class="dots">
             <span></span>
@@ -49,7 +49,7 @@
         <div class="con-info">
             <div class="con-det">
                 <span class="con-val">0</span>
-                <span class="con-ref">Connections</span>
+                <span class="con-ref">{{ ln.o('CONNECTIONSTX') }}</span>
             </div>
             <div class="con-det">
                 <span class="con-val">{{ perfilUsuario.nPosts }}</span>
@@ -57,7 +57,7 @@
             </div>
             <div class="con-det">
                 <span class="con-val">{{ perfilUsuario.fechaRegistro | date: 'YYYY' }}</span>
-                <span class="con-ref">Member since</span>
+                <span class="con-ref">{{ ln.o('MEMBERSINCE') }}</span>
             </div>
         </div>
         <span class="navig nright">
@@ -69,29 +69,7 @@
 
     </div>
 </div> 
-<!-- 
-<div class="container" style="margin-top: 30px;">
-    <div fxLayout="row {{ utils.checkWidth720 ? 'wrap' : '' }}" fxLayoutGap="{{ utils.checkWidth720 ? '0px' : '25px' }}">
-        <div fxFlex="100%">
-            <span class="iftext">
-                Sophia Vergada Latest Articles
-            </span>
-            <app-home-articles></app-home-articles>
-            <span class="iftext">
-                Sophia Vergada Feed
-            </span>
-            <app-post-item></app-post-item>
-            <app-post-item></app-post-item>
-            <span class="link-cc">Keep reading...</span>
-        </div>
-        <div fxFlex="{{ utils.checkWidth720 ? '100%' : '300px' }}">
-            <app-home-suggestions [limit]="4"></app-home-suggestions>
-            <app-simple-text></app-simple-text>
-            <app-bar-picture></app-bar-picture>
-        </div>
-    </div>
-</div>
--->
+
 <div *ngIf="utils.checkWidth720">
     <app-navigation></app-navigation>
 </div>

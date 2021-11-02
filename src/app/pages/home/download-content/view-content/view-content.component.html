@@ -1,6 +1,6 @@
 <span class="iftext" [routerLink]="['//home/downloadble-content']">
     <i class="fal fa-arrow-left"></i>
-    RETURN
+    {{ ln.o('RETURN') }}
 </span>
 
 <div class="loader" *ngIf="loading">
@@ -13,7 +13,7 @@
 </div>
 
 
-<div fxLayout="row wrap" fxLayoutAlign="center" style="margin-top: 30px;" *ngIf="items.length > 0 && !loading" fxLayoutGap="1%">
+<div fxLayout="row wrap"  style="margin-top: 30px;" *ngIf="items.length > 0 && !loading" fxLayoutGap="1%">
     <div fxFlex="32%" fxFlex.xs="100%" fxFlex.sm="100%" *ngFor="let it of items">
         <span class="btn-download" matRipple (click)="openFile(it.fichero)">
             <i class="fal fa-arrow-alt-to-bottom"></i>
@@ -22,5 +22,5 @@
         </span>
     </div>
 </div>
-<p *ngIf="items.length === 0 && !loading">There are not {{ categoria.titulo }} to show</p>
+<p *ngIf="items.length === 0 && !loading">{{ ln.o('NORESULTS')}}</p>
 <app-footer></app-footer>

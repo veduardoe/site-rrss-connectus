@@ -1,4 +1,4 @@
-<app-bar-page [namePage]="'MESSAGING'"></app-bar-page>
+<app-bar-page [namePage]="ln.o('MESSAGINGTX')"></app-bar-page>
 <div class="">
     <div fxLayout="row {{ utils.checkWidth720 ? 'wrap' : '' }}"
         fxLayoutGap="{{ utils.checkWidth720 ? '0px' : '25px' }}">
@@ -8,11 +8,6 @@
         <div fxFlex="100%">
             <div class="content-messaging" [ngClass]="{ 'noChat' : !curUsuarioDestino }">
                 <div class="head-msg" *ngIf="curUsuarioDestino">
-                    <!-- 
-                    <span class="closeChat" matRipple (click)="closeChat()">
-                        <mat-icon>close</mat-icon>
-                    </span>
-                    -->
                     <span class="prof-pic">
                         <img *ngIf="curUsuarioDestino.foto"
                             [src]="routeFotoPerfil + curUsuarioDestino.foto + '?alt=media'" />
@@ -35,13 +30,12 @@
 
       
                 </div>
-                <p class="noChatText" *ngIf="!curUsuarioDestino">Find a connection and start messaging.</p>
-
+                <p class="noChatText" *ngIf="!curUsuarioDestino">{{ ln.o('FINDCONCHAT')}}</p>
 
                 <div *ngIf="curUsuarioDestino" class="write-feed">
                     <mat-form-field appearance="outline" class="full">
                         <textarea matInput maxlength="1000" [(ngModel)]="publishText" style="height:60px" id="inputText"
-                            placeholder="Leave a message"></textarea>
+                            placeholder="{{ ln.o('LEAVECHAT')}}"></textarea>
                     </mat-form-field>
                     <app-emojis-picker (emojiSelected)="emojiSelected($event)" *ngIf="displayEmoji"></app-emojis-picker>
 
@@ -52,9 +46,8 @@
                                 <button mat-icon-button class="btn isEmojiBtn" (click)="showEmojis()">
                                     <i class="fal fa-smile-beam"></i>
                                 </button>
-
                                 <button mat-stroked-button class="btn btn-light-filled" (click)="postMessage()">
-                                    SEND
+                                    {{ ln.o('SENDTX')}}
                                     <i class="fad fa-paper-plane"></i>
                                 </button>
                             </div>

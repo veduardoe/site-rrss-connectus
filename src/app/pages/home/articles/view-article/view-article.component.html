@@ -16,7 +16,7 @@
     <div class="padtb">
         <span class="iftext" [routerLink]="['/home/articles']">
             <i class="fal fa-arrow-left"></i>
-            RETURN TO ARTICLES
+            {{ ln.o('RETARTIX') }}
         </span>
         <div class="loader" *ngIf="loading">
             <mat-progress-spinner [diameter]="60" mode="indeterminate" color="primary">
@@ -31,11 +31,11 @@
     <div class="padtb">
         <span class="iftext" [routerLink]="['/home/articles']">
             <i class="fal fa-arrow-left"></i>
-            RETURN TO ARTICLES
+            {{ ln.o('RETARTIX') }}
         </span>
         <div style="margin-bottom: 20px;">
-            <app-bar-page [namePage]="'CREATE AN ARTICLE'"></app-bar-page>
+            <app-bar-page [namePage]="ln.o('CREATEARTITXN')"></app-bar-page>
         </div>
-        <app-input-post (postSaved)="getArticles()" [data]="article" [isArticle]="true" [placeholder]="'Write something interesting...'"></app-input-post>
+        <app-input-post (postSaved)="getArticles()" [data]="article" [isArticle]="true" [placeholder]="ln.o('ARTITXT')"></app-input-post>
     </div>
 </ng-template>

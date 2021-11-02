@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ENV } from 'src/environments/environment';
 import { ConexionService } from 'src/shared/services/conexion.service';
 import { EventosService } from 'src/shared/services/eventos.service';
+import { Ln } from 'src/shared/services/language.service';
 import { UtilsService } from 'src/shared/services/utils.service';
 
 @Component({
@@ -24,7 +25,8 @@ export class ConnectionsComponent implements OnInit {
   constructor(
     public utils: UtilsService,
     private conexionesService: ConexionService,
-    public eventosService: EventosService
+    public eventosService: EventosService,
+    public ln: Ln
   ) { }
 
   ngOnInit(): void {
@@ -92,10 +94,10 @@ export class ConnectionsComponent implements OnInit {
         }
 
         switch(behavior){
-          case 'REMOVE': message = 'Connection has been removed.'; break;
-          case 'REJECT': message = 'Connection has been rejected.'; break;
-          case 'APPROVE': message = 'Connection has been approved.'; break;
-          case 'CANCEL': message = 'Connection request has been canceled.'; break;
+          case 'REMOVE': message = this.ln.o('CONNREMV'); break;
+          case 'REJECT': message = this.ln.o('CONNREJ'); break;
+          case 'APPROVE': message = this.ln.o('CONNACP'); break;
+          case 'CANCEL': message = this.ln.o('CONNCANC'); break;
         }
         
         this.utils.fnMessage(message);
@@ -115,7 +117,7 @@ export class ConnectionsComponent implements OnInit {
   } 
 
   getEventos() {
-    this.eventosService.obtenerEventos().then((ev: any) => {
+    this.eventosService.obtenerEventos(this.ln.gln()).then((ev: any) => {
       this.eventos = this.utils.procesarEventosLateral(ev.data);
     });
   }

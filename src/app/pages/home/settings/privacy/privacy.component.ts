@@ -32,7 +32,7 @@ export class PrivacyComponent implements OnInit {
     this.idioma = pref.idioma
   }
 
-  changeOption(){
+  changeOption(tipo = null){
     const data = {
       perfilPublico: this.perfilPublico,
       mostrarEmail: this.mostrarEmail,
@@ -50,6 +50,10 @@ export class PrivacyComponent implements OnInit {
           preferencias.mostrarTelefono = this.mostrarTelefono;
           preferencias.idioma = this.idioma;
           sessionStorage.setItem('auth', JSON.stringify(fullData));
+
+          if(tipo === 'IDIOMA'){
+            location.reload();
+          }
       }
       this.loading = false;
 

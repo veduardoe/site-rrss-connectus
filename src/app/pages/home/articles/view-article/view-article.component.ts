@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/shared/services/auth.service';
+import { Ln } from 'src/shared/services/language.service';
 import { PostsService } from 'src/shared/services/posts.service';
 import { UtilsService } from 'src/shared/services/utils.service';
 
@@ -23,12 +24,13 @@ export class ViewArticleComponent implements OnInit {
     private aRouter: ActivatedRoute,
     private router: Router,
     private postsService: PostsService,
-    private authService: AuthService
+    private authService: AuthService,
+    public ln: Ln
   ) {
-    this.aRouter.queryParams.subscribe( param => {
-      this.curView = param?.curView === 'view' ? 'view' : 'create';
-      this.idPost = param?.id;
-    });
+      this.aRouter.queryParams.subscribe( param => {
+        this.curView = param?.curView === 'view' ? 'view' : 'create';
+        this.idPost = param?.id;
+      });
    }
 
   ngOnInit(): void {
@@ -39,7 +41,7 @@ export class ViewArticleComponent implements OnInit {
   }
 
   getArticles(){
-    this.utils.fnMessage('The article has been added!');
+    this.utils.fnMessage(this.ln.o('ARTADDX'));
     this.router.navigate(['/home/articles']);
   }
 

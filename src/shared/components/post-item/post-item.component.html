@@ -14,7 +14,7 @@
             <span class="prof-name">{{ data.usuario?.nombres }} {{ data.usuario?.apellidos }}</span>
             <span class="prof-date">
                 {{ ln.o('POSTEDTX')}}
-                {{ data.fechaRegistro | date:'MMMM d, y' }}
+                {{ data.fechaRegistro | date:'shortDate' }}
                 {{ ln.o('ATTX') }}
                 {{ data.fechaRegistro | date:'hh:mm:ss a' }}
             </span>

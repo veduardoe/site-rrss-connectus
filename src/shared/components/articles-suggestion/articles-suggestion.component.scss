@@ -1,6 +1,9 @@
 .article-sug{
     .prof-name{
         font-size: 14px !important;
+        display: -webkit-box !important;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical; 
     }
 
     .prof-pic{
@@ -8,6 +11,8 @@
         width: 70px !important;
         margin-right: 10px !important;
         height: 70px !important;
+        background-size: cover !important;
+        background-position: 50% !important;
         img{
             border-radius: 10px !important;
         }
@@ -15,4 +20,15 @@
             display: none;
         }
     }
+
+    .prof-des{
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical; 
+    }
+}
+
+.noresults{
+    padding: 20px !important;
+    text-align: center;
 }

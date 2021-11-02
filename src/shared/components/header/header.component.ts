@@ -38,7 +38,6 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.setAutoComplete();
     this.myInfo = this.authService.getAuthInfo();
-    console.log(this.myInfo)
   }
 
   goToHome() {

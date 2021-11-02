@@ -72,7 +72,6 @@ export class UserInformationComponent implements OnInit {
     this.loading = true;
     this.userService.getMisDatos().then(async (res: any) => {
       await this.getCategorias();
-      console.log(res.data[0]);
       this.mainForm.patchValue(res.data[0]);
       if(res.data[0]){
         this.categoriesAdded = res.data[0].categorias.map( cat => {

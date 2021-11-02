@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ENV } from 'src/environments/environment';
 import { ContenidoDescargablesService } from 'src/shared/services/contenidodescargable.service';
+import { Ln } from 'src/shared/services/language.service';
 import { UtilsService } from 'src/shared/services/utils.service';
 
 @Component({
@@ -22,7 +23,8 @@ export class ViewContentComponent implements OnInit {
     public contenidoDescargableService: ContenidoDescargablesService,
     public aRouter: ActivatedRoute,
     public router: Router,
-    public utils: UtilsService
+    public utils: UtilsService,
+    public ln: Ln
   ) { }
 
   ngOnInit(): void {
@@ -41,7 +43,7 @@ export class ViewContentComponent implements OnInit {
           this.categoria = response[0].data[0]
           this.items = response[1].data;
         }else{
-          this.utils.fnMainDialog('Error', 'The resource was not found!', 'message');
+          this.utils.fnMainDialog('Error', this.ln.o('NORESULTS'), 'message');
           this.router.navigate(['/home/downloadble-content']);
         }
         
@@ -50,7 +52,7 @@ export class ViewContentComponent implements OnInit {
         },2000);
 
       } else {
-        this.utils.fnMainDialog('Error', 'The resource was not found!', 'message');
+        this.utils.fnMainDialog('Error', this.ln.o('NORESULTS'), 'message');
         this.router.navigate(['/home/downloadble-content']);
       }
     });
@@ -58,7 +60,7 @@ export class ViewContentComponent implements OnInit {
 
   getCategorias() {
     this.loading = true;
-    this.contenidoDescargableService.obtenerCategorias({})
+    this.contenidoDescargableService.obtenerCategorias({ idioma: this.ln.gln()})
   }
 
   openFile(file){

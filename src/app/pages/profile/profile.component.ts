@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ENV } from 'src/environments/environment';
 import { AuthService } from 'src/shared/services/auth.service';
 import { ConexionService } from 'src/shared/services/conexion.service';
+import { Ln } from 'src/shared/services/language.service';
 import { UserService } from 'src/shared/services/user.service';
 import { UtilsService } from 'src/shared/services/utils.service';
 
@@ -27,7 +28,8 @@ export class ProfileComponent implements OnInit {
     public userService: UserService,
     public aRouter: ActivatedRoute,
     public authService: AuthService,
-    public conexionService: ConexionService
+    public conexionService: ConexionService,
+    public ln: Ln
   ) { }
 
   ngOnInit(): void {

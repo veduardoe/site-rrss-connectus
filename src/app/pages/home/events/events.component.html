@@ -1,4 +1,4 @@
-<app-bar-page [namePage]="'EVENTS'"></app-bar-page>
+<app-bar-page [namePage]="ln.o('EVENTSTX')"></app-bar-page>
 <div class=" calendar-preview" >
     <div fxLayout="row {{ utils.checkWidth720 ? 'wrap' : '' }}" fxLayoutGap="{{ utils.checkWidth720 ? '0px' : '25px' }}">
         <div fxFlex="100%">
@@ -7,12 +7,10 @@
                 <div class="calendar-preview">
                   <ng-container *ngTemplateOutlet="dateCalendar"></ng-container>
                 </div>
-
             </div>
-
         </div>
         <div fxFlex="{{ utils.checkWidth720 ? '100%' : '300px' }}">
-            <app-incoming-events [limit]="5" [eventos]="eventosRes" [fromHome]="false"></app-incoming-events>
+            <app-incoming-events [limit]="6" [eventos]="eventosRes" [fromHome]="false"></app-incoming-events>
             <app-bar-picture></app-bar-picture>
         </div>
     </div>
@@ -37,15 +35,18 @@
             </div>
         </div>
     </ng-container>
+    <ng-container *ngIf="eventos.length === 0">
+        {{ ln.o('NORESULTS') }}
+    </ng-container>
 </ng-template>
 <ng-template #filterArticle>
     <div class="filter">
         <div class="sbox">
-            <mat-form-field appearance="outline">
-                <mat-label>Categories</mat-label>
+            <mat-form-field class="full" appearance="outline">
+                <mat-label>{{ ln.o('SELCATG')}}</mat-label>
                 <mat-select [(ngModel)]="categoriaSelected">
-                    <mat-option [value]="'ALL'">SHOW ALL</mat-option>
-                    <mat-option *ngFor="let cat of categorias" [value]="cat._id">{{ cat.detalleEN }}</mat-option>
+                    <mat-option [value]="'ALL'">{{ ln.o('VIEWALL') | uppercase}}</mat-option>
+                    <mat-option *ngFor="let cat of categorias" [value]="cat._id">{{ ln.gln() === 'ES' ? cat.detalle : cat.detalleEN }}</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>

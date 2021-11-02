@@ -4,6 +4,7 @@ import { CommonService } from 'src/shared/services/common.service';
 import { EventosService } from 'src/shared/services/eventos.service';
 import { UtilsService } from 'src/shared/services/utils.service';
 import slugify from 'slugify';
+import { Ln } from 'src/shared/services/language.service';
 
 @Component({
   selector: 'app-events',
@@ -22,7 +23,8 @@ export class EventsComponent implements OnInit {
   constructor(
     public utils:UtilsService,
     private eventosService: EventosService,
-    private commonService: CommonService
+    private commonService: CommonService,
+    public ln: Ln
   ) { }
 
   ngOnInit(): void {
@@ -31,7 +33,7 @@ export class EventsComponent implements OnInit {
   }
 
   getEventos() {
-    this.eventosService.obtenerEventos().then((ev: any) => {
+    this.eventosService.obtenerEventos(this.ln.gln()).then((ev: any) => {
       this.eventosRes = this.utils.procesarEventosLateral(ev.data, true);
       this.eventos = this.utils.procesarEventosLateral(ev.data, false);
     });
@@ -45,8 +47,9 @@ export class EventsComponent implements OnInit {
 
   goToEvent(id, titulo){
     const slug = slugify(titulo);
-    const path = `https://site.connectus.global/event/${id}/${slug}`;
-    window.open(path, '_blank');
+    const path = this.ln.gln() === 'ES' ? 'evento' : 'event';
+    const url = `https://site.connectus.global/${path}/${id}/${slug}`;
+    window.open(url, '_blank');
   }
 
 

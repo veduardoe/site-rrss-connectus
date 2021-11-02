@@ -1,6 +1,7 @@
-<app-bar-page [namePage]="'ARTICLES'"></app-bar-page>
-<div class="" >
-    <div fxLayout="row {{ utils.checkWidth720 ? 'wrap' : '' }}" fxLayoutGap="{{ utils.checkWidth720 ? '0px' : '25px' }}">
+<app-bar-page [namePage]="ln.o('ARTICLESTX')"></app-bar-page>
+<div class="">
+    <div fxLayout="row {{ utils.checkWidth720 ? 'wrap' : '' }}"
+        fxLayoutGap="{{ utils.checkWidth720 ? '0px' : '25px' }}">
         <div fxFlex="100%">
             <div class="padtb">
                 <div *ngTemplateOutlet="filterArticle"></div>
@@ -9,15 +10,17 @@
                     </mat-progress-spinner>
                 </div>
                 <div fxLayout="row wrap" fxLayoutAlign="space-between">
-                    <div fxFlex="49%" fxFlex.xs="100%" fxFlex.sm="100%" *ngFor="let art of articlesFiltered  | paginate: { itemsPerPage: 4, currentPage: p };">
+                    <div fxFlex="49%" fxFlex.xs="100%" fxFlex.sm="100%"
+                        *ngFor="let art of articlesFiltered  | paginate: { itemsPerPage: 4, currentPage: p };">
                         <app-post-item-article [data]="art" (updateEvent)="getArticles()"></app-post-item-article>
                     </div>
                 </div>
             </div>
-            <p class="no-results" *ngIf="!loading && articlesFiltered.length === 0">No results to show</p>
-
+            <p class="no-results" *ngIf="!loading && articlesFiltered.length === 0">{{ ln.o('NORESULTS')}}</p>
         </div>
         <div fxFlex="{{ utils.checkWidth720 ? '100%' : '300px' }}">
+            <button mat-stroked-button class="btn btn-light-outline full" [routerLink]="['/home/articles/view']"
+            [queryParams]="{curView: 'create'}"> {{ ln.o('CREATEARTITX') }}</button>
             <app-articles-suggestion></app-articles-suggestion>
             <app-bar-picture></app-bar-picture>
         </div>
@@ -27,27 +30,20 @@
 <ng-template #filterArticle>
     <div class="filter">
         <div class="sbox">
- 
-
-            <mat-form-field appearance="outline" style="margin-right: 20px;">
-                <mat-label>Category</mat-label>
+            <mat-form-field class="full" appearance="outline" style="margin-right: 20px;">
+                <mat-label>{{ ln.o('SELCATG')}}</mat-label>
                 <mat-select (selectionChange)="filterByCategory($event)">
-                    <mat-option [value]="'ALL'">ALL</mat-option>
-                    <mat-option *ngFor="let cat of categorias" [value]="cat._id">{{ cat.detalleEN }}</mat-option>
+                    <mat-option [value]="'ALL'">{{ ln.o('VIEWALL') | uppercase}}</mat-option>
+                    <mat-option *ngFor="let cat of categorias" [value]="cat._id">{{ ln.gln() === 'ES' ? cat.detalle
+                        :cat.detalleEN }}</mat-option>
                 </mat-select>
             </mat-form-field>
 
-            <button mat-stroked-button class="btn btn-light-outline" [routerLink]="['/home/articles/view']" [queryParams]="{curView: 'create'}">CREATE ARTICLE</button>
-
-
+      
         </div>
         <div class="btn-find" *ngIf="articlesFiltered.length > 4">
-            <pagination-controls 
-                (pageChange)="p = $event"  
-                [responsive]="true"
-                [directionLinks]="true"
-                [previousLabel]="''"
-                [nextLabel]="''">
+            <pagination-controls (pageChange)="p = $event" [responsive]="true" [directionLinks]="true"
+                [previousLabel]="''" [nextLabel]="''">
             </pagination-controls>
 
         </div>

@@ -9,8 +9,8 @@ export const ENV = {
   FICHEROS: 'https://firebasestorage.googleapis.com/v0/b/connectusstore-90e58.appspot.com/o/ficheros%2F',
   GOOGLESECRET: '6LcyYN4cAAAAAN3klHiE11VHzidrCC7Gr4LSwS2R',
   MONTHS: {
-    es: ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC'],
-    en: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
+    ES: ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC'],
+    EN: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
   },
   sideMode: false
 }

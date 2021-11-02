@@ -1,28 +1,19 @@
 <div class="card-suggestions">
     <div class="cs-header">
-        Articles Suggestions
+        {{ ln.o('ARTSUG')}}
     </div>
-    <div class="list-sug ">
-        <ng-container *ngTemplateOutlet="suggestion"></ng-container>
-        <ng-container *ngTemplateOutlet="suggestion"></ng-container>
-        <ng-container *ngTemplateOutlet="suggestion"></ng-container>
-        <ng-container *ngTemplateOutlet="suggestion"></ng-container>
-        <ng-container *ngTemplateOutlet="suggestion"></ng-container>
+    <div class="list-sug " *ngIf="articulospublicos.length > 0">
+        <div class="item-sug article-sug" matRipple *ngFor="let ar of articulospublicos" (click)="goToSite(ar.slug)">
+            <span class="prof-pic " [style.background-image]="'url('  + routeFicheros + pathFicheros + ar.imagenSlider  + '?alt=media)'" >
+            </span>
+            <span class="info">
+                <span class="prof-name">{{ ar.tituloSlider }}</span>
+                <span class="prof-extra">{{ ln.gln() === 'ES' ? ar.categoria?.detalle : ar.categoria?.detalleEN }}</span>
+                <span class="prof-des">{{ ar.descripcionSlider }}</span>
+            </span>
+        </div>
     </div>
-
+    <div class="list-sug " *ngIf="articulospublicos.length === 0">
+        <p class="noresults">{{ ln.o('NORESULTS')}}</p>
+    </div>
 </div>
-
-<ng-template #suggestion>
-    <div class="item-sug article-sug" matRipple>
-        <span class="prof-pic ">
-            <img src="assets/images/bg-article-3-thumb.jpg" />
-        </span>
-        <span class="info">
-            <span class="prof-name">Bitcoin raised over 30.000USD...</span>
-            <span class="prof-extra">Economy</span>
-            <span class="prof-des"> 
-                Is simply dummy text of the
-                printing and typesetting industry.</span>
-        </span>
-    </div>
-</ng-template>

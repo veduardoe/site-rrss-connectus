@@ -19,15 +19,27 @@ import { NgImageSliderModule } from 'ng-image-slider';
 let LOCALE_ES = 'es-ES';
 let LOCALE_EN = 'en-US';
 let GLOBAL_LOCALE = '';
+if (sessionStorage.getItem('auth')) {
 
-if(localStorage.getItem('globalLanguage') === 'ES'){
-  registerLocaleData(localeES, LOCALE_ES);
-  GLOBAL_LOCALE = LOCALE_ES;
-}else{
+  let idioma = '';
+
+  try {
+    const info: any = sessionStorage.getItem('auth');
+    const fullData = JSON.parse(info);
+    const preferencias = fullData.data.preferencias;
+    idioma = preferencias.idioma;
+  } catch (err) {
+    idioma = 'EN';
+  }
+
+  const locale = idioma === 'ES' ? localeES : localeEN;
+  const localeAlt = idioma === 'ES' ? LOCALE_ES : LOCALE_EN;
+  registerLocaleData(locale, localeAlt);
+  GLOBAL_LOCALE = localeAlt;
+} else {
   registerLocaleData(localeEN, LOCALE_EN);
   GLOBAL_LOCALE = LOCALE_EN;
 }
-
 @NgModule({
   declarations: [
     AppComponent,

@@ -1,19 +1,19 @@
-<app-bar-page [namePage]="'CONNECTIONS'"></app-bar-page>
+<app-bar-page [namePage]="ln.o('CONNTX')"></app-bar-page>
 <div class="" style="margin-bottom: 20px;">
     <div fxLayout="row {{ utils.checkWidth720 ? 'wrap' : '' }}" fxLayoutGap="{{ utils.checkWidth720 ? '0px' : '25px' }}" >
         <div fxFlex="100%">
             <div class="content-connections">
                 <div class="head-cconections">
-                    <span>Connections</span>
+                    <span style="text-transform: capitalize !important;">{{ ln.o('CONNTX') | lowercase  }}</span>
                 </div>
                 <div class="filter">
-                    <button mat-stroked-button (click)="getConexiones()" class="btn" [ngClass]="{'btn-light-filled' : actionView === 1 , 'btn-light-outline' : actionView !== 1 }">My Connections</button> 
-                    <button mat-stroked-button (click)="getConexionesEspera()" class="btn" [ngClass]="{'btn-light-filled' : actionView === 2 , 'btn-light-outline' : actionView !== 2 }">Connections Awaiting Response </button> 
-                    <button mat-stroked-button (click)="getConexionesAprobacion()" class="btn" [ngClass]="{'btn-light-filled' : actionView === 3 , 'btn-light-outline' : actionView !== 3 }">Connections Requests Sent</button> 
+                    <button mat-stroked-button (click)="getConexiones()" class="btn" [ngClass]="{'btn-light-filled' : actionView === 1 , 'btn-light-outline' : actionView !== 1 }">{{ ln.o('MYCONNTX')}}</button> 
+                    <button mat-stroked-button (click)="getConexionesEspera()" class="btn" [ngClass]="{'btn-light-filled' : actionView === 2 , 'btn-light-outline' : actionView !== 2 }">{{ ln.o('CONNAWARES')}} </button> 
+                    <button mat-stroked-button (click)="getConexionesAprobacion()" class="btn" [ngClass]="{'btn-light-filled' : actionView === 3 , 'btn-light-outline' : actionView !== 3 }">{{ ln.o('CONNSENT')}}</button> 
                 </div>
                 <div class="search">
                     <mat-form-field appearance="outline" class="full input-1 npb onwhite">
-                        <input matInput type="text" placeholder="Find a connection" [(ngModel)]="findAConnectionStr" (keyup)="finAConnection($event)" />
+                        <input matInput type="text" placeholder="{{ ln.o('FINDCONTX')}}" [(ngModel)]="findAConnectionStr" (keyup)="finAConnection($event)" />
                         <mat-icon matPrefix class="iconprefix"><i class="far fa-search"></i></mat-icon>
                     </mat-form-field>
               
@@ -29,8 +29,8 @@
                             (pageChange)="p = $event"  
                             [responsive]="true"
                             [directionLinks]="true"
-                            [previousLabel]="'Previous'"
-                            [nextLabel]="'Next'">
+                            [previousLabel]="ln.o('PREVNAV')"
+                            [nextLabel]="ln.o('NEXTNAV')">
                         </pagination-controls>
                     </div>
                 </div>
@@ -57,11 +57,13 @@
                 <span class="prof-extra">{{ item.summary }}</span>
                 <!-- <span class="prof-des"> ... </span> -->
             </span>
-            <button mat-stroked-button class="btn btn-light-outline btn-connect" (click)="procesarConexion(false, item.idSolicitud, 'CONNECTED', 'REMOVE')" *ngIf="actionView === 1" >REMOVE</button> 
-            <button mat-stroked-button style="right: 135px;" (click)="procesarConexion(false, item.idSolicitud, 'ACCEPT_CONNECTION', 'REJECT')" class="btn btn-light-outline btn-connect" *ngIf="actionView === 2">REJECT</button>
-            <button mat-stroked-button (click)="procesarConexion(true, item.idSolicitud, 'ACCEPT_CONNECTION', 'APPROVE')" class="btn btn-light-filled btn-connect" *ngIf="actionView === 2">APPROVE</button>
-            <button mat-stroked-button class="btn btn-light-outline btn-connect" (click)="procesarConexion(false, item.idSolicitud, 'AWAIT_CONNECTION', 'CANCEL')" *ngIf="actionView === 3">CANCEL REQUEST</button>
+            <button mat-stroked-button class="btn btn-light-outline btn-connect" (click)="procesarConexion(false, item.idSolicitud, 'CONNECTED', 'REMOVE')" *ngIf="actionView === 1" >{{ ln.o('REMVTX')}}</button> 
+            <button mat-stroked-button style="right: 135px;" (click)="procesarConexion(false, item.idSolicitud, 'ACCEPT_CONNECTION', 'REJECT')" class="btn btn-light-outline btn-connect" *ngIf="actionView === 2">{{ ln.o('REJECTX')}}</button>
+            <button mat-stroked-button (click)="procesarConexion(true, item.idSolicitud, 'ACCEPT_CONNECTION', 'APPROVE')" class="btn btn-light-filled btn-connect" *ngIf="actionView === 2">{{ ln.o('APPROTX')}}</button>
+            <button mat-stroked-button class="btn btn-light-outline btn-connect" (click)="procesarConexion(false, item.idSolicitud, 'AWAIT_CONNECTION', 'CANCEL')" *ngIf="actionView === 3">{{ ln.o('CANCELRTX')}}</button>
         </div>
     </ng-container>
-    <p class="no-results" *ngIf="!loading && conexionesFilter.length === 0">No results to show</p>
+    <p class="no-results" *ngIf="!loading && conexionesFilter.length === 0">
+        {{ ln.o('NORESULTS') }}
+    </p>
 </ng-template>

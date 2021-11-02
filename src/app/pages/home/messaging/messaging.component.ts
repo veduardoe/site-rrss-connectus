@@ -4,6 +4,7 @@ import { AuthService } from 'src/shared/services/auth.service';
 import { MensajesService } from 'src/shared/services/mensajes.service';
 import { UtilsService } from 'src/shared/services/utils.service';
 import * as $ from 'jquery';
+import { Ln } from 'src/shared/services/language.service';
 
 @Component({
   selector: 'app-messaging',
@@ -27,7 +28,8 @@ export class MessagingComponent implements OnInit, OnDestroy {
   constructor(
     public utils: UtilsService,
     public authService: AuthService,
-    public mensajesService: MensajesService
+    public mensajesService: MensajesService,
+    public ln: Ln
   ) { }
 
   ngOnInit(): void {
@@ -76,7 +78,7 @@ export class MessagingComponent implements OnInit, OnDestroy {
     }
     this.mensajesService.postMensaje(data).then((res: any) => {
       this.publishText = '';
-      this.utils.fnMessage('Message sent!')
+      this.utils.fnMessage(this.ln.o('MESSAGESENTX'))
       this.curIdChat = res.data;
       this.posted = true;
       this.utils.fnMensajeEmitter().set(this.curIdChat);
@@ -90,10 +92,9 @@ export class MessagingComponent implements OnInit, OnDestroy {
   }
 
   closeChat(){
-    this.utils.fnMainDialog('Confirm', 'Are you sure to close the chat?', 'confirm').subscribe( res => {
+    this.utils.fnMainDialog(this.ln.o('CONFIRMTX'), this.ln.o('CLOSECHATTX'), 'confirm').subscribe( res => {
       if(res){
         this.mensajesService.borrarChat(this.curIdChat).then( r => {
-         // this.utils.fnBorrarMensajeEmitter().set(this.curIdChat);
           this.curUsuarioDestino = null;
           this.curIdChat = null;
         });

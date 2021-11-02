@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ENV } from 'src/environments/environment';
 import { ContenidoDescargablesService } from 'src/shared/services/contenidodescargable.service';
+import { Ln } from 'src/shared/services/language.service';
 
 @Component({
   selector: 'app-download-content',
@@ -15,7 +16,8 @@ export class DownloadContentComponent implements OnInit {
   loading = false;
 
   constructor(
-    public contenidoDescargableService: ContenidoDescargablesService
+    public contenidoDescargableService: ContenidoDescargablesService,
+    public ln: Ln
   ) { }
 
   ngOnInit(): void {
@@ -24,7 +26,7 @@ export class DownloadContentComponent implements OnInit {
 
   getCategorias(){
     this.loading = true;
-    this.contenidoDescargableService.obtenerCategorias({}).then((res: any) => {
+    this.contenidoDescargableService.obtenerCategorias({ idioma: this.ln.gln()}).then((res: any) => {
       this.items = res.data;
       setTimeout(()=>{
         this.loading = false;

@@ -39,7 +39,6 @@ export class FeedHomeComponent implements OnInit {
   getArticulosPublicos() {
     this.articulosPublicosService.getArticulosPublicos(this.ln.gln()).then((res: any) => {
       this.articulospublicos = res.data;
-      console.log(this.articulospublicos);
     });
   }
 

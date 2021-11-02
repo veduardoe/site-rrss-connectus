@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ENV } from 'src/environments/environment';
+import { ArticulosPublicosService } from 'src/shared/services/articulospublicos.service';
 import { AuthService } from 'src/shared/services/auth.service';
 import { CommonService } from 'src/shared/services/common.service';
+import { Ln } from 'src/shared/services/language.service';
 import { PostsService } from 'src/shared/services/posts.service';
 import { UtilsService } from 'src/shared/services/utils.service';
 
@@ -23,7 +25,8 @@ export class ArticlesComponent implements OnInit {
     public utils: UtilsService,
     private postsService: PostsService,
     private authService: AuthService,
-    private commonService: CommonService
+    private commonService: CommonService,
+    public ln: Ln
 
   ) { }
 
@@ -55,4 +58,6 @@ export class ArticlesComponent implements OnInit {
      });
      this.p = 1;
   }
+
+
 }

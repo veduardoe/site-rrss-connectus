@@ -46,7 +46,7 @@
     <div fxFlex="30%">
         <mat-form-field class="full" appearance="outline">
             <mat-label> {{ ln.o('CUS_ACTION')}}</mat-label>
-            <mat-select [(ngModel)]="idioma" (selectionChange)="changeOption()">
+            <mat-select [(ngModel)]="idioma" (selectionChange)="changeOption('IDIOMA')">
                 <mat-option [value]="'EN'">ENGLISH</mat-option>
                 <mat-option [value]="'ES'">ESPAÑOL</mat-option>
             </mat-select>

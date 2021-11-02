@@ -5,6 +5,7 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition
 import { Subject } from "rxjs";
 import { ENV } from "src/environments/environment";
 import * as striptags from 'striptags'
+import { Ln } from "./language.service";
 
 @Injectable()
 export class UtilsService {
@@ -19,6 +20,7 @@ export class UtilsService {
   constructor(
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
+    public ln: Ln
   ) { }
 
   get checkWidth720() {
@@ -97,7 +99,7 @@ export class UtilsService {
       const dateSplitted = item.fechaHoraStr.split('T')[0].split("-");
       const horaSplitted = item.fechaHoraStr.split('T')[1].split(":");
       item.day = dateSplitted[2];
-      item.monthIn = ENV.MONTHS['en'][parseInt(dateSplitted[1]) - 1];
+      item.monthIn = ENV.MONTHS[this.ln.gln()][parseInt(dateSplitted[1]) - 1];
       item.hora = `${horaSplitted[0]}:${horaSplitted[1]}`;
       return item;
     })
