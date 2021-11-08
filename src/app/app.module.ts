@@ -16,6 +16,7 @@ import { MAT_DATE_FORMATS } from '@angular/material/core';
 import localeES from '@angular/common/locales/es';
 import localeEN from '@angular/common/locales/en';
 import { NgImageSliderModule } from 'ng-image-slider';
+import { NotificacionesComponent } from './pages/home/notificaciones/notificaciones.component';
 let LOCALE_ES = 'es-ES';
 let LOCALE_EN = 'en-US';
 let GLOBAL_LOCALE = '';
@@ -55,7 +56,6 @@ if (sessionStorage.getItem('auth')) {
     NgImageSliderModule,
   ],
   providers: [
-    UtilsService,
     AuthService,
     { provide: LOCALE_ID, useValue: GLOBAL_LOCALE },
     { provide: MAT_DATE_FORMATS, useValue: CONFIG.DATE_FORMATS },

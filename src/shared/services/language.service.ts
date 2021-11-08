@@ -1,20 +1,21 @@
 import { Injectable } from "@angular/core";
-import { in18 } from "src/environments/languages";
+import { lnList } from "src/environments/languages";
 
 @Injectable()
-export class Ln{
+export class Ln {
 
-    o(code){
-        return in18[code][this.gln()];
+    o(code, ln = null) {
+        return lnList[code][ln ? ln : this.gln()];
     }
 
-    gln(){
-        try{
+
+    gln() {
+        try {
             const info: any = sessionStorage.getItem('auth');
             const fullData = JSON.parse(info);
             const preferencias = fullData.data.preferencias;
             return preferencias.idioma;
-        }catch( err){
+        } catch (err) {
             return 'EN';
         }
     }

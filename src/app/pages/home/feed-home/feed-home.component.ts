@@ -62,7 +62,7 @@ export class FeedHomeComponent implements OnInit {
 
   deletePost(i) {
     this.posts.splice(i, 1);
-    this.utils.fnMessage('Post deleted!');
+    this.utils.fnMessage(this.ln.o('POSTDEL'));
   }
 
   getEventos() {

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { Router } from '@angular/router';
@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
   loadingUsuarios: boolean = false;
   myInfo;
   routeFotoPerfil = ENV.FOTOS_PERFIL;
-
+  notifQty: any = [];
   @ViewChild('triggerUsuarios', { read: MatAutocompleteTrigger, static: false }) triggerUsuarios: MatAutocompleteTrigger;
 
   constructor(
@@ -32,16 +32,38 @@ export class HeaderComponent implements OnInit {
     public utils: UtilsService,
     public authService: AuthService,
     public userService: UserService,
+    public conexionService: ConexionService,
     public ln: Ln
   ) { }
 
   ngOnInit(): void {
     this.setAutoComplete();
     this.myInfo = this.authService.getAuthInfo();
+    this.receiveNotifications();
+  }
+
+  receiveNotifications() {
+    const locItem = sessionStorage.getItem('notifQty');
+    this.notifQty = locItem ? Number(locItem) : 0;
+    this.utils.fnNotificacionesEmitter().get().subscribe((not: any[]) => {
+      const notifQty = not.filter(item => {
+        return !item.marcaVisto;
+      });
+      this.notifQty = notifQty.length;
+      sessionStorage.setItem('notifQty', this.notifQty);
+      sessionStorage.setItem('notificaciones', JSON.stringify(not));
+
+    });
   }
 
   goToHome() {
     this.router.navigate(['/home/homefeed']);
+  }
+
+  goToNotifications() {
+    this.conexionService.vistoMisNotificaciones();
+    this.notifQty = 0;
+    this.router.navigate(['/home/notifications']);
   }
 
   logout() {
@@ -53,7 +75,7 @@ export class HeaderComponent implements OnInit {
     this.usuariosCtrl.valueChanges.pipe(
       debounceTime(500),
       tap(() => {
-          this.loadingUsuarios = true;
+        this.loadingUsuarios = true;
       }),
       switchMap(value => {
         if (value.length > 2) {
@@ -66,14 +88,14 @@ export class HeaderComponent implements OnInit {
         }
       })
     ).subscribe((r: any) => {
-        this.filterUsuarios = r.data.map(item => {
-          item.detalle = `${item.nombres} ${item.apellidos}`;
-          return item;
-        });
-        this.loadingUsuarios = false;
-      }, () => {
-        this.loadingUsuarios = false;
+      this.filterUsuarios = r.data.map(item => {
+        item.detalle = `${item.nombres} ${item.apellidos}`;
+        return item;
       });
+      this.loadingUsuarios = false;
+    }, () => {
+      this.loadingUsuarios = false;
+    });
   }
 
   displayTextAutocomplete(obj?: any): string | undefined {

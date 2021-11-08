@@ -34,6 +34,8 @@ import { EmojisPickerComponent } from './components/emojis-picker/emojis-picker.
 import { AngularEmojisModule } from 'angular-emojis';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { Ln } from './services/language.service';
+import { UtilsService } from './services/utils.service';
+import { NotificacionesComponent } from 'src/app/pages/home/notificaciones/notificaciones.component';
 
 @NgModule({
     imports: [
@@ -77,6 +79,7 @@ import { Ln } from './services/language.service';
         AuthService,
         ConexionService, 
         EventosService,
+        UtilsService,
         Ln
     ],
     exports: [

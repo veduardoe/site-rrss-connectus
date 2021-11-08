@@ -28,4 +28,16 @@ export class ConexionService{
     misConexionesEnEspera(){
         return this.http.get(ENV.BACKEND + '/conexion/mis-conexiones-en-espera').toPromise();
     }
+
+    misNotificacionesConexion(){
+        return this.http.get(ENV.BACKEND + '/conexion/mis-notificaciones').toPromise();
+    }
+
+    borrarMisNotificaciones(action){
+        return this.http.delete(ENV.BACKEND + '/conexion/mis-notificaciones/' + action).toPromise();
+    }
+
+    vistoMisNotificaciones(){
+        return this.http.put(ENV.BACKEND + '/conexion/mis-notificaciones/marcar-visto/todos',{}).toPromise();
+    }
 }

@@ -9,8 +9,9 @@ export class PostsService {
         private http: HttpClient
     ) { }
 
-    getPosts(fullPosts = 'true', typepost = 'POST', idPost = null) {
-        const queryAdd = idPost ? '&idPost=' + idPost : '';
+    getPosts(fullPosts = 'true', typepost = 'POST', idPost = null, idUsuario = null) {
+        let queryAdd = idPost ? '&idPost=' + idPost : '';
+        queryAdd = idUsuario ? '&idUsuario=' + idUsuario : '';
         return this.http.get(ENV.BACKEND + '/posts?fullPosts=' + fullPosts + '&typepost=' + typepost + queryAdd).toPromise();
     }
 

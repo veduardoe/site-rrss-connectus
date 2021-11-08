@@ -97,7 +97,6 @@ export class UserInformationComponent implements OnInit {
         });
       });
     });
-
   }
 
   openInputFile() {

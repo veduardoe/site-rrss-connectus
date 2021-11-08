@@ -10,11 +10,12 @@ import { EventsComponent } from "./events/events.component";
 import { FeedHomeComponent } from "./feed-home/feed-home.component";
 import { HomeComponent } from "./home.component";
 import { MessagingComponent } from "./messaging/messaging.component";
+import { NotificacionesComponent } from "./notificaciones/notificaciones.component";
 import { SettingsComponent } from "./settings/settings.component";
 
 const routes: Routes = [
   {
-    path: '', component: HomeComponent, canActivate:[AuthService], children: [
+    path: '', component: HomeComponent, canActivate: [AuthService], children: [
       { path: 'homefeed', component: FeedHomeComponent },
       { path: 'articles', component: ArticlesComponent },
       { path: 'articles/view', component: ViewArticleComponent },
@@ -22,14 +23,14 @@ const routes: Routes = [
       { path: 'messaging', component: MessagingComponent },
       { path: 'connections', component: ConnectionsComponent },
       { path: 'settings', component: SettingsComponent },
-      { path: 'downloadble-content', component: DownloadContentComponent},
-      { path: 'downloadble-content/view', component: ViewContentComponent},
-
+      { path: 'notifications', component: NotificacionesComponent },
+      { path: 'downloadble-content', component: DownloadContentComponent },
+      { path: 'downloadble-content/view', component: ViewContentComponent },
       {
         path: '',
         redirectTo: 'homefeed',
         pathMatch: 'full'
-    }
+      }
     ]
   }
 ];

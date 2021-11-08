@@ -154,3 +154,10 @@ mat-option{
         }
     }
 }
+
+@media(max-width:720px){
+    .userpic img{
+        width: 30px !important;
+        height: 30px !important;
+    }
+}

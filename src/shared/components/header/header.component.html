@@ -21,8 +21,6 @@
                                 <div>
                                     <span class="vdet"> {{ usu.detalle }}</span>
                                     <span class="vsummar"> {{ usu.summary || '--' }}</span>
-                                    <span class="vcateg"> {{ usu.summary || '--' }}</span>
-
                                 </div>
                             </div>
                         </mat-option>
@@ -35,13 +33,14 @@
             </div>
             <div fxFlex=" {{ utils.checkWidth720 ? '100%' : '250px'}}">
                 <div class="btn-hd-icons">
-                    <span matTooltip="{{ ln.o('TOLT_MYNOTIF')}}" matTooltipPosition="below">
+                    <span matTooltip="{{ ln.o('TOLT_MYNOTIF')}}" matTooltipPosition="below" (click)="goToNotifications()">
                         <i class="fal fa-bell"></i>
+                        <b class="badge" *ngIf="notifQty > 0">{{notifQty > 9 ? '+9' : notifQty }}</b>
                     </span>
                     <span matTooltip="{{ ln.o('TOLT_MYMSS')}}" matTooltipPosition="below">
                         <i class="fal fa-comment-alt"></i>
                     </span>
-                    <span [routerLink]="['/profile']" [queryParams]="{usuario: myInfo.usuario}" class="userpic" matTooltip="MY PROFILE" matTooltipPosition="below">
+                    <span [routerLink]="['/profile']" [queryParams]="{usuario: myInfo.usuario}" class="userpic" matTooltip="{{ ln.o('MYPROFTX')}}" matTooltipPosition="below">
                         <img *ngIf="!myInfo.foto" [src]="routeFotoPerfil + 'add-profile.jpg?alt=media'">
                         <img *ngIf="myInfo.foto" [src]="routeFotoPerfil + myInfo.foto + '?alt=media'">
                     </span>
@@ -52,5 +51,4 @@
             </div>
         </div>
     </div>
-
 </header>

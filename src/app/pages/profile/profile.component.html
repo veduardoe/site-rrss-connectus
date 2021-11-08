@@ -6,7 +6,7 @@
             {{ ln.o('RETURNHOME')}}
         </button>
     </div>
-    
+
 </div>
 <div class="container">
 
@@ -17,59 +17,101 @@
 
     <div class="content-profile" *ngIf="perfilUsuario && loadedUsuario && !loading">
 
-        <img *ngIf="perfilUsuario?.foto" [src]="routeFotoPerfil + perfilUsuario?.foto + '?alt=media'" >
+        <img *ngIf="perfilUsuario?.foto" [src]="routeFotoPerfil + perfilUsuario?.foto + '?alt=media'">
         <img *ngIf="!perfilUsuario?.foto" [src]="routeFotoPerfil + 'add-profile.jpg?alt=media'">
 
         <div class="info-list">
             <div class="hd-list">
-                <span class="text-1">{{ perfilUsuario.nombres }} {{ perfilUsuario.apellidos }}</span>
+                <span class="text-1" style="padding: 0px 5px;">{{ perfilUsuario.nombres }} {{ perfilUsuario.apellidos }}</span>
                 <span class="text-2">{{ perfilUsuario.summary }}</span>
             </div>
         </div>
-       
+
         <div class="conex-btn" *ngIf="myInfo.id !== perfilUsuario._id">
-            <button mat-stroked-button class="btn btn-light-outline " (click)="crearConexion()" *ngIf="connectInfo.action === 'CREATE_CONNECTION'"> {{ ln.o('CONNECT')}} + </button>
+            <button mat-stroked-button class="btn btn-light-outline " (click)="crearConexion()"
+                *ngIf="connectInfo.action === 'CREATE_CONNECTION'"> {{ ln.o('CONNECT')}} + </button>
             <div *ngIf="connectInfo.action === 'AWAIT_CONNECTION'">
-                <button mat-stroked-button class="btn btn-light-outline " (click)="procesarConexion(false)"  style="margin-right: 15px;">{{ ln.o('CANCELREQCON')}}</button>
+                <button mat-stroked-button class="btn btn-light-outline " (click)="procesarConexion(false)"
+                    style="margin-right: 15px;">{{ ln.o('CANCELREQCON')}}</button>
                 <button mat-stroked-button class="btn btn-light-filled ">{{ ln.o('AWAREQCON')}}</button>
             </div>
             <div *ngIf="connectInfo.action === 'ACCEPT_CONNECTION'">
-                <button mat-stroked-button class="btn btn-light-outline " (click)="procesarConexion(false)" style="margin-right: 15px;"> {{ ln.o('REJECTCON')}}</button>
-                <button mat-stroked-button class="btn btn-light-filled " (click)="procesarConexion(true)"> {{ ln.o('ACCEPTCON')}}</button>
+                <button mat-stroked-button class="btn btn-light-outline " (click)="procesarConexion(false)"
+                    style="margin-right: 15px;"> {{ ln.o('REJECTCON')}}</button>
+                <button mat-stroked-button class="btn btn-light-filled " (click)="procesarConexion(true)"> {{
+                    ln.o('ACCEPTCON')}}</button>
             </div>
 
-            <button mat-stroked-button class="btn btn-light-outline " (click)="procesarConexion(false)" *ngIf="connectInfo.action === 'CONNECTED'" style="margin-right: 15px;"> {{ ln.o('REMOVECON')}}</button>
-            <button mat-stroked-button class="btn btn-light-filled " *ngIf="connectInfo.action === 'CONNECTED'">{{ ln.o('CONNECTEDX')}}</button>
+            <button mat-stroked-button class="btn btn-light-outline " (click)="procesarConexion(false)"
+                *ngIf="connectInfo.action === 'CONNECTED'" style="margin-right: 15px;"> {{ ln.o('REMOVECON')}}</button>
+            <button mat-stroked-button class="btn btn-light-filled " *ngIf="connectInfo.action === 'CONNECTED'">{{
+                ln.o('CONNECTEDX')}}</button>
         </div>
         <div class="dots">
-            <span></span>
-            <span class="active"></span>
-            <span></span>
+            <span [ngClass]="{ 'active' : posView === 1 }"></span>
+            <span [ngClass]="{'active' : posView === 2 }"></span>
+            <span [ngClass]="{'active' : posView === 3 }"></span>
+            <span [ngClass]="{'active' : posView === 4 }"></span>
+
         </div>
         <div class="con-info">
-            <div class="con-det">
+            <div class="con-det" [ngClass]="{ 'active' : posView === 1 }">
                 <span class="con-val">0</span>
                 <span class="con-ref">{{ ln.o('CONNECTIONSTX') }}</span>
             </div>
-            <div class="con-det">
+            <div class="con-det" [ngClass]="{ 'active' : posView === 1 }">
                 <span class="con-val">{{ perfilUsuario.nPosts }}</span>
                 <span class="con-ref">Posts</span>
             </div>
-            <div class="con-det">
+            <div class="con-det noborderr" [ngClass]="{ 'active' : posView === 1 }">
                 <span class="con-val">{{ perfilUsuario.fechaRegistro | date: 'YYYY' }}</span>
                 <span class="con-ref">{{ ln.o('MEMBERSINCE') }}</span>
             </div>
+            <div class="con-det noborderr" [ngClass]="{ 'active' : posView === 2 }">
+                <span class="con-val">{{ ( myProfile.id === perfilUsuario._id ||
+                    perfilUsuario?.preferencias?.mostrarEmail) ? perfilUsuario.email : '*****' }}</span>
+                <span class="con-ref">{{ ln.o('EMAILADDR') }}</span>
+            </div>
+            <div class="con-det noborderr" [ngClass]="{ 'active' : posView === 3 }">
+                <span class="con-val">
+                    {{ ( myProfile.id === perfilUsuario._id || perfilUsuario?.preferencias?.mostrarTelefono) ?
+                    perfilUsuario.telefono : '*****' }}</span>
+                <span class="con-ref">{{ ln.o('PHONENUMB') }}</span>
+            </div>
+            <div class="con-det noborderr liscatg" [ngClass]="{ 'active' : posView === 4 }">
+                <span class="con-val isflx">
+                    <b class="chipcat" matRipple *ngFor="let cat of categoriesAdded">{{ cat | uppercase }}</b>
+                    <b class="chipcat" matRipple *ngIf="categoriesAdded.length === 0">{{ ln.o('NORESULTS') }}</b>
+                </span>
+                <span class="con-ref">{{ ln.o('INTERCATG') }}</span>
+            </div>
         </div>
-        <span class="navig nright">
+        <span class="navig nright" (click)="nav('NEXT')" *ngIf="posView !== 4">
             <i class="fal fa-chevron-right"></i>
         </span>
         <span class="navig">
-            <i class="fal fa-chevron-left"></i>
+            <i class="fal fa-chevron-left" (click)="nav('PREV')" *ngIf="posView !== 1"></i>
         </span>
 
     </div>
-</div> 
+</div>
 
+<div class="container" style="margin-top: 60px;" *ngIf="showPosts">
+
+    <div fxLayout="row {{ utils.checkWidth720 ? 'wrap' : '' }}" fxLayoutGap="{{ utils.checkWidth720 ? '0' : '25px' }}">
+        <div fxFlex="100%">
+            <div *ngIf="posts.length > 0">
+                <app-post-item [data]="post" (updateEvent)="deletePost(i)" *ngFor="let post of posts; let i = index">
+                </app-post-item>
+            </div>
+        </div>
+        <div fxFlex="{{ utils.checkWidth720 ? '100%' : '300px' }}">
+            <app-simple-text></app-simple-text>
+            <app-incoming-events [limit]="6" [eventos]="eventos"></app-incoming-events>
+            <app-bar-picture></app-bar-picture>
+        </div>
+    </div>
+</div>
 <div *ngIf="utils.checkWidth720">
     <app-navigation></app-navigation>
 </div>

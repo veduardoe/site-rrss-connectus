@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/shared/services/login.service';
 import { UtilsService } from 'src/shared/services/utils.service';
 import jwt_decode from "jwt-decode";
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ENV } from 'src/environments/environment';
+import { Ln } from 'src/shared/services/language.service';
 declare var grecaptcha;
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ export class LoginComponent implements OnInit {
   errorClave = false;
   errorCorreo = false;
   btnRecoverTxt = 'RECOVER PASSWORD';
+  lang;
   loginData = {
     usuario: '',
     clave: '',
@@ -56,10 +58,18 @@ export class LoginComponent implements OnInit {
   constructor(
     public utils: UtilsService,
     private loginService: LoginService,
-    private router: Router
+    private router: Router,
+    private aRouter: ActivatedRoute,
+    public ln: Ln
   ) { }
 
   ngOnInit(): void {
+    this.aRouter.queryParams.subscribe( param => {
+      if( param.lang === 'es' || param.lang === 'en'){
+        this.lang = param.lang.toUpperCase();
+        console.log(this.lang)
+      }
+    })
   }
 
   get heightContainer() {
@@ -132,7 +142,7 @@ export class LoginComponent implements OnInit {
 
     if (this.loginData.usuario === '') {
       this.loginData.usuarioError = true;
-      this.loginData.usuarioMsg = 'User o Email is required.';
+      this.loginData.usuarioMsg = this.ln.o('LOGUSERREQ2', this.lang);
     } else {
       this.loginData.usuarioError = false;
       this.loginData.usuarioMsg = '';
@@ -140,7 +150,7 @@ export class LoginComponent implements OnInit {
 
     if (this.loginData.clave.length < 8 || this.loginData.clave.length > 15) {
       this.loginData.claveError = true;
-      this.loginData.claveMsg = 'The password must contain between 8 and 15 characters.';
+      this.loginData.claveMsg = this.ln.o('LOGPASSERR', this.lang);
     } else {
       this.loginData.claveError = false;
       this.loginData.claveMsg = '';
@@ -173,19 +183,19 @@ export class LoginComponent implements OnInit {
         switch (res.code) {
 
           case 'ACCESS_LOCKED':
-            this.alertMessage = 'ACCOUNT IS LOCKED';
+            this.alertMessage = this.ln.o('LOGACLOCKED', this.lang);
             break;
 
           case 'INVALID_PASSWORD':
-            this.alertMessage = 'WRONG USERNAME AND PASSWORD';
+            this.alertMessage = this.ln.o('LOGACERRPASS', this.lang);
             break;
 
           case 'ERROR_RECAPTCHA':
-            this.alertMessage = 'USER COULD NOT BE VALIDATED. TRY AGAIN LATER';
+            this.alertMessage = this.ln.o('LOGERRVALID', this.lang);
             break;
 
           default:
-            this.alertMessage = 'CANNOT LOGIN NOW. TRY AGAIN LATER';
+            this.alertMessage = this.ln.o('LOGERRNOTLOG', this.lang);
             break;
 
         }
@@ -196,7 +206,7 @@ export class LoginComponent implements OnInit {
 
     }).catch(err => {
       this.loading = false;
-      this.alertMessage = 'CANNOT LOGIN NOW. TRY AGAIN LATER';
+      this.alertMessage = this.ln.o('LOGERRNOTLOG', this.lang);
 
     });
 
@@ -230,7 +240,7 @@ export class LoginComponent implements OnInit {
 
         } else {
 
-          this.alertMessageReg = 'CANNOT REGISTER NOW';
+          this.alertMessageReg = this.ln.o('LOGERRNOTREG', this.lang);
           setTimeout(() => {
             this.loading = false;
           });
@@ -242,19 +252,19 @@ export class LoginComponent implements OnInit {
         switch (err.error.code) {
 
           case 'USUARIO_EXISTE':
-            this.alertMessageReg = 'USERNAME IS NOT AVAILABLE. USER ANOTHER...';
+            this.alertMessageReg = this.ln.o('REGUSERNO', this.lang);
             break;
 
           case 'CORREO_EXISTE':
-            this.alertMessageReg = 'EMAIL IS NOT AVAILABLE. USER ANOTHER...';
+            this.alertMessageReg = this.ln.o('REGEMAILNO', this.lang);
             break;
 
           case 'ERROR_RECAPTCHA':
-            this.alertMessage = 'REQUEST COULD NOT BE VALIDATED. TRY AGAIN LATER';
+            this.alertMessage = this.ln.o('REGRECPERR', this.lang);
             break;
 
           default:
-            this.alertMessageReg = 'CANNOT REGISTER NOW. TRY AGAIN LATER';
+            this.alertMessageReg = this.ln.o('LOGERRNOTREG', this.lang);
             break;
 
         }
@@ -286,7 +296,7 @@ export class LoginComponent implements OnInit {
 
     if (!this.recoverPassData.usuario.trim()) {
       this.recoverPassData.usuarioError = true;
-      this.recoverPassData.usuarioMsg = 'EMAIL OR USERNAME IS REQUIRED. TRY AGAIN.';
+      this.recoverPassData.usuarioMsg = this.ln.o('LOGUSERREQ2', this.lang);
       return;
     }
 
@@ -304,17 +314,17 @@ export class LoginComponent implements OnInit {
 
       if (res.response) {
         this.recoverPassData.etapa = 2;
-        this.btnRecoverTxt = 'VALIDATE CODE';
+        this.btnRecoverTxt = this.ln.o('BTNVALIDCODE', this.lang);
       } else if (res.code === 'USUARIO_NO_ENCONTRADO') {
-        this.alertMessageReg = 'EMAIL OR USERNAME WAS NOT FOUND. TRY AGAIN';
+        this.alertMessageReg = this.ln.o('RECPASSNOF', this.lang);
       } else {
-        this.alertMessageReg = 'CANNOT RECOVER PASSWORD NOW. TRY AGAIN LATER';
+        this.alertMessageReg = this.ln.o('ERRRECPASS', this.lang);
       }
 
     }).catch(err => {
 
       this.loading = false;
-      this.alertMessageReg = 'CANNOT RECOVER PASSWORD NOW. TRY AGAIN LATER';
+      this.alertMessageReg = this.ln.o('ERRRECPASS', this.lang);
 
     });
   }
@@ -326,7 +336,7 @@ export class LoginComponent implements OnInit {
 
     if (!this.recoverPassData.validCode.trim()) {
       this.recoverPassData.codigoError = true;
-      this.recoverPassData.codigoMsg = 'VALIDATION CODE IS REQUIRED. TRY AGAIN.';
+      this.recoverPassData.codigoMsg = this.ln.o('VALIDCODEREQ', this.lang);
       return;
     }
 
@@ -345,15 +355,15 @@ export class LoginComponent implements OnInit {
 
       if (res.response) {
         this.recoverPassData.etapa = 3;
-        this.btnRecoverTxt = 'CHANGE PASSWORD';
+        this.btnRecoverTxt = this.ln.o('BTNCHPASS', this.lang);
       } else {
-        this.alertMessageReg = 'VALIDATION CODE IS WRONG. TRY AGAIN';
+        this.alertMessageReg = this.ln.o('VALIDCODEERR', this.lang);
       }
 
     }).catch(err => {
 
       this.loading = false;
-      this.alertMessageReg = 'CANNOT VALIDATE THE CODE NOW. TRY AGAIN LATER';
+      this.alertMessageReg = this.ln.o('NOVALIDCODEERR', this.lang);
 
     });
   }
@@ -367,23 +377,23 @@ export class LoginComponent implements OnInit {
 
     if (!this.recoverPassData.clave.trim()) {
       this.recoverPassData.claveError = true;
-      this.recoverPassData.claveMsg = 'PASSWORD IS REQUIRED. TRY AGAIN.';
+      this.recoverPassData.claveMsg = this.ln.o('RECPASSREQ', this.lang);
       return;
     }
 
     if (!this.recoverPassData.confirmarClave.trim()) {
       this.recoverPassData.cclaveError = true;
-      this.recoverPassData.cclaveMsg = 'CONFIRM PASSWORD IS REQUIRED. TRY AGAIN.';
+      this.recoverPassData.cclaveMsg = this.ln.o('RECCPASS', this.lang);
       return;
     }
 
     if(this.recoverPassData.clave.trim().length < 8 || this.recoverPassData.clave.trim().length > 15){
-      this.alertMessageReg = 'PASSWORD MUST CONTAIN BETWEEN 8 AND 15 CHARACTERS. TRY AGAIN';
+      this.alertMessageReg = this.ln.o('LOGPASSERR', this.lang).toUpperCase();
       return;
     }
 
     if(this.recoverPassData.clave.trim() !== this.recoverPassData.confirmarClave.trim()){
-      this.alertMessageReg = 'PASSWORDS DO NOT MATCH. TRY AGAIN';
+      this.alertMessageReg = this.ln.o('PASSNOMATCH', this.lang).toUpperCase();
       return;
     }
 
@@ -405,13 +415,13 @@ export class LoginComponent implements OnInit {
       if (res.response) {
         this.recoverPassData.etapa = 4;
       } else {
-        this.alertMessageReg = 'PASSWORD COULD NOT BE CHANGED. TRY AGAIN';
+        this.alertMessageReg = this.ln.o('ERRCHPASS', this.lang).toUpperCase();
       }
 
     }).catch(err => {
 
       this.loading = false;
-      this.alertMessageReg = 'CANNOT CHANGE THE PASSWORD NOW. TRY AGAIN LATER';
+      this.alertMessageReg = this.ln.o('ERRCHPASS', this.lang).toUpperCase();
 
     });
   }

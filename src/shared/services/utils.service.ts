@@ -13,6 +13,7 @@ export class UtilsService {
   curWidth;
   mensajeEmitter = new Subject();
   borrarMensajeEmitter = new Subject();
+  notificacionesEmitter = new Subject();
 
   public horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   public verticalPosition: MatSnackBarVerticalPosition = 'bottom';
@@ -90,6 +91,18 @@ export class UtilsService {
       }
     }
   }
+
+  fnNotificacionesEmitter() {
+    return {
+      get: () => {
+        return this.notificacionesEmitter.asObservable();
+      },
+      set: (e) => {
+        this.notificacionesEmitter.next(e);
+      }
+    }
+  }
+
 
   procesarEventosLateral(e, onlyHightlighted = false,) {
     const evRes = e.filter(item => item.resaltado);

@@ -1,0 +1,37 @@
+<app-bar-page [namePage]="ln.o('NOTIFTX')"></app-bar-page>
+<div class="notifications-preview" >
+    <div fxLayout="row {{ utils.checkWidth720 ? 'wrap' : '' }}" fxLayoutGap="{{ utils.checkWidth720 ? '0px' : '25px' }}">
+        <div fxFlex="100%">
+            <div class="padtb">
+                <div class="toRight">
+                    <button mat-button class="delall" (click)="deleteNotf()" *ngIf="notificaciones.length > 0">
+                        <span>{{ ln.o('NOTREMALL') }}</span>                 
+                    </button>
+                </div>
+                <span *ngFor="let not of notificaciones; let i = index;" class="notcard"> 
+                    <div class="loadernot" *ngIf="not.loading">
+                        <mat-progress-spinner [diameter]="30" mode="indeterminate" color="primary">
+                        </mat-progress-spinner>
+                    </div>
+                    {{ not.message }}
+                    <span class="prof-pic" [routerLink]="['/profile']" [queryParams]="{usuario: not.usuario.usuario}">
+                        <img *ngIf="not.usuario?.foto" [src]="routeFotoPerfil + not.usuario?.foto + '?alt=media'" />
+                        <img *ngIf="!not.usuario?.foto" [src]="routeFotoPerfil + 'add-profile.jpg?alt=media'">
+                    </span>
+                    <button mat-icon-button class="delnot" (click)="deleteNotf(not._id, i)">
+                        <mat-icon>close</mat-icon>                    
+                    </button>
+                    <b class="datetime">{{ not.fechaRegistro | date:'medium'}}</b>
+                </span>
+                <p *ngIf="notificaciones.length === 0">{{ ln.o('NONOT') }}</p>
+            </div>
+        </div>
+        <div fxFlex="{{ utils.checkWidth720 ? '100%' : '300px' }}">
+            <app-home-suggestions [titleCard]="ln.o('CONAWRES')" [data]="conexionesEspera"></app-home-suggestions>
+            <app-simple-text></app-simple-text>
+            <app-incoming-events [limit]="4" [eventos]="eventos"></app-incoming-events>
+            <app-bar-picture></app-bar-picture>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

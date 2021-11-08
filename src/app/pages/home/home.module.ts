@@ -27,6 +27,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { MensajesService } from "src/shared/services/mensajes.service";
 import { ContenidoDescargablesService } from "src/shared/services/contenidodescargable.service";
 import { ArticulosPublicosService } from "src/shared/services/articulospublicos.service";
+import { NotificacionesComponent } from "./notificaciones/notificaciones.component";
 @NgModule({
     imports: [
         SharedModule,
@@ -50,9 +51,9 @@ import { ArticulosPublicosService } from "src/shared/services/articulospublicos.
         AccessibilityComponent,
         SecurityComponent,
         HelpComponent,
+        NotificacionesComponent
     ],
     providers: [
-        UtilsService,
         UserService,
         CommonService,
         PostsService,

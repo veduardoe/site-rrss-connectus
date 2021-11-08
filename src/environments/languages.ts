@@ -1,4 +1,4 @@
-export const in18 = {
+export const lnList = {
     'AVOP': { 'EN': 'Available Options', 'ES': 'Opciones Disponibles' },
     'USIN': { 'EN': 'User Information', 'ES': 'Datos del Usuario' },
     'PREF': { 'EN': 'Preferences', 'ES': 'Preferencias' },
@@ -21,15 +21,15 @@ export const in18 = {
     'F_SUMM': { 'EN': 'Summary or Intro', 'ES': 'Autobiografía' },
     'F_PCAT': { 'EN': 'Preferred Categories', 'ES': 'Categorías de Interés' },
     'F_SELCAT': { 'EN': 'Select a Category', 'ES': 'Elije una categoría' },
-    'F_CHPASS': { 'EN': 'Change your password', 'ES': 'Cambia tu contraseña' },
-    'F_FPASS': { 'EN': 'Password', 'ES': 'Contraseña' },
-    'F_FCPASS': { 'EN': 'Confirm Password', 'ES': 'Confirmar Contraseña' },
+    'F_CHPASS': { 'EN': 'Change your password', 'ES': 'Cambia tu clave' },
+    'F_FPASS': { 'EN': 'Password', 'ES': 'Clave' },
+    'F_FCPASS': { 'EN': 'Confirm Password', 'ES': 'Confirmar Clave' },
     'F_TXPASS': {
         'EN': 'If you want to change your password, complete the required fields',
-        'ES': 'Si deseas cambiar tu contraseña, completa los campos requeridos.'
+        'ES': 'Si deseas cambiar tu clave, completa los campos requeridos.'
     },
     'F_REQUIRED': { 'EN': 'Field Required', 'ES': 'Campo Requerido' },
-    'F_UPDPASS': { 'EN': 'UPDATE PASSWORD', 'ES': 'ACTUALIZAR CONTRASEÑA' },
+    'F_UPDPASS': { 'EN': 'UPDATE PASSWORD', 'ES': 'ACTUALIZAR CLAVE' },
     'F_UPDINFO': { 'EN': 'UPDATE INFORMATION', 'ES': 'ACTUALIZAR DATOS' },
     'NOT_ALW_FILE': { 'EN': '"Illegal file type"', 'ES': 'Tipo de archivo no permitido' },
     'PIC_PROF_ERRSIZE': {
@@ -46,19 +46,19 @@ export const in18 = {
     'EMAIL_INVALID': { 'EN': 'The email is invalid. Review and try again', 'ES': 'El correo es inválido. Revise e intente de nuevo.' },
     'REQ_PASS': {
         'EN': 'Please, write your password',
-        'ES': 'Por favor, escriba su contraseña.'
+        'ES': 'Por favor, escriba su clave.'
     },
     'REQ_CPASS': {
         'EN': 'Please, confirm your password',
-        'ES': 'Por favor, confirme su contraseña.'
+        'ES': 'Por favor, confirme su clave.'
     },
     'PAS_NOMATCH': {
         'EN': 'The passwords do not match. Review and try again',
-        'ES': 'Las contraseñas no coinciden. Revise e intente de nuevo.'
+        'ES': 'Las claves no coinciden. Revise e intente de nuevo.'
     },
     'PAS_LEN': {
         'EN': 'Password must contain between 8 and 15 characters',
-        'ES': 'La contraseña debe tener entre 8 y 15 caracteres.'
+        'ES': 'La clave debe tener entre 8 y 15 caracteres.'
     },
     'INFO_UPT': {
         'EN': 'The information has been updated successfully',
@@ -131,6 +131,8 @@ export const in18 = {
         'ES': 'Ya has denunciado esta publicación'
     },
     'ARTICLESTX': { 'EN': 'ARTICLES', 'ES': 'ARTÍCULOS' },
+    'NOTIFTX': { 'EN': 'NOTIFICATIONS', 'ES': 'NOTIFICACIONES' },
+    'MYPROFTX': { 'EN': 'MY PROFILE', 'ES': 'MI PERFIL' },
     'NORESULTS': { 'EN': 'No results to show', 'ES': 'Sin resultados para mostrar' },
     'ALL': { 'EN': 'ALL', 'ES': 'TODOS' },
     'KEEPREAD': { 'EN': 'Keep Reading', 'ES': 'Seguir Leyendo' },
@@ -176,5 +178,65 @@ export const in18 = {
     'CONNECTEDX': { 'EN': 'CONNECTED', 'ES': 'CONECTADO' },
     'CONNECTIONSTX': { 'EN': 'Connections', 'ES': 'Conexiones' },
     'MEMBERSINCE': { 'EN': 'Member since', 'ES': 'Miembro desde' },
+    'EMAILADDR': { 'EN': 'EMAIL ADDRESS', 'ES': 'CORREO ELECTRÓNICO' },
+    'PHONENUMB': { 'EN': 'PHONE NUMBER', 'ES': 'TELÉFONO' },
+    'INTERCATG': { 'EN': 'INTERESTED CATEGORIES', 'ES': 'CATEGORÍAS DE INTERÉS' },
+    'POSTDEL': { 'EN': 'POST DELETED', 'ES': 'PUBLICACIÓN ELIMINADA' },
+    'NOTACCON': { 'EN': 'HAS ACCEPTED YOUR CONNECTION REQUEST', 'ES': 'HA ACEPTADO TU SOLICITUD DE CONEXIÓN' },
+    'NOTREJCON': { 'EN': 'HAS REJECTED YOUR CONNECTION REQUEST ', 'ES': 'HA RECHAZADO TU SOLICITUD DE CONEXIÓN' },
+    'NOTANLCON': { 'EN': 'HAS CANCELED THE CONNECTION REQUEST ', 'ES': 'HA CANCELADO LA SOLICITUD DE CONEXIÓN' },
+    'NOTNEWCON': { 'EN': 'HAS SENT YOU A CONNECTION REQUEST ', 'ES': 'TE HA ENVIADO UNA SOLICITUD DE CONEXIÓN' },
+    'NOTREMCON': { 'EN': 'HAS REMOVED YOU FROM CONNECTIONS LIST ', 'ES': 'TE HA REMOVIDO DE SU LISTA DE CONEXIONES' },
+    'NOTREMALL': { 'EN': 'REMOVE ALL NOTIFICATIONS ', 'ES': 'REMOVER TODAS LAS NOTIFICACIONES' },
+    'NONOT': { 'EN': 'There are no notifications at this time. ', 'ES': 'Sin notificaciones por los momentos.' },
+    'LOGCON': { 'EN': 'LOG IN CONNECTUS', 'ES': 'INGRESA A CONNECTUS' },
+    'LOGUSEMAIL': { 'EN': 'USERNAME OR EMAIL', 'ES': 'USUARIO O CORREO' },
+    'LOGPASS': { 'EN': 'PASSWORD', 'ES': 'CLAVE' },
+    'LOGLOGIN': { 'EN': 'LOGIN', 'ES': 'ENTRAR' },
+    'LOGFOGPASS': { 'EN': 'FORGOT PASSWORD?', 'ES': 'OLVIDASTE TU CLAVE?' },
+    'LOGNOAC': { 'EN': `DON'T HAVE AN ACCOUNT YET?`, 'ES': '¿AÚN NO TIENES CUENTA?' },
+    'LOGCACC': { 'EN': 'CREATE ACCOUNT', 'ES': 'CREA UNA CUENTA' },
+    'LOGREGTX': { 'EN': 'REGISTER AND BE PART OF SOMETHING GREAT', 'ES': 'RÉGISTRATE Y SE PARTE DE ALGO EXTRAORDINARIO' },
+    'LOGNAMETX': { 'EN': 'NAME', 'ES': 'NOMBRE' },
+    'LOGLNAMETX': { 'EN': 'LAST NAME', 'ES': 'APELLIDO' },
+    'LOGEMAILTX': { 'EN': 'EMAIL', 'ES': 'CORREO' },
+    'LOGEMAILEREQ': { 'EN': 'Email is required', 'ES': 'El correo es requerido' },
+    'LOGEMAILINV': { 'EN': 'Email is invalid', 'ES': 'El correo es inválido' },
+    'LOGUSERNTX': { 'EN': 'USERNAME', 'ES': 'USUARIO' },
+    'LOGPASSTX': { 'EN': 'PASSWORD', 'ES': 'CLAVE' },
+    'LOGUSERREQ': { 'EN': 'Username is required', 'ES': 'El usuario es requerido' },
+    'LOGUSERREQ2': { 'EN': 'Username o Email is required', 'ES': 'El usuario o correo es requerido' },
+    'LOGPASSERR': { 'EN': 'The password must contain between 8 and 15 characters', 'ES': 'La clave debe tener entre 8 a 15 caracteres' },
+    'LOGRESPASS': { 'EN': 'RECOVER YOUR PASSWORD', 'ES': 'RECUPERAR CLAVE' },
+    'LOGPASSCHANGED': { 'EN': 'YOUR PASSWORD HAS BEEN CHANGED SUCCESSFULLY', 'ES': 'LA CLAVE HA SIDO CAMBIADA CORRECTAMENTE' },
+    'LOGPASSCHUSER': { 'EN': 'WRITE YOUR USERNAME OR EMAIL', 'ES': 'ESCRIBE TU USUARIO O CORREO' },
+    'LOGPASSCHCODE': { 'EN': 'WRITE THE VALIDATION CODE SENT TO YOUR EMAIL', 'ES': 'INDICA EL CÓDIGO DE VALIDACIÓN ENVIADO A TU CORREO' },
+    'LOGPASSCHPASS': { 'EN': 'NEW PASSWORD', 'ES': 'NUEVA CLAVE' },
+    'LOGPASSCHCPASS': { 'EN': 'CONFIRM NEW PASSWORD', 'ES': 'CONFIRMA NUEVA CLAVE' },
+    'LOGPASSRET': { 'EN': 'RETURN', 'ES': 'REGRESAR' },
+    'GOLOGIN': { 'EN': 'GO TO LOGIN', 'ES': 'VOLVER AL LOGIN' },
+    'LOGREGCON': { 'EN': 'REGISTER AND CONNECT', 'ES': 'REGÍSTRATE Y CONÉCTATE' },
+    'LOGACLOCKED': { 'EN': 'ACCOUNT IS LOCKED', 'ES': 'CUENTA BLOQUEADA' },
+    'LOGACERRPASS': { 'EN': 'WRONG USERNAME OR PASSWORD', 'ES': 'USUARIO O CLAVE INCORRECTOS' },
+    'LOGERRVALID': { 'EN': 'USERNAME COULD NOT BE VALIDATED. TRY AGAIN LATER', 'ES': 'USUARIO NO PUDO SER VALIDADO. INTENTE MÁS TARDE' },
+    'LOGERRNOTLOG': { 'EN': 'CANNOT LOGIN NOW. TRY AGAIN LATER', 'ES': 'NO SE PUEDE INGRESAR. INTENTE MÁS TARDE.' },
+    'LOGERRNOTREG': { 'EN': 'CANNOT REGISTER NOW. TRY AGAIN LATER', 'ES': 'NO SE PUEDE REGISTRAR. INTENTE MÁS TARDE.' },
+    'REGUSERNO': { 'EN': 'USERNAME IS NOT AVAILABLE. USE ANOTHER ONE', 'ES': 'USUARIO YA EXISTE. UTILICE OTRO.' },
+    'REGEMAILNO': { 'EN': 'EMAIL IS NOT AVAILABLE. USE ANOTHER ONE', 'ES': 'CORREO YA EXISTE. UTILICE OTRO.' },
+    'REGRECPERR': { 'EN': 'REQUEST COULD NOT BE VALIDATED. TRY AGAIN LATER', 'ES': 'NO SE PUDO PROCESAR LA SOLICITUD. INTENTE MÁS TARDE.' },
+    'BTNVALIDCODE': { 'EN': 'VALIDATE CODE', 'ES': 'VALIDAR CÓDIGO' },
+    'RECPASSNOF': { 'EN': 'EMAIL OR USERNAME WAS NOT FOUND. TRY AGAIN', 'ES': 'USUARIO O CORREO NO FUE ENCONTRADO. INTENTE NUEVAMENTE' },
+    'ERRRECPASS': { 'EN': 'CANNOT RECOVER PASSWORD NOW. TRY AGAIN LATER', 'ES': 'NO SE PUDO RECUPERAR LA CLAVE. INTENTE MÁS TARDE.' },
+    'VALIDCODEREQ': { 'EN': 'VALIDATION CODE IS REQUIRED. TRY AGAIN.', 'ES': 'CÓDIGO DE VALIDACIÓN ES REQUERIDO. INTENTE NUEVAMENTE.' },
+    'BTNCHPASS': { 'EN': 'CHANGE PASSWORD', 'ES': 'CAMBIAR CLAVE' },
+    'VALIDCODEERR': { 'EN': 'VALIDATION CODE IS WRONG. TRY AGAIN.', 'ES': 'CÓDIGO DE VALIDACIÓN ES INCORRECTO. INTENTE NUEVAMENTE.' },
+    'NOVALIDCODEERR': { 'EN': 'CANNOT VALIDATE THE CODE NOW. TRY AGAIN LATER.', 'ES': 'NO SE PUEDE VALIDAR EL CÓDIGO. INTENTE MÁS TARDE.' },
+    'RECPASSREQ': { 'EN': 'PASSWORD IS REQUIRED. TRY AGAIN.', 'ES': 'LA CLAVE ES REQUERIDA. INTENTE NUEVAMENTE.' },
+    'RECCPASS': { 'EN': 'CONFIRM YOUR PASSWORD', 'ES': 'CONFIRMA TU CLAVE' },
+    'PASSNOMATCH': { 'EN': 'PASSWORDS DO NOT MATCH. TRY AGAIN', 'ES': 'CLAVES NO COINCIDEN. INTENTE NUEVAMENTE.' },
+    'ERRCHPASS': { 'EN': 'CANNOT CHANGE THE PASSWORD NOW. TRY AGAIN LATER', 'ES': 'NO SE PUEDE CAMBIAR LA CLAVE. INTENTE MÁS TARDE.' },
+
+
+
 
 }

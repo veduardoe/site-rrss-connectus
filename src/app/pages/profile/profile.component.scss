@@ -80,13 +80,23 @@ $vectorUrl : 'https://site.connectus.global/wp-content/themes/twentytwentyone/as
             text-align: center;
             padding: 0px 50px;
             border-right: 3px solid $lightBlue;
+            transform: scale(0);
+            transition: all 0.2s;
+            opacity: 0;
+            position: absolute;
+            &.active{
+                opacity: 1 !important;
+                transform: scale(1) !important;
+                transition: all 0.2s !important;
+                position: relative;
+            }
 
             &:last-child{
                 border-right: none !important;
             }
             .con-val{
                 color: #fff;
-                font-size: 32px;
+                font-size: 26px;
                 font-weight: 700;
                 display: block;
             }
@@ -94,6 +104,8 @@ $vectorUrl : 'https://site.connectus.global/wp-content/themes/twentytwentyone/as
                 color:$lightBlue;
                 text-transform: uppercase;
                 text-transform: uppercase;
+                margin-top: 10px;
+                display: block;
             }
         }
     }
@@ -103,12 +115,12 @@ $vectorUrl : 'https://site.connectus.global/wp-content/themes/twentytwentyone/as
         font-size: 68px;
         position: absolute;
         top:50%;
-        margin-top: -39px;
+        margin-top: -27px;
         cursor: pointer;
         left:50px;
         opacity: 0.3;
         transition: all 0.5s;
-
+        font-size: 46px;
         &:hover{
             opacity: 1;
             transition: all 0.5s;
@@ -119,6 +131,10 @@ $vectorUrl : 'https://site.connectus.global/wp-content/themes/twentytwentyone/as
             right: 50px;
         }
     }
+}
+
+.smtext{
+    font-size: 24px !important;
 }
 
 @media(max-width:720px){
@@ -141,6 +157,7 @@ $vectorUrl : 'https://site.connectus.global/wp-content/themes/twentytwentyone/as
 
         img{
             width: 160px !important;
+            height: 160px !important;
             top:-85px !important;
             margin-right: -85px !important;
         }
@@ -154,14 +171,34 @@ $vectorUrl : 'https://site.connectus.global/wp-content/themes/twentytwentyone/as
             }
         }
 
+        .con-val{
+            font-size: 18px !important;
+        }
+
+        .isflx{
+            display: block !important;
+            width: 100% !important;
+        }
+
+        .liscatg{
+            display: block !important;
+            width: 100% !important;
+            padding: 4px !important;
+        }
+
+        .chipcat{
+            font-size: 12px !important;
+            display: inline-block !important;
+        }
+
     }
 
 
     .content-profile .con-info {
         .con-det{
-            padding:8px 20px !important;
+            padding:8px 20px;
             .con-val{
-                font-size: 24px !important;
+                font-size: 24px;
             }
             .con-ref{
                 font-size: 11px !important;
@@ -188,4 +225,25 @@ $vectorUrl : 'https://site.connectus.global/wp-content/themes/twentytwentyone/as
 .conex-btn{
     text-align: center;
     margin-top: 30px;
+}
+
+.chipcat{
+    background:  #4899DC;
+    color: #fff;
+    font-size: 16px;
+    display: block;
+    padding: 5px 15px;
+    border-radius: 20px;
+    margin: 5px;
+}
+
+.isflx{
+    display: flex !important;
+    justify-content: space-around !important;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.noborderr{
+    border-right: none !important;
 }

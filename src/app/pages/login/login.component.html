@@ -30,20 +30,20 @@
 
 </div>
 <ng-template #loginTemplate>
-    <h1 class="main-text small-mtxt">LOG IN CONNECTUS</h1>
+    <h1 class="main-text small-mtxt">{{ ln.o('LOGCON', lang)}}</h1>
     <div class="form-login">
         <div fxLayout="row wrap" fxLayoutAlign="space-between">
             <div fxFlex="100%">
                 <div class="input-form" [ngClass]="{ 'invalid' : loginData.usuarioError }"
                     style="margin-bottom:0px !important">
-                    <label>USERNAME OR EMAIL</label>
+                    <label>{{ ln.o('LOGUSEMAIL', lang)}}</label>
                     <input type="text" [(ngModel)]="loginData.usuario" (keyup)="restoreValidation('usuarioError', $event)">
                     <span class="alert">{{ loginData.usuarioMsg }}</span>
                 </div>
             </div>
             <div fxFlex="100%">
                 <div class="input-form" [ngClass]="{ 'invalid' : loginData.claveError }">
-                    <label>PASSWORD</label>
+                    <label>{{ ln.o('LOGPASS', lang)}}</label>
                     <input type="password" [(ngModel)]="loginData.clave" (keyup)="restoreValidation('claveError', $event)"
                         maxlength="15">
                     <span class="alert">{{ loginData.claveMsg }}</span>
@@ -55,25 +55,24 @@
         {{ alertMessage }}
     </div>
     <div class="actions-banner">
-        <button mat-stroked-button class="btn btn-light-outline md" (click)="changeView('recoverpass')">FORGOT PASSWORD?</button>
-        <button mat-stroked-button class="btn btn-light-filled md" (click)="login()">LOGIN</button>
+        <button mat-stroked-button class="btn btn-light-outline md" (click)="changeView('recoverpass')">{{ ln.o('LOGFOGPASS', lang)}}</button>
+        <button mat-stroked-button class="btn btn-light-filled md" (click)="login()">{{ ln.o('LOGLOGIN', lang)}}</button>
     </div>
     <div class="actions-banner topline">
-        <span class="txt-ln">DON'T HAVE AN ACCOUNT YET?</span>
-        <button mat-stroked-button class="btn btn-light-filled md" (click)="changeView('register')">CREATE
-            ACCOUNT</button>
+        <span class="txt-ln">{{ ln.o('LOGNOAC', lang)}}</span>
+        <button mat-stroked-button class="btn btn-light-filled md" (click)="changeView('register')">{{ ln.o('LOGCACC', lang)}}</button>
     </div>
 </ng-template>
 
 <ng-template #registerTemplate>
-    <h1 class="main-text small-mtxt">REGISTER AND BE PART OF SOMETHING GREAT</h1>
+    <h1 class="main-text small-mtxt">{{ ln.o('LOGREGTX', lang)}}</h1>
     <form [formGroup]="registerForm">
         <div class="form-login">
             <div fxLayout="row wrap" fxLayoutAlign="space-between">
                 <div fxFlex="48%">
                     <div class="input-form" [ngClass]="{ 'invalid' : mf.nombres.errors?.required && mf.nombres.touched }"
                         style="margin-bottom:0px !important">
-                        <label>NAME</label>
+                        <label>{{ ln.o('LOGNAMETX', lang)}}</label>
                         <input type="text" maxlength="50" formControlName="nombres" (keyup)="regRestoreValidation('nombres')">
                         <span class="alert" *ngIf="mf.nombres.errors?.required">Name is required</span>
                     </div>
@@ -81,7 +80,7 @@
                 <div fxFlex="48%">
                     <div class="input-form" [ngClass]="{ 'invalid' : mf.apellidos.errors?.required && mf.apellidos.touched }"
                         style="margin-bottom:0px !important">
-                        <label>LAST NAME</label>
+                        <label>{{ ln.o('LOGLNAMETX', lang)}}</label>
                         <input type="text" maxlength="50" formControlName="apellidos" (keyup)="regRestoreValidation('apellidos')">
                         <span class="alert" *ngIf="mf.apellidos.errors?.required">Last Name is required</span>
                     </div>
@@ -89,26 +88,26 @@
                 <div fxFlex="100%">
                     <div class="input-form" [ngClass]="{ 'invalid' : (mf.email.errors?.required && mf.email.touched) || errorCorreo }"
                         style="margin-bottom:0px !important">
-                        <label>EMAIL</label>
+                        <label>{{ ln.o('LOGEMAILTX', lang)}}</label>
                         <input type="text" maxlength="200" formControlName="email" (keyup)="regRestoreValidation('email')">
-                        <span class="alert" *ngIf="mf.email.errors?.required">Email is required</span>
-                        <span class="alert" *ngIf="errorCorreo">Email is invalid</span>
+                        <span class="alert" *ngIf="mf.email.errors?.required">{{ ln.o('LOGEMAILEREQ', lang)}}</span>
+                        <span class="alert" *ngIf="errorCorreo">{{ ln.o('LOGEMAILINV', lang)}}</span>
 
                     </div>
                 </div>
                 <div fxFlex="48%">
                     <div class="input-form" [ngClass]="{ 'invalid' : mf.usuario.errors?.required && mf.usuario.touched }">
-                        <label>USERNAME</label>
+                        <label>{{ ln.o('LOGUSERNTX', lang)}}</label>
                         <input type="text" maxlength="20" formControlName="usuario" (keyup)="regRestoreValidation('usuario')">
-                        <span class="alert" *ngIf="mf.usuario.errors?.required">Username is required</span>
+                        <span class="alert" *ngIf="mf.usuario.errors?.required">{{ ln.o('LOGUSERREQ', lang)}}</span>
                     </div>
                 </div>
                 <div fxFlex="48%">
                     <div class="input-form" [ngClass]="{ 'invalid' : errorClave }">
-                        <label>PASSWORD</label>
+                        <label>{{ ln.o('LOGPASSTX', lang)}}</label>
                         <input type="password" maxlength="15" formControlName="clave" (keyup)="regRestoreValidation('clave')">
                         <span class="alert" *ngIf="errorClave">
-                            The password must contain between 8 and 15 characters
+                            {{ ln.o('LOGPASSERR', lang)}}
                         </span>
                     </div>
                 </div>
@@ -120,21 +119,21 @@
     </form>
 
     <div class="actions-banner">
-        <button mat-stroked-button class="btn btn-light-outline md" (click)="changeView('login')">GO TO LOGIN</button>
-        <button mat-stroked-button class="btn btn-light-filled md" (click)="save()">REGISTER AND CONNECT</button>
+        <button mat-stroked-button class="btn btn-light-outline md" (click)="changeView('login')">{{ ln.o('GOLOGIN', lang)}}</button>
+        <button mat-stroked-button class="btn btn-light-filled md" (click)="save()">{{ ln.o('LOGREGCON', lang)}}</button>
     </div>
 </ng-template>
 
 <ng-template #recoverPassTemplate>
-        <h1 class="main-text small-mtxt">RECOVER YOUR PASSWORD</h1>
+        <h1 class="main-text small-mtxt">{{ ln.o('LOGRESPASS', lang)}}</h1>
         <div *ngIf="recoverPassData.etapa === 4" class="succrec">
-            YOUR PASSWORD HAS BEEN CHANGED SUCCESSFULLY
+            {{ ln.o('LOGPASSCHANGED', lang)}}
         </div>
         <div class="form-login" *ngIf="recoverPassData.etapa <= 3">
             <div fxLayout="row wrap" fxLayoutAlign="space-between">
                 <div fxFlex="100%" *ngIf="recoverPassData.etapa >= 1">
                     <div class="input-form" [ngClass]="{ 'invalid' : recoverPassData.usuarioError, 'disabled' : recoverPassData.etapa >= 2 }">
-                        <label>WRITE YOUR USERNAME OR EMAIL</label>
+                        <label>{{ ln.o('LOGPASSCHUSER', lang)}}</label>
                         <input type="text" maxlength="200" [disabled]="recoverPassData.etapa >= 2" [(ngModel)]="recoverPassData.usuario" (keyup)="resetInput('usuarioError','usuarioMsg')">
                         <span class="alert" *ngIf="recoverPassData.usuarioError">
                             {{ recoverPassData.usuarioMsg }}
@@ -143,7 +142,7 @@
                 </div>
                 <div fxFlex="100%" *ngIf="recoverPassData.etapa >= 2">
                     <div class="input-form" [ngClass]="{ 'invalid' : recoverPassData.codigoError, 'disabled' : recoverPassData.etapa >= 3  }">
-                        <label>WRITE THE VALIDATION CODE SENT TO YOUR EMAIL</label>
+                        <label>{{ ln.o('LOGPASSCHCODE', lang)}}</label>
                         <input type="password" maxlength="8" [(ngModel)]="recoverPassData.validCode" (keyup)="resetInput('codigoError','codigoMsg')">
                         <span class="alert" *ngIf="recoverPassData.codigoError">
                             {{ recoverPassData.codigoMsg }}
@@ -153,7 +152,7 @@
 
                 <div fxFlex="48%" *ngIf="recoverPassData.etapa >= 3" style="margin-bottom: 20px;">
                     <div class="input-form" [ngClass]="{ 'invalid' : recoverPassData.claveError  }">
-                        <label>NEW PASSWORD</label>
+                        <label>{{ ln.o('LOGPASSCHPASS', lang)}}</label>
                         <input type="password" maxlength="15" [(ngModel)]="recoverPassData.clave" (keyup)="resetInput('claveError','claveMsg')">
                         <span class="alert" *ngIf="recoverPassData.claveError">
                             {{ recoverPassData.claveMsg }}
@@ -162,7 +161,7 @@
                 </div>
                 <div fxFlex="48%" *ngIf="recoverPassData.etapa >= 3">
                     <div class="input-form" [ngClass]="{ 'invalid' : recoverPassData.cclaveError }">
-                        <label>CONFIRM NEW PASSWORD</label>
+                        <label>{{ ln.o('LOGPASSCHCPASS', lang)}}</label>
                         <input type="password" maxlength="15" [(ngModel)]="recoverPassData.confirmarClave">
                         <span class="alert" *ngIf="recoverPassData.cclaveError">
                             {{ recoverPassData.cclaveMsg }}
@@ -176,7 +175,7 @@
         </div>
 
     <div class="actions-banner">
-        <button mat-stroked-button class="btn btn-light-outline md" (click)="changeView('login')" >RETURN</button>
+        <button mat-stroked-button class="btn btn-light-outline md" (click)="changeView('login')" >{{ ln.o('LOGPASSRET', lang)}}</button>
         <button mat-stroked-button class="btn btn-light-filled md" (click)="requestPassword(recoverPassData.etapa)" *ngIf="recoverPassData.etapa <= 3">{{ btnRecoverTxt }}</button>
     </div>
 </ng-template>
