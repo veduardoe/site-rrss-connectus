@@ -17,14 +17,12 @@
                             <div class="viewac">
                                 <img *ngIf="usu.foto" [src]="routeFotoPerfil + usu.foto + '?alt=media'" />
                                 <img *ngIf="!usu.foto" [src]="routeFotoPerfil + 'add-profile.jpg?alt=media'">
-
                                 <div>
                                     <span class="vdet"> {{ usu.detalle }}</span>
                                     <span class="vsummar"> {{ usu.summary || '--' }}</span>
                                 </div>
                             </div>
                         </mat-option>
-   
                     </mat-autocomplete>
                     <mat-progress-spinner matSuffix [diameter]="20" mode="indeterminate" color="primary" *ngIf="loadingUsuarios">
                     </mat-progress-spinner>
@@ -37,8 +35,9 @@
                         <i class="fal fa-bell"></i>
                         <b class="badge" *ngIf="notifQty > 0">{{notifQty > 9 ? '+9' : notifQty }}</b>
                     </span>
-                    <span matTooltip="{{ ln.o('TOLT_MYMSS')}}" matTooltipPosition="below">
+                    <span [routerLink]="['/home/messaging']" matTooltip="{{ ln.o('TOLT_MYMSS')}}" matTooltipPosition="below">
                         <i class="fal fa-comment-alt"></i>
+                        <b class="badge" *ngIf="notifMessages > 0">{{notifMessages > 9 ? '+9' : notifMessages }}</b>
                     </span>
                     <span [routerLink]="['/profile']" [queryParams]="{usuario: myInfo.usuario}" class="userpic" matTooltip="{{ ln.o('MYPROFTX')}}" matTooltipPosition="below">
                         <img *ngIf="!myInfo.foto" [src]="routeFotoPerfil + 'add-profile.jpg?alt=media'">

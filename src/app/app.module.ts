@@ -57,6 +57,7 @@ if (sessionStorage.getItem('auth')) {
   ],
   providers: [
     AuthService,
+    UtilsService,
     { provide: LOCALE_ID, useValue: GLOBAL_LOCALE },
     { provide: MAT_DATE_FORMATS, useValue: CONFIG.DATE_FORMATS },
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },

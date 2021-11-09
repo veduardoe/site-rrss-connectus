@@ -24,6 +24,7 @@
     "@ctrl/ngx-emoji-mart": "^6.0.1",
     "@kolkov/angular-editor": "^1.2.0",
     "angular-emojis": "^1.0.0",
+    "ga-gtag": "^1.1.1",
     "jquery": "^3.6.0",
     "jwt-decode": "^3.1.2",
     "lightgallery": "^2.1.8",

@@ -12,5 +12,6 @@ export const ENV = {
     ES: ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC'],
     EN: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
   },
-  sideMode: false
+  sideMode: false,
+  analyticsCode: 'UA-212218243-1'
 }

@@ -25,6 +25,7 @@ export class HeaderComponent implements OnInit {
   myInfo;
   routeFotoPerfil = ENV.FOTOS_PERFIL;
   notifQty: any = [];
+  notifMessages = 0;
   @ViewChild('triggerUsuarios', { read: MatAutocompleteTrigger, static: false }) triggerUsuarios: MatAutocompleteTrigger;
 
   constructor(
@@ -44,15 +45,19 @@ export class HeaderComponent implements OnInit {
 
   receiveNotifications() {
     const locItem = sessionStorage.getItem('notifQty');
+    const qtyMsg = sessionStorage.getItem('msgQty');
     this.notifQty = locItem ? Number(locItem) : 0;
-    this.utils.fnNotificacionesEmitter().get().subscribe((not: any[]) => {
-      const notifQty = not.filter(item => {
-        return !item.marcaVisto;
-      });
-      this.notifQty = notifQty.length;
-      sessionStorage.setItem('notifQty', this.notifQty);
-      sessionStorage.setItem('notificaciones', JSON.stringify(not));
-
+    this.notifMessages = qtyMsg ? Number(qtyMsg) : 0;
+    this.utils.fnNotificacionesEmitter().get().subscribe((not: any) => {
+      if(not){
+        const notifQty = not.conexiones.filter(item => {
+          return !item.marcaVisto;
+        });
+        this.notifMessages = not.mensajesNoLeidos;
+        this.notifQty = notifQty.length;
+        sessionStorage.setItem('notifQty', this.notifQty);
+        sessionStorage.setItem('msgQty', String(this.notifMessages));
+      }
     });
   }
 

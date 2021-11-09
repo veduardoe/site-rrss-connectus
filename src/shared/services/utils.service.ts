@@ -2,18 +2,20 @@ import { Injectable } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MainMessageComponent } from "../components/main-message/main-message.component";
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, } from '@angular/material/snack-bar';
-import { Subject } from "rxjs";
+import { BehaviorSubject, Subject } from "rxjs";
 import { ENV } from "src/environments/environment";
 import * as striptags from 'striptags'
 import { Ln } from "./language.service";
 
-@Injectable()
+@Injectable({
+  providedIn:'root'
+})
 export class UtilsService {
 
   curWidth;
   mensajeEmitter = new Subject();
   borrarMensajeEmitter = new Subject();
-  notificacionesEmitter = new Subject();
+  notificacionesEmitter = new BehaviorSubject<any>(null);
 
   public horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   public verticalPosition: MatSnackBarVerticalPosition = 'bottom';

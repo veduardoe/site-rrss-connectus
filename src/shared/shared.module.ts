@@ -79,7 +79,6 @@ import { NotificacionesComponent } from 'src/app/pages/home/notificaciones/notif
         AuthService,
         ConexionService, 
         EventosService,
-        UtilsService,
         Ln
     ],
     exports: [

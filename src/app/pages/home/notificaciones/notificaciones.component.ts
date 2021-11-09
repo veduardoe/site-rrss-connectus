@@ -19,7 +19,7 @@ export class NotificacionesComponent implements OnInit, OnDestroy {
   conexionesEspera = [];
   notificaciones = [];
   notifSubscribe;
-  loading = false;
+  loading = true;
   constructor(
     public utils:UtilsService,
     private eventosService: EventosService,
@@ -35,16 +35,16 @@ export class NotificacionesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
-    clearInterval(this.notifSubscribe);
+    this.notifSubscribe.unsubscribe();
   }
 
   receiveNotifications() {
-    try{
-      this.notificaciones = JSON.parse(sessionStorage.getItem('notificaciones'));
-      this.conexionesService.vistoMisNotificaciones();
-    }catch(err){
-      this.notificaciones = [];
-    } 
+    this.notifSubscribe = this.utils.fnNotificacionesEmitter().get().subscribe((not: any) => {
+      if(not){
+        this.notificaciones = not.conexiones;
+        this.loading = false;
+      }
+    });
 }
   
   getConexionesEspera() {
