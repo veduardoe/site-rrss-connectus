@@ -29,9 +29,6 @@ export class NotificacionesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.receiveNotifications();
-    this.notifSubscribe = setInterval(()=> {
-      this.receiveNotifications();
-    },6000);
   }
 
   ngOnDestroy(){

@@ -4,6 +4,7 @@
     </mat-progress-spinner>
 </div>
 <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="isSettings">
+    
     <div fxFlex="68%">
         {{ ln.o('PREF_TX1')}}
     </div>
@@ -51,5 +52,19 @@
                 <mat-option [value]="'ES'">ESPAÑOL</mat-option>
             </mat-select>
         </mat-form-field>
+    </div>
+    <div fxFlex="68%">
+        {{ ln.o('PREF_TX5')}}
+    </div>
+    <div fxFlex="30%">
+        <mat-form-field class="full" appearance="outline">
+            <mat-label> {{ ln.o('CUS_IMG')}}</mat-label>
+            <mat-select [(ngModel)]="fondoPerfil" (selectionChange)="changeOption()">
+                <mat-option [value]="imm.imagen" *ngFor="let imm of fullImagenesPerfiles">{{ ln.gln() === 'ES' ? imm.detalle : imm.detalleEN }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div fxFlex="100%" *ngIf="fondoPerfil">
+        <img [src]="route + pathImagenesPerfil + fondoPerfil + '?alt=media'" class="imgbg">
     </div>
 </div>

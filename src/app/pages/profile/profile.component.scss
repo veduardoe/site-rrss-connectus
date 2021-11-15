@@ -10,7 +10,7 @@ $vectorUrl : 'https://site.connectus.global/wp-content/themes/twentytwentyone/as
 
 .content-profile{
     background:$darkBlue url($vectorUrl) 50% 100% no-repeat;
-    background-size: cover;
+    background-size: cover !important;
     position: relative;
     height: 330px;
     padding-top: 160px;

@@ -231,6 +231,7 @@ export class LoginComponent implements OnInit {
       const token = await grecaptcha.execute(ENV.GOOGLESECRET, { action: 'save' });
       data.token = token;
       this.loading = true;
+      data.lang = this.lang;
       this.loginService.postRegister(data).then((res: any) => {
 
         if (res.response) {

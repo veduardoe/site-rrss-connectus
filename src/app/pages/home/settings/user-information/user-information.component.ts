@@ -28,7 +28,9 @@ export class UserInformationComponent implements OnInit {
   filteredCategories: Observable<string[]>;
   categoriesAdded: string[] = [];
   categories: any[] = [];
+  imagenesPerfiles: any[] = [];
   fullCategories = [];
+  fullImagenesPerfiles = [];
 
   @ViewChild('categoryInput') categoryInput: ElementRef<HTMLInputElement>;
   @Input() from = 'ui';
@@ -93,6 +95,18 @@ export class UserInformationComponent implements OnInit {
         this.fullCategories = res.data;
         res.data.forEach((val, idx) => {
           this.categories.push(this.ln.gln() === 'ES' ? val.detalle  : val.detalleEN);
+          resolve(true);
+        });
+      });
+    });
+  }
+
+  getImagenesPerfiles() {
+    return new Promise((resolve) => {
+      this.commonService.getImagenesPerfiles().then((res: any) => {
+        this.fullImagenesPerfiles = res.data;
+        res.data.forEach((val, idx) => {
+          this.imagenesPerfiles.push(this.ln.gln() === 'ES' ? val.detalle  : val.detalleEN);
           resolve(true);
         });
       });

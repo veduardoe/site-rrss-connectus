@@ -41,6 +41,7 @@ if (sessionStorage.getItem('auth')) {
   registerLocaleData(localeEN, LOCALE_EN);
   GLOBAL_LOCALE = LOCALE_EN;
 }
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,7 +62,6 @@ if (sessionStorage.getItem('auth')) {
     { provide: LOCALE_ID, useValue: GLOBAL_LOCALE },
     { provide: MAT_DATE_FORMATS, useValue: CONFIG.DATE_FORMATS },
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
-
   ],
   entryComponents: [MainMessageComponent],
   bootstrap: [AppComponent]

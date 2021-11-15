@@ -10,6 +10,7 @@ import { PostsService } from 'src/shared/services/posts.service';
 import { UserService } from 'src/shared/services/user.service';
 import { UtilsService } from 'src/shared/services/utils.service';
 
+const picVector = '/assets/images/bg-profile.jpg';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -33,6 +34,8 @@ export class ProfileComponent implements OnInit {
   posts = [];
   showPosts = false;
   eventos = [];
+  pathImagenesPerfil = '/imagenesperfiles%2F'
+  route = ENV.HOST_STORAGE;
 
   constructor(
     public utils: UtilsService,
@@ -56,6 +59,8 @@ export class ProfileComponent implements OnInit {
         await this.getCategorias();
         this.userService.getPerfil(params.usuario).then((res: any) => {
           this.perfilUsuario = res.data[0];
+          const fondoPerfil = this.perfilUsuario.preferencias.fondoPerfil;
+          this.perfilUsuario.preferencias.fondoPerfil = fondoPerfil ? this.route + this.pathImagenesPerfil + fondoPerfil : picVector;
           this.categoriesAdded = res.data[0].categorias.map(cat => {
             const checkCat = this.fullCategories.find(fc => {
               return cat === fc._id
@@ -65,7 +70,7 @@ export class ProfileComponent implements OnInit {
           this.loadedUsuario = true;
           this.loading = false;
           this.setBtnConnect();
-          if (this.myProfile.id === this.perfilUsuario._id || this.perfilUsuario.preferencias.perfilPublico) {
+          if (this.myProfile.id === this.perfilUsuario._id || this.perfilUsuario.preferencias.perfilPublico || this.connectInfo.action === 'CONNECTED') {
             this.showPosts = true;
             this.getPosts(this.perfilUsuario._id);
           }

@@ -1,4 +1,4 @@
-<div class="pic-header" *ngIf="perfilUsuario && loadedUsuario && !loading"></div>
+<div class="pic-header" [style.background-image]="'url(' + (perfilUsuario.preferencias?.fondoPerfil + '?alt=media')   + ')'" *ngIf="perfilUsuario && loadedUsuario && !loading"></div>
 <div class="notfound" *ngIf="!perfilUsuario && loadedUsuario && !loading">
     <div class="container">
         <p>{{ ln.o('USERNOTFOUND')}}</p>
@@ -15,7 +15,7 @@
         </mat-progress-spinner>
     </div>
 
-    <div class="content-profile" *ngIf="perfilUsuario && loadedUsuario && !loading">
+    <div class="content-profile" *ngIf="perfilUsuario && loadedUsuario && !loading"  >
 
         <img *ngIf="perfilUsuario?.foto" [src]="routeFotoPerfil + perfilUsuario?.foto + '?alt=media'">
         <img *ngIf="!perfilUsuario?.foto" [src]="routeFotoPerfil + 'add-profile.jpg?alt=media'">
