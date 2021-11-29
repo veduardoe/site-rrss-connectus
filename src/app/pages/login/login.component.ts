@@ -68,6 +68,8 @@ export class LoginComponent implements OnInit {
       if( param.lang === 'es' || param.lang === 'en'){
         this.lang = param.lang.toUpperCase();
         console.log(this.lang)
+      }else{
+        this.lang = 'EN';
       }
     })
   }
