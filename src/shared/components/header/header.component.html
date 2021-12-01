@@ -7,27 +7,7 @@
                 </span>
             </div>
             <div fxFlex="100%" *ngIf="!utils.checkWidth720">
-                <mat-form-field appearance="outline" class="full input-1 npb">
-                    
-                    <input matInput (focusin)="plcFocus = true" (focusout)="plcFocus = false" type="text" placeholder="{{ plcFocus ? '' : ln.o('FIN_HD') }}"
-                    [formControl]="usuariosCtrl"  #triggerUsuarios="matAutocompleteTrigger" [matAutocomplete]="auto" autocomplete="off" />
-                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayTextAutocomplete" (optionSelected)="usuarioSelection($event)">
-                     <div class="layerl" *ngIf="loadingUsuarios"></div>
-                        <mat-option class="hvac" *ngFor="let usu of filterUsuarios" [value]="usu"  [routerLink]="['/profile']" [queryParams]="{usuario: usu.usuario}">
-                            <div class="viewac">
-                                <img *ngIf="usu.foto" [src]="routeFotoPerfil + usu.foto + '?alt=media'" />
-                                <img *ngIf="!usu.foto" [src]="routeFotoPerfil + 'add-profile.jpg?alt=media'">
-                                <div>
-                                    <span class="vdet"> {{ usu.detalle }}</span>
-                                    <span class="vsummar"> {{ usu.summary || '--' }}</span>
-                                </div>
-                            </div>
-                        </mat-option>
-                    </mat-autocomplete>
-                    <mat-progress-spinner matSuffix [diameter]="20" mode="indeterminate" color="primary" *ngIf="loadingUsuarios">
-                    </mat-progress-spinner>
-                    <mat-icon matPrefix class="iconprefix"><i class="far fa-search"></i></mat-icon>
-                </mat-form-field>
+                <ng-container *ngTemplateOutlet="buscador"></ng-container>
             </div>
             <div fxFlex=" {{ utils.checkWidth720 ? '100%' : '250px'}}">
                 <div class="btn-hd-icons">
@@ -35,7 +15,11 @@
                         <i class="fal fa-bell"></i>
                         <b class="badge" *ngIf="notifQty > 0">{{notifQty > 9 ? '+9' : notifQty }}</b>
                     </span>
-                    <span [routerLink]="['/home/messaging']" matTooltip="{{ ln.o('TOLT_MYMSS')}}" matTooltipPosition="below">
+                    <span  (click)="displayBarSearch = !displayBarSearch"  *ngIf="utils.checkWidth720">
+                        <i class="fal fa-search"></i>
+                        <b class="badge" *ngIf="notifQty > 0">{{notifQty > 9 ? '+9' : notifQty }}</b>
+                    </span>
+                    <span [routerLink]="['/home/messaging']" matTooltip="{{ ln.o('TOLT_MYMSS')}}" matTooltipPosition="below"  *ngIf="!utils.checkWidth720">
                         <i class="fal fa-comment-alt"></i>
                         <b class="badge" *ngIf="notifMessages > 0">{{notifMessages > 9 ? '+9' : notifMessages }}</b>
                     </span>
@@ -50,4 +34,32 @@
             </div>
         </div>
     </div>
+    <div *ngIf="utils.checkWidth720 && displayBarSearch" class="findmobile">
+        <ng-container *ngTemplateOutlet="buscador"></ng-container>
+    </div>
+
 </header>
+
+<ng-template #buscador>
+    <mat-form-field appearance="outline" class="full input-1 npb">
+                    
+        <input matInput (focusin)="plcFocus = true" (focusout)="plcFocus = false" type="text" placeholder="{{ plcFocus ? '' : ln.o('FIN_HD') }}"
+        [formControl]="usuariosCtrl"  #triggerUsuarios="matAutocompleteTrigger" [matAutocomplete]="auto" autocomplete="off" />
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayTextAutocomplete" (optionSelected)="usuarioSelection($event)">
+         <div class="layerl" *ngIf="loadingUsuarios"></div>
+            <mat-option (click)="displayBarSearch = false" class="hvac" *ngFor="let usu of filterUsuarios" [value]="usu"  [routerLink]="['/profile']" [queryParams]="{usuario: usu.usuario}">
+                <div class="viewac">
+                    <img *ngIf="usu.foto" [src]="routeFotoPerfil + usu.foto + '?alt=media'" />
+                    <img *ngIf="!usu.foto" [src]="routeFotoPerfil + 'add-profile.jpg?alt=media'">
+                    <div>
+                        <span class="vdet"> {{ usu.detalle }}</span>
+                        <span class="vsummar"> {{ usu.summary || '--' }}</span>
+                    </div>
+                </div>
+            </mat-option>
+        </mat-autocomplete>
+        <mat-progress-spinner matSuffix [diameter]="20" mode="indeterminate" color="primary" *ngIf="loadingUsuarios">
+        </mat-progress-spinner>
+        <mat-icon matPrefix class="iconprefix"><i class="far fa-search"></i></mat-icon>
+    </mat-form-field>
+</ng-template>

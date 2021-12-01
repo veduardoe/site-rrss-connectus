@@ -26,6 +26,8 @@ export class HeaderComponent implements OnInit {
   routeFotoPerfil = ENV.FOTOS_PERFIL;
   notifQty: any = [];
   notifMessages = 0;
+  displayBarSearch = false;
+
   @ViewChild('triggerUsuarios', { read: MatAutocompleteTrigger, static: false }) triggerUsuarios: MatAutocompleteTrigger;
 
   constructor(

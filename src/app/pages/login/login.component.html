@@ -1,34 +1,38 @@
-<video loop muted autoplay oncanplay="this.play()" onloadedmetadata="this.muted = true" playsinline="" id="bannerVideo">
-    <source src="https://site.connectus.global/wp-content/themes/twentytwentyone/assets/videos/CONNECTUS-OSCURO-3.mp4" type="video/mp4">
-</video>
-<div class="container">
-    <div fxLayout="row" fxLayoutAlign="center center" [ngStyle]="{'height' : heightContainer }">
-        <div fxFlex="100%">
-            <a href="/" class="logo">
-                <img src="https://site.connectus.global/wp-content/themes/twentytwentyone/assets/images/logo.svg">
-            </a>
-            <div fxLayout="row" fxLayoutGap="50px">
-                <div fxFlex="500px" class="sec-login">
-                    <div class="loginLoader" *ngIf="loading">
-                        <mat-progress-spinner [diameter]="80" mode="indeterminate" color="primary">
-                        </mat-progress-spinner>
-                    </div>
-                    <div class="cont-form" [ngClass]="{ 'opac' : loading }">
-                        <div [ngTemplateOutlet]="loginTemplate" *ngIf="curView === 'login'"></div>
-                        <div [ngTemplateOutlet]="registerTemplate" *ngIf="curView === 'register'"></div>
-                        <div [ngTemplateOutlet]="recoverPassTemplate" *ngIf="curView === 'recoverpass'"></div>
+ <video loop muted autoplay #video (canplay)="video.play()" (loadedmetadata)="video.muted = true" playsinline id="bannerVideo" poster="/assets/videos/preview.jpg">
+    <source src="/assets/videos/video.mp4" type="video/mp4">Your browser does not support HTML5 video.
+</video> 
 
+<div class="centerLogin"> 
+    <div class="container">
+        <div fxLayout="row" fxLayoutAlign="center center" >
+            <div fxFlex="100%">
+                <a href="/" class="logo">
+                    <img src="https://site.connectus.global/wp-content/themes/twentytwentyone/assets/images/logo.svg">
+                </a>
+                <div fxLayout="row {{ widthSize < 1400 ? 'wrap' : ''}}" fxLayoutGap=" {{ widthSize < 1400 ? '0px' : '50px'}} ">
+                    <div fxFlex="{{ widthSize > 1400 ? '500px' : '100%'}}"  class="sec-login">
+                        <div class="loginLoader" *ngIf="loading">
+                            <mat-progress-spinner [diameter]="80" mode="indeterminate" color="primary">
+                            </mat-progress-spinner>
+                        </div>
+                        <div class="cont-form" [ngClass]="{ 'opac' : loading }">
+                            <div [ngTemplateOutlet]="loginTemplate" *ngIf="curView === 'login'"></div>
+                            <div [ngTemplateOutlet]="registerTemplate" *ngIf="curView === 'register'"></div>
+                            <div [ngTemplateOutlet]="recoverPassTemplate" *ngIf="curView === 'recoverpass'"></div>
+    
+                        </div>
                     </div>
-                </div>
-                <div fxFlex="100%">
-                    <img src="https://site.connectus.global/wp-content/themes/twentytwentyone/assets/images/fotos_personas.jpg"
-                        class="people">
+                    <div fxFlex="100%" *ngIf="widthSize > 720">
+                        <img [ngStyle]="{ 'margin-top' : widthSize < 1400 ? '50px' : '0px'}" src="https://site.connectus.global/wp-content/themes/twentytwentyone/assets/images/fotos_personas.jpg"
+                            class="people">
+                    </div>
                 </div>
             </div>
         </div>
+    
     </div>
-
 </div>
+
 <ng-template #loginTemplate>
     <h1 class="main-text small-mtxt">{{ ln.o('LOGCON', lang)}}</h1>
     <div class="form-login">

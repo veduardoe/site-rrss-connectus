@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { LoginService } from 'src/shared/services/login.service';
 import { UtilsService } from 'src/shared/services/utils.service';
 import jwt_decode from "jwt-decode";
@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   errorClave = false;
   errorCorreo = false;
   btnRecoverTxt = 'RECOVER PASSWORD';
+  widthSize = null;
   lang;
   loginData = {
     usuario: '',
@@ -64,6 +65,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.onResize();
     this.aRouter.queryParams.subscribe( param => {
       if( param.lang === 'es' || param.lang === 'en'){
         this.lang = param.lang.toUpperCase();
@@ -75,7 +77,7 @@ export class LoginComponent implements OnInit {
   }
 
   get heightContainer() {
-    return window.innerHeight + 'px';
+    return (window.innerHeight-100) + 'px';
   }
 
   get mf() {
@@ -433,4 +435,10 @@ export class LoginComponent implements OnInit {
     this.recoverPassData[index] = '';
     this.recoverPassData[indexMsg] = '';
   }
+
+  @HostListener('window:resize', [])
+  onResize(): void {
+    this.widthSize = window.innerWidth;
+  }
+
 }

@@ -135,6 +135,8 @@ video{
 }
 
 .cont-form{
+    max-width: 97%;
+    margin: 0px auto;
     &.opac{
         opacity: 0.2;
     }
@@ -156,4 +158,46 @@ video{
 .succrec{
     color: #fff;
     padding: 20px 0px;
+}
+
+.centerLogin{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media(max-width:720px){
+
+    .logo{
+        margin-bottom:40px !important;
+        margin-top: 40px !important;
+        img{
+            width: 240px !important;
+        }
+    }
+
+    .main-text{
+        font-size: 24px !important;
+    }
+
+    .centerLogin{
+        align-items:flex-start;
+    }
+
+}
+
+
+@media(max-height:960px){
+    .centerLogin{
+        align-items:flex-start;
+        background-color: #061125;
+    }
+    .logo{
+        margin-bottom:40px !important;
+        margin-top: 40px !important;
+    }
 }

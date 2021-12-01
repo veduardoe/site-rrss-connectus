@@ -196,3 +196,42 @@
     }
  }
  
+ @media(max-width:720px){
+     .sec-ac{
+         text-align: center !important;
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         flex-wrap: wrap;
+
+
+
+         .send{
+             width: 100%;
+             margin-top: 15px;
+         }
+
+         .addfile, .addpicture{
+            width: 48% !important;
+         }
+
+         .addpicture.isArticle{
+             width: 100% !important;
+             margin-top: 20px;
+         }
+     }
+
+     .countint{
+         display: none;
+         margin-bottom: 20px;
+     }
+
+     .actions{
+         margin-top: 0px !important;
+     }
+
+     .isEmojiBtn{
+        margin-top: -15px !important;
+        margin-bottom: 10px !important;
+     }
+ }
