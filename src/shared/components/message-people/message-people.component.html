@@ -7,7 +7,16 @@
     <span class="info">
         <div class="det-message">
             <span class="prof-name">{{ data?.usuarioMsgOrigen?.nombres  }} {{ data?.usuarioMsgOrigen?.apellidos  }}</span>
-            <p>{{ data?.mensaje }}</p>
+            <p *ngIf="!checkIfImage(data?.mensaje)">{{ data?.mensaje }}</p>
+            <div *ngIf="checkIfImage(data?.mensaje)">
+                <lightgallery [settings]="settings" class="cont-gal">
+                    <a [attr.href]="cleanPic(data?.mensaje)" class="picgal" [style.background-image]="'url(' + cleanPic(data?.mensaje)  + ')'">
+                        <span class="overlay">
+                            <i class="fal fa-search icc"></i>
+                        </span>
+                    </a>
+                </lightgallery>
+            </div>
                 <span class="date">{{ ln.o('POSTEDTX')}} {{ data?.fechaHora | date:'short' }}</span>
         </div>
     </span>
@@ -21,7 +30,16 @@
     <span class="info">
         <div class="det-message">
             <span class="prof-name">{{ data?.nombreCompleto  }}</span>
-            <p>{{ data?.mensaje }}</p>
+            <p *ngIf="!checkIfImage(data?.mensaje)">{{ data?.mensaje }}</p>
+            <div *ngIf="checkIfImage(data?.mensaje)">
+                <lightgallery [settings]="settings" class="cont-gal">
+                    <a [attr.href]="cleanPic(data?.mensaje)" class="picgal" [style.background-image]="'url(' + cleanPic(data?.mensaje)  + ')'">
+                        <span class="overlay">
+                            <i class="fal fa-search icc"></i>
+                        </span>
+                    </a>
+                </lightgallery>
+            </div>
                 <span class="date">{{ ln.o('POSTEDTX')}} {{ data?.fecha | date:'short' }}</span>
         </div>
     </span>

@@ -16,8 +16,10 @@ export class MessagingComponent implements OnInit, OnDestroy {
   curUsuarioDestino;
   messages = [];
   publishText = '';
+  publishImg:any = {};
   usuarioFromAuth;
   routeFotoPerfil = ENV.FOTOS_PERFIL;
+  routeFicheros = ENV.FICHEROS;
   curIdChat;
   intervalChat;
   loadingChat = false;
@@ -72,12 +74,19 @@ export class MessagingComponent implements OnInit, OnDestroy {
   } 
 
   postMessage() {
+
     const data = {
       idUsuarioDestino: this.curUsuarioDestino.id,
-      mensaje: this.publishText
+      mensaje: this.publishImg?.file ? this.publishImg : this.publishText,
     }
+
+    if(!data.mensaje){
+      return;
+    }
+
     this.mensajesService.postMensaje(data).then((res: any) => {
       this.publishText = '';
+      this.publishImg = {};
       this.utils.fnMessage(this.ln.o('MESSAGESENTX'))
       this.curIdChat = res.data;
       this.posted = true;
@@ -113,4 +122,60 @@ export class MessagingComponent implements OnInit, OnDestroy {
     this.displayEmoji = !this.displayEmoji;
   }
   
+  uploadImage(){
+    document.getElementById('imagenes').click();
+  }
+
+  fileChange(e) {
+
+    const files: File[] = e.target.files;
+    Object.keys(files).forEach(a => {
+      this.prepareFile(files[a]);
+    });
+    let val: any = document.getElementById('imagenes');
+    val.value = null;
+  }
+
+  prepareFile(file: any,) {
+
+    let reader = new FileReader();
+    let size = Math.round((file['size'] / 1000) * 100) / 100;
+
+    if (size < 6000) {
+
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+
+        let file64 = String(reader.result).split(";");
+        let fichero = String(reader.result);
+        let mimetype = file64[0].split(":")[1];
+        const mimeTypeImagenes = mimetype == "image/jpg" || mimetype == "image/jpeg" || mimetype == "image/gif" || mimetype == "image/png";
+
+        if (mimeTypeImagenes) {
+
+          this.publishImg = {
+            file: fichero,
+            image: fichero,
+            nombre: file.name,
+            type: 'pic',
+            uploaded: false
+          }
+
+         let txt = '<span class="txtimg">' + this.ln.o('UPLIMAGECONFIRM') + '</span><br /><br />'
+         txt += '<img class="imgfile"  src="'+fichero+'" />'
+          this.utils.fnMainDialog(this.ln.o('NOTIF'), txt , 'confirm', '640px').subscribe( r => {
+            if(r){
+              this.postMessage();
+            }
+          })
+        } else {
+          this.utils.fnMessage(this.ln.o('ERRFILETYPE'));
+        }
+      };
+    } else {
+      this.utils.fnMessage(this.ln.o('IMAGESIZE'));
+    }
+
+  }
+
 }

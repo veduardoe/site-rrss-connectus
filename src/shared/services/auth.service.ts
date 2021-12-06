@@ -51,8 +51,8 @@ export class AuthService{
     }
 
     logout() {
-        this.removeAuthInfo();
         this.router.navigate(['/login']);
+        this.removeAuthInfo();
     }
 
     canActivate(route: ActivatedRouteSnapshot): boolean {

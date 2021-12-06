@@ -113,4 +113,7 @@ export class HeaderComponent implements OnInit {
     this.usuariosCtrl.setValue('');
   }
 
+  closeFinder(){
+    this.displayBarSearch = false;
+  }
 }

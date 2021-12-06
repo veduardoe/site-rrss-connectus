@@ -10,3 +10,16 @@ h2{
     font-family: MuseoSans, serif;
     color: $lightBlue;
 }
+
+::ng-deep{
+    img.imgfile{
+        width: 80%;
+        display: block;
+        margin:0px auto;
+    }
+
+    .txtimg{
+        text-align: center;
+        display: block;
+    }
+}
