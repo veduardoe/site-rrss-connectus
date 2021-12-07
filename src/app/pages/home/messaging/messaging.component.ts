@@ -25,6 +25,7 @@ export class MessagingComponent implements OnInit, OnDestroy {
   loadingChat = false;
   posted = false;
   displayEmoji = false;
+  loadingPost = false;
   p = 1;
 
   constructor(
@@ -47,7 +48,7 @@ export class MessagingComponent implements OnInit, OnDestroy {
     this.curUsuarioDestino = data.u;
     this.curIdChat = data.u.idChat;
     if(data.fromInterval){
-      if(data.u.nChatsNoLeidos.length > 0){
+      if(data.u.nChatsNoLeidos?.length > 0){
         this.scrollContent();
       }
     }else{
@@ -83,15 +84,19 @@ export class MessagingComponent implements OnInit, OnDestroy {
     if(!data.mensaje){
       return;
     }
-
-    this.mensajesService.postMensaje(data).then((res: any) => {
-      this.publishText = '';
-      this.publishImg = {};
-      this.utils.fnMessage(this.ln.o('MESSAGESENTX'))
-      this.curIdChat = res.data;
-      this.posted = true;
-      this.utils.fnMensajeEmitter().set(this.curIdChat);
-    });
+    this.loadingPost = true;
+    setTimeout(()=> {
+      this.mensajesService.postMensaje(data).then((res: any) => {
+        this.publishText = '';
+        this.publishImg = {};
+        this.utils.fnMessage(this.ln.o('MESSAGESENTX'))
+        this.curIdChat = res.data;
+        this.posted = true;
+        this.utils.fnMensajeEmitter().set(this.curIdChat);
+        this.loadingPost = false;
+      });
+    }, 2000)
+  
   }
 
   setUpdateAsync() {

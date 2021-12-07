@@ -16,9 +16,9 @@
     </div>
 
     <div class="content-profile" *ngIf="perfilUsuario && loadedUsuario && !loading"  >
-
-        <img *ngIf="perfilUsuario?.foto" [src]="routeFotoPerfil + perfilUsuario?.foto + '?alt=media'">
-        <img *ngIf="!perfilUsuario?.foto" [src]="routeFotoPerfil + 'add-profile.jpg?alt=media'">
+            <!--<div *ngIf="perfilUsuario?.foto" class="picprofcont justforblur"></div>-->
+            <div *ngIf="perfilUsuario?.foto" [style.background]="'#eee url(' + (routeFotoPerfil + perfilUsuario?.foto + '?alt=media')   + ')'" class="picprofcont"></div>
+            <div *ngIf="!perfilUsuario?.foto" [style.background-image]="'url(' + (routeFotoPerfil  + 'add-profile.jpg?alt=media')   + ')'" class="picprofcont"></div>
 
         <div class="info-list">
             <div class="hd-list">

@@ -46,16 +46,23 @@
                                 <input type="file" id="imagenes" (change)="fileChange($event)"
                                 accept=".jpg, .png, .jpeg, .gif" hidden multiple>
             
-                                <button mat-icon-button class="btn isEmojiBtn" (click)="showEmojis()">
+                                <button mat-icon-button class="btn isEmojiBtn" (click)="showEmojis()" *ngIf="!loadingPost">
                                     <i class="fal fa-smile-beam"></i>
                                 </button>
-                                <button mat-icon-button class="btn isEmojiBtn" (click)="uploadImage()">
+                                <button mat-icon-button class="btn isEmojiBtn" (click)="uploadImage()" *ngIf="!loadingPost">
                                     <i class="fal fa-images"></i>
                                 </button>
-                                <button mat-stroked-button class="btn btn-light-filled" (click)="postMessage()">
+                                <button mat-stroked-button class="btn btn-light-filled" (click)="postMessage()"  *ngIf="!loadingPost">
                                     {{ ln.o('SENDTX')}}
                                     <i class="fad fa-paper-plane"></i>
                                 </button>
+
+                                <button mat-stroked-button class="btn btn-light-outline full bggwhite" *ngIf="loadingPost">
+                                    <mat-progress-spinner [diameter]="20" mode="indeterminate" color="primary" class="loaderbtn">
+                                    </mat-progress-spinner>
+                                </button>
+
+                                
                             </div>
                         
                     </div>

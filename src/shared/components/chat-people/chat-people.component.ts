@@ -83,7 +83,8 @@ export class ChatPeopleComponent implements OnInit, OnDestroy {
         startWith(''),
         map(value => {
           return conexiones.filter( item => {
-            return item.detalle.toLowerCase().includes(value.toLowerCase())
+            console.log(value)
+            return item.detalle && typeof value === 'string' && item.detalle?.toLowerCase().includes(value.toLowerCase())
           });
         })
       );
@@ -104,7 +105,7 @@ export class ChatPeopleComponent implements OnInit, OnDestroy {
     const usuCheck = this.chatList.find(item => item.id === usuario.id);
     if (!usuCheck) {
       usuario.idChat = null;
-      this.chatList.push(usuario);
+      this.chatList.unshift(usuario);
     }
     this.idCurUserChat = usuario.id;
     this.usuarioSelected.emit({ u: usuario, fromInterval : false})
@@ -112,9 +113,7 @@ export class ChatPeopleComponent implements OnInit, OnDestroy {
 
   async setUsuario(u, fromInterval = false) {
     this.idCurUserChat = u.id;
-    //this.loading = true;
     await this.mensajesService.marcarMensajeVisto(u.idChat);
-    //this.loading = false;
     this.usuarioSelected.emit({u, fromInterval});
     u.nChatsNoLeidos = [];
   }
@@ -122,7 +121,11 @@ export class ChatPeopleComponent implements OnInit, OnDestroy {
   getChats() {
     return new Promise(resolve => {
       this.mensajesService.obtenerChats().then((res: any) => {
-        this.chatList = res.data.map(item => {
+        const usuariosExistentes = [];
+        const chatIdNull = this.chatList.filter( item => {
+          return !item.idChat
+        })
+        const chatList = res.data.map(item => {
           const usu = item.usuario;
           usu[item.usuario.id] = item.usuario;
           usu[this.usuarioFromAuth.id] = this.usuarioFromAuth;
@@ -136,8 +139,12 @@ export class ChatPeopleComponent implements OnInit, OnDestroy {
           usu.nChatsNoLeidos = item.mensajes.filter(itmesg => {
             return !itmesg.vistoDestino && itmesg.idUsuarioDestino === this.usuarioFromAuth.id;
           });
+          usuariosExistentes.push(item.usuario.usuario)
           return item.usuario;
         });
+        const chatListCleaned = chatIdNull.filter( item => !usuariosExistentes.includes(item.usuario))
+        this.chatList = chatListCleaned.concat(chatList);
+
         resolve(true);
       }).catch(err => resolve(true));
     });
